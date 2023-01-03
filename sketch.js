@@ -14,9 +14,8 @@ function draw() {
 
   mouse.sub(center);
 
-  let h = mouse.mag();
-  fill(255);
-  rect(0, 0, h, 10);
+  mouse.normalize();
+  mouse.mult(50);
 
   stroke(255);
   translate(width / 2, height / 2);
