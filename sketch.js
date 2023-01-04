@@ -4,10 +4,13 @@ class Mover {
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
+    this.t = 0;
   }
   update() {
-    this.acceleration = p5.Vector.random2D();
-    this.acceleration.mult(random(2));
+    const maxA = noise(this.t);
+    this.acceleration.x = map(noise(this.t + 10000), 0, 1, -maxA, maxA);
+    this.acceleration.y = map(noise(this.t + 20000), 0, 1, -maxA, maxA);
+    this.t += 0.02;
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.speedLimit);
     this.position.add(this.velocity);
