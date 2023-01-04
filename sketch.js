@@ -3,10 +3,11 @@ class Mover {
     this.position = createVector(width / 2, height / 2);
     this.velocity = createVector();
     this.acceleration = createVector(-0.001, 0.01);
+    this.speedLimit = 10;
   }
   update() {
     this.velocity.add(this.acceleration);
-    this.velocity.limit(10);
+    this.velocity.limit(this.speedLimit);
     this.position.add(this.velocity);
   }
   display() {
