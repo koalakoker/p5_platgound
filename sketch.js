@@ -1,7 +1,7 @@
 class PerlinLoop {
   constructor(dn, min, max) {
-    this.xc = dn;
-    this.yc = dn;
+    this.xc = random(dn, 10000);
+    this.yc = random(dn, 10000);
     this.dn = dn;
     this.min = min;
     this.max = max;
@@ -14,34 +14,43 @@ class PerlinLoop {
   }
 }
 
-let loops = new Array(10);
-
-function setup() {
-  createCanvas(400, 400);
-  for (let i = 0; i < loops.length; i++) {
-    let r = random(0.5, 1);
-    loops[i] = new PerlinLoop(r, 50, 200);
+class ball {
+  constructor() {
+    this.xLoop = new PerlinLoop(random(0.5, 1), -width * 0.5, width * 1.5);
+    this.yLoop = new PerlinLoop(random(0.5, 1), -height * 0.5, height * 1.5);
+    this.sLoop = new PerlinLoop(random(4, 5), 5, 30);
+    this.cLoop = new PerlinLoop(random(5, 10), 100, 255);
+  }
+  draw() {
+    noStroke();
+    let x = this.xLoop.generate(a);
+    let y = this.yLoop.generate(a);
+    let s = this.sLoop.generate(a);
+    let c = this.cLoop.generate(a);
+    fill(c, 0, c, 150);
+    ellipse(x, y, s, s);
   }
 }
 
-let zn = 0;
+let balls = new Array(100);
+
+function setup() {
+  createCanvas(400, 400);
+  for (let i = 0; i < balls.length; i++) {
+    balls[i] = new ball();
+  }
+}
+
+let a = 0;
 
 function draw() {
   background(0);
-  stroke(255);
-  noFill();
-  translate(width / 2, height / 2);
-  loops.forEach((loop) => {
-    beginShape();
-    for (let a = 0; a <= TWO_PI; a += TWO_PI / 100) {
-      let r = loop.generate(a, zn);
-      let x = r * cos(a);
-      let y = r * sin(a);
-      vertex(x, y);
-    }
-    endShape();
+
+  balls.forEach((ball) => {
+    ball.draw();
   });
 
-  zn += 0.1;
+  a += TWO_PI / 1000;
+
   //noLoop();
 }
