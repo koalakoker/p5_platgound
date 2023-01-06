@@ -9,8 +9,8 @@ class Mover {
     let accAmpl = 0.1;
     let target = createVector(mouseX, mouseY);
     this.acceleration = p5.Vector.sub(target, this.position);
-    this.acceleration.normalize();
-    this.acceleration.mult();
+    this.acceleration.setMag(accAmpl);
+
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.speedLimit);
     this.position.add(this.velocity);
