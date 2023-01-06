@@ -5,6 +5,7 @@ class Mover {
     this.acceleration = createVector();
     this.speedLimit = 10;
     this.mass = m;
+    this.radius = 8 * this.mass;
   }
   applyForce(force) {
     force = p5.Vector.div(force, this.mass);
@@ -19,23 +20,23 @@ class Mover {
   display() {
     stroke(0);
     fill(175);
-    ellipse(this.position.x, this.position.y, 16 * this.mass, 16 * this.mass);
+    circle(this.position.x, this.position.y, this.radius * 2);
   }
   checkEdge() {
-    if (this.position.x < 0) {
-      this.position.x = 0;
+    if (this.position.x < this.radius) {
+      this.position.x = this.radius;
       this.velocity.x *= -1;
     }
-    if (this.position.x > width) {
-      this.position.x = width;
+    if (this.position.x > width - this.radius) {
+      this.position.x = width - this.radius;
       this.velocity.x *= -1;
     }
-    if (this.position.y < 0) {
-      this.position.y = 0;
+    if (this.position.y < this.radius) {
+      this.position.y = this.radius;
       this.velocity.y *= -1;
     }
-    if (this.position.y > height) {
-      this.position.y = height;
+    if (this.position.y > height - this.radius) {
+      this.position.y = height - this.radius;
       this.velocity.y *= -1;
     }
   }
