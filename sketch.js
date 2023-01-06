@@ -70,7 +70,7 @@ let t = 0;
 function draw() {
   background(220);
   movers.forEach((mover) => {
-    let gravity = createVector(0, 0.1);
+    let gravity = createVector(0, 0.1 * mover.mass);
     mover.applyForce(gravity);
 
     if (mouseIsPressed) {
@@ -80,8 +80,8 @@ function draw() {
       mover.applyForce(wind);
     }
 
-    mover.repellingEdge();
-    //mover.checkEdge();
+    //mover.repellingEdge();
+    mover.checkEdge();
     mover.update();
     mover.display();
   });
