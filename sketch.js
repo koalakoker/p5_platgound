@@ -22,6 +22,20 @@ class Mover {
     fill(175);
     circle(this.position.x, this.position.y, this.radius * 2);
   }
+  repellingEdge() {
+    if (this.position.y > height - this.radius) {
+      this.applyForce(createVector(0, -1));
+    }
+    if (this.position.y < this.radius) {
+      this.applyForce(createVector(0, 1));
+    }
+    if (this.position.x > width - this.radius) {
+      this.applyForce(createVector(-1, 0));
+    }
+    if (this.position.x < this.radius) {
+      this.applyForce(createVector(1, 0));
+    }
+  }
   checkEdge() {
     if (this.position.x < this.radius) {
       this.position.x = this.radius;
@@ -64,8 +78,9 @@ function draw() {
       mover.applyForce(wind);
     }
 
+    mover.repellingEdge();
+    //mover.checkEdge();
     mover.update();
-    mover.checkEdge();
     mover.display();
   });
 }
