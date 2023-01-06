@@ -60,8 +60,8 @@ let movers = [];
 
 function setup() {
   createCanvas(400, 400);
-  for (let a = 0; a < 5; a++) {
-    movers.push(new Mover(random(width), random(height), random(10)));
+  for (let a = 0; a < 50; a++) {
+    movers.push(new Mover(random(width), random(height), random(5)));
   }
 }
 
@@ -74,7 +74,9 @@ function draw() {
     mover.applyForce(gravity);
 
     if (mouseIsPressed) {
-      let wind = createVector(0.1, 0);
+      let mouse = createVector(mouseX, mouseY);
+      let wind = p5.Vector.sub(mover.position, mouse);
+      wind.setMag(0.5);
       mover.applyForce(wind);
     }
 
