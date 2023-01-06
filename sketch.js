@@ -1,7 +1,7 @@
 class PerlinLoop {
   constructor(dn, min, max) {
-    this.xc = random(dn, 10000);
-    this.yc = random(dn, 10000);
+    this.xc = random(dn, 1000);
+    this.yc = random(dn, 1000);
     this.dn = dn;
     this.min = min;
     this.max = max;
@@ -16,18 +16,20 @@ class PerlinLoop {
 
 class ball {
   constructor() {
-    this.xLoop = new PerlinLoop(random(0.5, 1), -width * 0.5, width * 1.5);
-    this.yLoop = new PerlinLoop(random(0.5, 1), -height * 0.5, height * 1.5);
-    this.sLoop = new PerlinLoop(random(4, 5), 5, 30);
-    this.cLoop = new PerlinLoop(random(5, 10), 100, 255);
+    this.xLoop = new PerlinLoop(0.3, -width, width * 2);
+    this.yLoop = new PerlinLoop(0.3, -height, height * 2);
+    this.sLoop = new PerlinLoop(5, 10, 120);
+    this.rLoop = new PerlinLoop(5, 100, 255);
+    this.bLoop = new PerlinLoop(5, 100, 255);
   }
   draw() {
     noStroke();
     let x = this.xLoop.generate(a);
     let y = this.yLoop.generate(a);
     let s = this.sLoop.generate(a);
-    let c = this.cLoop.generate(a);
-    fill(c, 0, c, 150);
+    let r = this.rLoop.generate(a);
+    let b = this.bLoop.generate(a);
+    fill(r, 50, b, 200);
     ellipse(x, y, s, s);
   }
 }
@@ -35,7 +37,7 @@ class ball {
 let balls = new Array(100);
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
   for (let i = 0; i < balls.length; i++) {
     balls[i] = new ball();
   }
@@ -50,7 +52,7 @@ function draw() {
     ball.draw();
   });
 
-  a += TWO_PI / 1000;
+  a += TWO_PI / 240;
 
   //noLoop();
 }
