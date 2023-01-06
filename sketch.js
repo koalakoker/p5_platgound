@@ -1,12 +1,12 @@
 class Mover {
   constructor() {
-    this.position = createVector(width / 2, height / 2);
+    this.position = createVector(random(width), random(height));
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
   }
   update() {
-    let accAmpl = 0.1;
+    let accAmpl = 0.5;
     let target = createVector(mouseX, mouseY);
     this.acceleration = p5.Vector.sub(target, this.position);
     this.acceleration.setMag(accAmpl);
@@ -36,16 +36,20 @@ class Mover {
   }
 }
 
-let mover;
+let movers = [];
 
 function setup() {
   createCanvas(400, 400);
-  mover = new Mover();
+  for (let a = 0; a < 20; a++) {
+    movers.push(new Mover());
+  }
 }
 
 function draw() {
   background(220);
-  mover.update();
-  mover.checkEdge();
-  mover.display();
+  movers.forEach((mover) => {
+    mover.update();
+    mover.checkEdge();
+    mover.display();
+  });
 }
