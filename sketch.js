@@ -1,11 +1,12 @@
 class Mover {
-  constructor(x, y, m) {
+  constructor(x, y, mass, bounce) {
     this.position = createVector(x, y);
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
-    this.mass = m;
+    this.mass = mass;
     this.radius = 8 * this.mass;
+    this.bounce = bounce;
   }
   applyForce(force) {
     force = p5.Vector.div(force, this.mass);
@@ -22,36 +23,26 @@ class Mover {
     fill(175);
     circle(this.position.x, this.position.y, this.radius * 2);
   }
-  repellingEdge() {
-    if (this.position.y > height - this.radius) {
-      this.applyForce(createVector(0, -1));
-    }
-    if (this.position.y < this.radius) {
-      this.applyForce(createVector(0, 1));
-    }
-    if (this.position.x > width - this.radius) {
-      this.applyForce(createVector(-1, 0));
-    }
-    if (this.position.x < this.radius) {
-      this.applyForce(createVector(1, 0));
-    }
+  contactEdge() {
+    return this.position.y > height - this.radius - 1;
   }
+
   checkEdge() {
     if (this.position.x < this.radius) {
       this.position.x = this.radius;
-      this.velocity.x *= -1;
+      this.velocity.x *= -this.bounce;
     }
     if (this.position.x > width - this.radius) {
       this.position.x = width - this.radius;
-      this.velocity.x *= -1;
+      this.velocity.x *= -this.bounce;
     }
     if (this.position.y < this.radius) {
       this.position.y = this.radius;
-      this.velocity.y *= -1;
+      this.velocity.y *= -this.bounce;
     }
     if (this.position.y > height - this.radius) {
       this.position.y = height - this.radius;
-      this.velocity.y *= -1;
+      this.velocity.y *= -this.bounce;
     }
   }
 }
@@ -61,7 +52,9 @@ let movers = [];
 function setup() {
   createCanvas(400, 400);
   for (let a = 0; a < 50; a++) {
-    movers.push(new Mover(random(width), random(height), random(5)));
+    movers.push(
+      new Mover(random(width), random(height), random(5), random(0.9))
+    );
   }
 }
 
@@ -80,7 +73,14 @@ function draw() {
       mover.applyForce(wind);
     }
 
-    //mover.repellingEdge();
+    if (mover.contactEdge()) {
+      let c = 0.1;
+      let friction = mover.velocity.copy();
+      friction.mult(-1);
+      friction.setMag(c);
+      mover.applyForce(friction);
+    }
+
     mover.checkEdge();
     mover.update();
     mover.display();
