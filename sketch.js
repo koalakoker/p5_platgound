@@ -108,11 +108,15 @@ function draw() {
   background(0);
 
   current.visited = true;
-  console.log(current.checkNeigbours());
+  let neigbs = current.checkNeigbours();
+
+  if (neigbs.length > 0) {
+    current = neigbs[floor(random(neigbs.length))];
+  }
 
   cells.forEach((cell) => {
     cell.draw();
   });
 
-  noLoop();
+  //noLoop();
 }
