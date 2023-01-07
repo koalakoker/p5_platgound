@@ -91,6 +91,7 @@ let cols;
 let rows;
 
 let current;
+let stack = [];
 
 function setup() {
   createCanvas(400, 400);
@@ -137,10 +138,14 @@ function draw() {
   let neigbs = current.checkNeigbours();
 
   if (neigbs.length > 0) {
+    stack.push(current);
     let nextCell = neigbs[floor(random(neigbs.length))];
-    // Remove walls between current and nextCell
     removeWalls(current, nextCell);
     current = nextCell;
+  } else {
+    if (stack.length > 0) {
+      current = stack.pop();
+    }
   }
 
   cells.forEach((cell) => {
