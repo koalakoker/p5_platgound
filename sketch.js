@@ -23,11 +23,18 @@ class Liquid {
   }
   drag(mover) {
     let speed = mover.velocity.mag();
+    let speedSquare = speed * speed;
     let dragMagnitude =
-      this.c * speed * speed * (mover.radius / 16) * (mover.radius / 16);
+      this.c * speedSquare * (mover.radius / 16) * (mover.radius / 16);
     let drag = mover.velocity.copy();
     drag.setMag(-dragMagnitude);
     mover.applyForce(drag);
+    // Lift Force
+    let lift = mover.velocity.copy();
+    lift.rotate(HALF_PI);
+    let liftMagnitude = mover.liftCoeff * speedSquare;
+    lift.setMag(liftMagnitude);
+    mover.applyForce(lift);
   }
 }
 class Mover {
@@ -39,6 +46,7 @@ class Mover {
     this.mass = mass;
     this.radius = 8 * this.mass;
     this.bounce = bounce;
+    this.liftCoeff = -0.02;
   }
   applyForce(force) {
     force = p5.Vector.div(force, this.mass);
@@ -84,16 +92,11 @@ let liquid;
 let gravityDirection = 1;
 
 function setup() {
-  createCanvas(360, 640);
+  createCanvas(640, 340);
   for (let i = 0; i < 10; i++) {
-    movers[i] = new Mover(
-      i * 20,
-      random(0, height / 2),
-      random(0.1, 5),
-      random(0.9)
-    );
+    movers[i] = new Mover(0, i * 30, random(0.1, 5), random(0.9));
   }
-  liquid = new Liquid(0, height / 2, width, height / 2, 0.1);
+  liquid = new Liquid(0, 0, width, height, 0.1);
 }
 
 let t = 0;
@@ -105,6 +108,9 @@ function draw() {
     if (liquid.contains(mover)) {
       liquid.drag(mover);
     }
+
+    let thrust = createVector(0.4 * mover.mass, 0);
+    mover.applyForce(thrust);
 
     let gravity = createVector(0, gravityDirection * 0.1 * mover.mass);
     mover.applyForce(gravity);
