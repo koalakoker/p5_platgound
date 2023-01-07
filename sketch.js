@@ -67,10 +67,12 @@ function draw() {
     mover.applyForce(gravity);
 
     if (mouseIsPressed) {
-      let mouse = createVector(mouseX, mouseY);
-      let wind = p5.Vector.sub(mover.position, mouse);
-      wind.setMag(0.5);
-      mover.applyForce(wind);
+      let forceMax = 10;
+      let toss = createVector(
+        random(forceMax * 2) - forceMax,
+        random(forceMax * 2) - forceMax
+      );
+      mover.applyForce(toss);
     }
 
     if (mover.contactEdge()) {
