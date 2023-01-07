@@ -19,7 +19,7 @@ class Cell {
     this.visited = false;
   }
   draw() {
-    stroke(255);
+    stroke(0);
     if (this.walls[topCell]) {
       line(
         this.i * sizeCell,
@@ -88,7 +88,7 @@ class Cell {
 }
 
 let cells = [];
-let sizeCell = 40;
+let sizeCell = 20;
 let cols;
 let rows;
 
@@ -97,7 +97,7 @@ let stack = [];
 let completed = false;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(800, 700);
   cols = width / sizeCell;
   rows = height / sizeCell;
   for (let i = 0; i < cols; i++) {
@@ -135,7 +135,7 @@ function removeWalls(current, nextCell) {
 }
 
 function draw() {
-  background(0);
+  background(255);
 
   current.visited = true;
   let neigbs = current.checkNeigbours();
