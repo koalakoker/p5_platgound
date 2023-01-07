@@ -52,15 +52,17 @@ class Cell {
         (this.j + 1) * sizeCell
       );
     }
-    if (this.visited) {
-      noStroke();
-      fill(0, 200, 0, 100);
-      rect(this.i * sizeCell, this.j * sizeCell, sizeCell, sizeCell);
-    }
-    if (this === current) {
-      noStroke();
-      fill(200, 0, 200, 100);
-      rect(this.i * sizeCell, this.j * sizeCell, sizeCell, sizeCell);
+    if (!completed) {
+      if (this.visited) {
+        noStroke();
+        fill(0, 200, 0, 100);
+        rect(this.i * sizeCell, this.j * sizeCell, sizeCell, sizeCell);
+      }
+      if (this === current) {
+        noStroke();
+        fill(200, 0, 200, 100);
+        rect(this.i * sizeCell, this.j * sizeCell, sizeCell, sizeCell);
+      }
     }
   }
   checkNeigbours() {
@@ -92,6 +94,7 @@ let rows;
 
 let current;
 let stack = [];
+let completed = false;
 
 function setup() {
   createCanvas(400, 400);
@@ -148,9 +151,12 @@ function draw() {
     }
   }
 
+  let isCompleted = true;
   cells.forEach((cell) => {
     cell.draw();
+    isCompleted = isCompleted && cell.visited;
   });
-
-  //noLoop();
+  if (isCompleted) {
+    completed = true;
+  }
 }
