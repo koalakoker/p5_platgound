@@ -40,13 +40,13 @@ class Liquid {
 class Mover {
   constructor(x, y, mass, bounce) {
     this.position = createVector(x, y);
-    this.velocity = createVector();
+    this.velocity = createVector(random(-1, 1), random(-1, 1));
     this.acceleration = createVector();
     this.speedLimit = 10;
     this.mass = mass;
     this.radius = 8 * this.mass;
     this.bounce = bounce;
-    this.liftCoeff = -0.02;
+    this.liftCoeff = 0;
   }
   applyForce(force) {
     force = p5.Vector.div(force, this.mass);
@@ -61,7 +61,7 @@ class Mover {
   display() {
     stroke(0);
     fill(255);
-    rect(this.position.x, this.position.y, this.radius, this.radius);
+    circle(this.position.x, this.position.y, this.radius * 2);
   }
   contactEdge() {
     return this.position.y > height - this.radius - 1;
@@ -87,62 +87,57 @@ class Mover {
   }
 }
 
-let movers = [];
-let liquid;
-let gravityDirection = 1;
-
-function setup() {
-  createCanvas(640, 340);
-  for (let i = 0; i < 10; i++) {
-    movers[i] = new Mover(0, i * 30, random(0.1, 5), random(0.9));
+class Actractor {
+  constructor(x, y, mass) {
+    this.position = createVector(x, y);
+    this.mass = mass;
+    this.G = 0.4;
   }
-  liquid = new Liquid(0, 0, width, height, 0.1);
+  display() {
+    stroke(0);
+    fill(175, 200);
+    ellipse(this.position.x, this.position.y, this.mass * 2);
+  }
+  actract(mover) {
+    let force = p5.Vector.sub(this.position, mover.position);
+    let distance = constrain(force.mag(), 5, 25);
+    force.setMag((this.G * this.mass * mover.mass) / (distance * distance));
+    return force;
+  }
 }
 
-let t = 0;
+let movers = [];
+let actractors = [];
+
+function setup() {
+  createCanvas(400, 400);
+  for (let i = 0; i < 30; i++) {
+    let mass = random(0.5, 2);
+    movers[i] = new Mover(random(width), random(height), mass, random(0.9));
+  }
+  for (let i = 0; i < 5; i++) {
+    actractors[i] = new Actractor(random(width), random(height), 20);
+  }
+}
 
 function draw() {
   background(0);
-  liquid.display();
+
   movers.forEach((mover) => {
-    if (liquid.contains(mover)) {
-      liquid.drag(mover);
-    }
+    actractors.forEach((actractor) => {
+      let force = actractor.actract(mover);
+      mover.applyForce(force);
+    });
 
-    let thrust = createVector(0.4 * mover.mass, 0);
-    mover.applyForce(thrust);
-
-    let gravity = createVector(0, gravityDirection * 0.1 * mover.mass);
-    mover.applyForce(gravity);
-
-    if (mouseIsPressed) {
-      let forceMax = 10;
-      let toss = createVector(
-        random(forceMax * 2) - forceMax,
-        random(forceMax * 2) - forceMax
-      );
-      mover.applyForce(toss);
-    }
-
-    if (mover.contactEdge()) {
-      let c = 0.1;
-      let friction = mover.velocity.copy();
-      friction.mult(-1);
-      friction.setMag(c);
-      mover.applyForce(friction);
-    }
-
-    mover.checkEdge();
     mover.update();
     mover.display();
+  });
+
+  actractors.forEach((actractor) => {
+    actractor.display();
   });
 }
 
 function keyReleased() {
-  if (gravityDirection === 1) {
-    gravityDirection = -1;
-  } else {
-    gravityDirection = 1;
-  }
   return false; // prevent any default behavior
 }
