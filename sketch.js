@@ -23,7 +23,8 @@ class Liquid {
   }
   drag(mover) {
     let speed = mover.velocity.mag();
-    let dragMagnitude = this.c * speed * speed;
+    let dragMagnitude =
+      this.c * speed * speed * (mover.radius / 16) * (mover.radius / 16);
     let drag = mover.velocity.copy();
     drag.setMag(-dragMagnitude);
     mover.applyForce(drag);
@@ -52,7 +53,7 @@ class Mover {
   display() {
     stroke(0);
     fill(255);
-    circle(this.position.x, this.position.y, this.radius * 2);
+    rect(this.position.x, this.position.y, this.radius, this.radius);
   }
   contactEdge() {
     return this.position.y > height - this.radius - 1;
@@ -85,7 +86,12 @@ let gravityDirection = 1;
 function setup() {
   createCanvas(360, 640);
   for (let i = 0; i < 10; i++) {
-    movers[i] = new Mover(i * 20, 0, random(0.1, 5), random(0.9));
+    movers[i] = new Mover(
+      i * 20,
+      random(0, height / 2),
+      random(0.1, 5),
+      random(0.9)
+    );
   }
   liquid = new Liquid(0, height / 2, width, height / 2, 0.1);
 }
