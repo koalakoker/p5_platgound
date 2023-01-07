@@ -80,6 +80,7 @@ class Mover {
 
 let movers = [];
 let liquid;
+let gravityDirection = 1;
 
 function setup() {
   createCanvas(360, 640);
@@ -99,7 +100,7 @@ function draw() {
       liquid.drag(mover);
     }
 
-    let gravity = createVector(0, 0.1 * mover.mass);
+    let gravity = createVector(0, gravityDirection * 0.1 * mover.mass);
     mover.applyForce(gravity);
 
     if (mouseIsPressed) {
@@ -123,4 +124,13 @@ function draw() {
     mover.update();
     mover.display();
   });
+}
+
+function keyReleased() {
+  if (gravityDirection === 1) {
+    gravityDirection = -1;
+  } else {
+    gravityDirection = 1;
+  }
+  return false; // prevent any default behavior
 }
