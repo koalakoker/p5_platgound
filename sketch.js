@@ -104,6 +104,32 @@ function setup() {
   current = cells[0];
 }
 
+function removeWalls(current, nextCell) {
+  if (nextCell.j - current.j === -1) {
+    // next top
+    current.walls[topCell] = false;
+    nextCell.walls[bottomCell] = false;
+  }
+
+  if (nextCell.i - current.i === 1) {
+    // next right
+    current.walls[rigthCell] = false;
+    nextCell.walls[leftCell] = false;
+  }
+
+  if (nextCell.j - current.j === 1) {
+    // next bottom
+    current.walls[bottomCell] = false;
+    nextCell.walls[topCell] = false;
+  }
+
+  if (nextCell.i - current.i === -1) {
+    // next left
+    current.walls[leftCell] = false;
+    nextCell.walls[rigthCell] = false;
+  }
+}
+
 function draw() {
   background(0);
 
@@ -111,7 +137,10 @@ function draw() {
   let neigbs = current.checkNeigbours();
 
   if (neigbs.length > 0) {
-    current = neigbs[floor(random(neigbs.length))];
+    let nextCell = neigbs[floor(random(neigbs.length))];
+    // Remove walls between current and nextCell
+    removeWalls(current, nextCell);
+    current = nextCell;
   }
 
   cells.forEach((cell) => {
