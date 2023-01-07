@@ -1,3 +1,34 @@
+class Liquid {
+  constructor(x, y, w, h, c) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.c = c;
+  }
+  display() {
+    noStroke();
+    fill(175);
+    rect(this.x, this.y, this.w, this.h);
+  }
+  contains(mover) {
+    let pos = mover.position;
+    let radius = mover.radius;
+    return (
+      pos.x + radius > this.x &&
+      pos.x - radius < this.x + this.w &&
+      pos.y + radius > this.y &&
+      pos.y - radius < this.y + this.h
+    );
+  }
+  drag(mover) {
+    let speed = mover.velocity.mag();
+    let dragMagnitude = this.c * speed * speed;
+    let drag = mover.velocity.copy();
+    drag.setMag(-dragMagnitude);
+    mover.applyForce(drag);
+  }
+}
 class Mover {
   constructor(x, y, mass, bounce) {
     this.position = createVector(x, y);
@@ -20,7 +51,7 @@ class Mover {
   }
   display() {
     stroke(0);
-    fill(175);
+    fill(255);
     circle(this.position.x, this.position.y, this.radius * 2);
   }
   contactEdge() {
@@ -48,21 +79,26 @@ class Mover {
 }
 
 let movers = [];
+let liquid;
 
 function setup() {
-  createCanvas(400, 400);
-  for (let a = 0; a < 50; a++) {
-    movers.push(
-      new Mover(random(width), random(height), random(5), random(0.9))
-    );
+  createCanvas(360, 640);
+  for (let i = 0; i < 10; i++) {
+    movers[i] = new Mover(i * 20, 0, random(0.1, 5), random(0.9));
   }
+  liquid = new Liquid(0, height / 2, width, height / 2, 0.1);
 }
 
 let t = 0;
 
 function draw() {
-  background(220);
+  background(0);
+  liquid.display();
   movers.forEach((mover) => {
+    if (liquid.contains(mover)) {
+      liquid.drag(mover);
+    }
+
     let gravity = createVector(0, 0.1 * mover.mass);
     mover.applyForce(gravity);
 
