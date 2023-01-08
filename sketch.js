@@ -1,11 +1,11 @@
 let movers = [];
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 600);
   movers = new Array(20);
   for (let i = 0; i < movers.length; i++) {
     movers[i] = new Mover(random(width), height);
-    movers[i].velocity = createVector(0, -random(10));
+    movers[i].velocity = createVector(0, -random(6, 10));
   }
 }
 
@@ -18,7 +18,6 @@ function draw() {
     mover.applyForce(g);
 
     mover.update();
-    mover.checkEdge();
     mover.display();
   }
 }
