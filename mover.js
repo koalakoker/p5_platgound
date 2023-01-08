@@ -5,6 +5,9 @@ class Mover {
     this.acceleration = createVector();
     this.speedLimit = 10;
   }
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
   update() {
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.speedLimit);
