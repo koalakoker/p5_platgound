@@ -1,10 +1,14 @@
 class Rocket {
-  constructor(x, y, genes) {
-    this.position = createVector(x, y);
+  constructor(dna) {
+    this.position = createVector(width / 2, height - 100);
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
-    this.dna = new DNA(genes);
+    if (dna) {
+      this.dna = dna;
+    } else {
+      this.dna = new DNA();
+    }
     this.age = 0;
     this.live = true;
     rectMode(CENTER);
