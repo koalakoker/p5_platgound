@@ -21,4 +21,7 @@ class Population {
       }
     }
   }
+  endOfGeneration() {
+    return this.rockets.length === 0;
+  }
 }

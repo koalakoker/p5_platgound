@@ -7,5 +7,9 @@ function setup() {
 
 function draw() {
   background(0);
-  population.run();
+  if (!population.endOfGeneration()) {
+    population.run();
+  } else {
+    population = new Population();
+  }
 }
