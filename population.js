@@ -61,6 +61,7 @@ class Population {
       let parentA = random(this.matingpool).dna;
       let parentB = random(this.matingpool).dna;
       let child = parentA.crossover(parentB);
+      child.mutation();
       newPopulation[i] = new Rocket(child);
     }
     this.rockets = newPopulation;
