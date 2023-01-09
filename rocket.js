@@ -1,11 +1,11 @@
 class Rocket {
-  constructor(x, y) {
+  constructor(x, y, genes) {
     this.position = createVector(x, y);
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
-    this.dna = new DNA();
-    this.counter = 0;
+    this.dna = new DNA(genes);
+    this.age = 0;
     this.live = true;
     rectMode(CENTER);
   }
@@ -13,10 +13,9 @@ class Rocket {
     this.acceleration.add(force);
   }
   update() {
-    this.applyForce(this.dna.genes[this.counter]);
-    if (this.counter <= this.dna.lifeSpan) {
-      this.counter++;
-    } else {
+    this.applyForce(this.dna.genes[this.age]);
+    this.age++;
+    if (this.age >= this.dna.lifeSpan) {
       this.live = false;
     }
 
@@ -29,7 +28,7 @@ class Rocket {
   }
   display() {
     noStroke();
-    fill(255);
+    fill(255, 100);
     push();
     translate(this.position.x, this.position.y);
     rotate(this.velocity.heading());

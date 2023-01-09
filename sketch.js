@@ -1,14 +1,11 @@
-let roket;
+let population;
 
 function setup() {
   createCanvas(600, 600);
-  roket = new Rocket(width / 2, height - 100);
+  population = new Population();
 }
 
 function draw() {
   background(0);
-
-  roket.update();
-  roket.checkEdge();
-  roket.display();
+  population.run();
 }
