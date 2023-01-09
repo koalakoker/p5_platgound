@@ -17,7 +17,7 @@ class Mover {
   display() {
     noStroke();
     fill(255);
-    circle(this.position.x, this.position.y, 5, 5);
+    circle(this.position.x, this.position.y, 5);
   }
   checkEdge() {
     if (this.position.x < 0) {
