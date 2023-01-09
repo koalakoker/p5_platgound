@@ -15,9 +15,9 @@ class DNA {
   }
   crossover(parent) {
     let childGenes = [];
-    let midPoint = random(this.genes.length);
     for (let i = 0; i < this.genes.length; i++) {
-      if (i < midPoint) {
+      let p = floor(random(2));
+      if (p == 0) {
         childGenes[i] = this.genes[i];
       } else {
         childGenes[i] = parent.genes[i];
