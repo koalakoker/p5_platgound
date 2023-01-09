@@ -35,6 +35,9 @@ class Population {
       );
       d = constrain(d, 1, 2000);
       rocket.fitness = 1 / d;
+      if (rocket.killed) {
+        rocket.fitness /= 10;
+      }
       if (rocket.fitness > maxFit) {
         maxFit = rocket.fitness;
       }

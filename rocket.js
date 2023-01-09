@@ -11,6 +11,7 @@ class Rocket {
     }
     this.age = 0;
     this.live = true;
+    this.killed = false;
     rectMode(CENTER);
   }
   applyForce(force) {
@@ -47,6 +48,7 @@ class Rocket {
       this.position.y > height
     ) {
       this.live = false;
+      this.killed = true;
     }
   }
 }
