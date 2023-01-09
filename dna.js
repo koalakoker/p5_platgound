@@ -1,7 +1,7 @@
 class DNA {
   constructor(genes) {
     if (!genes) {
-      this.lifeSpan = 300; //floor(random(200, 400));
+      this.lifeSpan = 600; //floor(random(200, 400));
       let maxTrust = 0.1;
       this.genes = new Array(this.lifeSpan);
       for (let i = 0; i < this.genes.length; i++) {

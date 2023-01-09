@@ -6,11 +6,12 @@ class Population {
       this.rockets[i] = new Rocket();
     }
   }
-  run() {
+  run(obstacle) {
     for (let i = 0; i < this.rockets.length; i++) {
       const rocket = this.rockets[i];
       rocket.update();
       rocket.checkEdge();
+      rocket.checkObstacle(obstacle);
       rocket.display();
     }
   }

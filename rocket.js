@@ -51,4 +51,15 @@ class Rocket {
       this.killed = true;
     }
   }
+  checkObstacle(obstacle) {
+    if (
+      this.position.x > obstacle.x - obstacle.w / 2 &&
+      this.position.x < obstacle.x + obstacle.w / 2 &&
+      this.position.y > obstacle.y - obstacle.h / 2 &&
+      this.position.y < obstacle.y + obstacle.h / 2
+    ) {
+      this.live = false;
+      this.killed = true;
+    }
+  }
 }
