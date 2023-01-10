@@ -12,19 +12,19 @@ class Rocket {
     this.age = 0;
     this.live = true;
     this.killed = false;
+    this.reached = false;
     rectMode(CENTER);
   }
   applyForce(force) {
     this.acceleration.add(force);
   }
   update() {
-    this.applyForce(this.dna.genes[this.age]);
-    this.age++;
-    if (this.age >= this.dna.lifeSpan) {
-      this.live = false;
-    }
-
     if (this.live) {
+      this.applyForce(this.dna.genes[this.age]);
+      this.age++;
+      if (this.age >= this.dna.lifeSpan) {
+        this.live = false;
+      }
       this.velocity.add(this.acceleration);
       this.velocity.limit(this.speedLimit);
       this.position.add(this.velocity);
@@ -60,6 +60,18 @@ class Rocket {
     ) {
       this.live = false;
       this.killed = true;
+    }
+  }
+  checkTarget(target) {
+    let d = dist(
+      this.position.x,
+      this.position.y,
+      target.position.x,
+      target.position.y
+    );
+    if (d < 16) {
+      this.live = false;
+      this.reached = true;
     }
   }
 }

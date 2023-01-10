@@ -6,12 +6,13 @@ class Population {
       this.rockets[i] = new Rocket();
     }
   }
-  run(obstacle) {
+  run() {
     for (let i = 0; i < this.rockets.length; i++) {
       const rocket = this.rockets[i];
       rocket.update();
       rocket.checkEdge();
-      rocket.checkObstacle(obstacle);
+      rocket.checkTarget(this.target);
+      rocket.checkObstacle(this.obstacle);
       rocket.display();
     }
   }
@@ -24,21 +25,28 @@ class Population {
     }
     return active === 0;
   }
-  evaluate(target) {
+  evaluate() {
     let maxFit = 0;
     for (let i = 0; i < this.rockets.length; i++) {
       const rocket = this.rockets[i];
       let d = dist(
         rocket.position.x,
         rocket.position.y,
-        target.position.x,
-        target.position.y
+        this.target.position.x,
+        this.target.position.y
       );
       d = constrain(d, 1, 2000);
-      rocket.fitness = 1 / d;
+      rocket.fitness = 2000 / d; // Score based on distance 1 - 2000
       if (rocket.killed) {
         rocket.fitness /= 10;
+        let agePerc = rocket.age / rocket.dna.lifeSpan;
+        rocket.fitness *= agePerc * 4;
       }
+      if (rocket.reached) {
+        let agePerc = 1 - rocket.age / rocket.dna.lifeSpan;
+        rocket.fitness *= agePerc * 2;
+      }
+
       if (rocket.fitness > maxFit) {
         maxFit = rocket.fitness;
       }
