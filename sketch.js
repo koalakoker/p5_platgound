@@ -1,6 +1,3 @@
-let p, s;
-let count = 0.0;
-
 function setup() {
   createCanvas(400, 400);
   p = createP();
