@@ -1,25 +1,22 @@
+let bar;
+
 function setup() {
   createCanvas(400, 400);
-  movers = new Array(20);
-  for (let i = 0; i < movers.length; i++) {
-    movers[i] = new Mover(random(width), random(height));
-    movers[i].velocity = createVector(random(10), random(10));
-  }
-  s = createSlider(0, 1, 0.5, 0.01);
-  rectMode(CENTER);
+  balls = [];
+  let ball = new Ball(random(width), random(height));
+  ball.velocity = createVector(random(3), random(3));
+  balls.push(ball);
+  bar = new Bar();
 }
 
 function draw() {
   background(0);
-  for (let i = 0; i < movers.length; i++) {
-    mover = movers[i];
-    mover.update();
-    mover.checkEdge();
-    mover.display();
+  for (let i = 0; i < balls.length; i++) {
+    let ball = balls[i];
+    ball.update();
+    ball.checkEdge();
+    ball.collideWithBar(bar);
+    ball.display();
   }
-  count = s.value();
-  stroke(255);
-  fill(200);
-  rect;
-  rect(count * width, height - 50, 30, 10);
+  bar.show();
 }
