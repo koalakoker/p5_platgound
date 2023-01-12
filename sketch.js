@@ -1,10 +1,9 @@
 let drawElement = [];
+let dragging = false;
+let newElement;
 
 function setup() {
   createCanvas(400, 400);
-  drawElement.push(new Rectangle(100, 100, width - 100, height - 100));
-  drawElement.push(new Circle(width / 2, height / 2, 100));
-  drawElement.push(new Line(0, 0, width, height));
 }
 
 function draw() {
@@ -12,5 +11,25 @@ function draw() {
   for (let i = 0; i < drawElement.length; i++) {
     const element = drawElement[i];
     element.draw();
+  }
+  if (newElement) {
+    newElement.draw();
+  }
+}
+
+function mousePressed() {
+  dragging = true;
+  newElement = new Rectangle(mouseX, mouseY, mouseX, mouseY);
+}
+
+function mouseReleased() {
+  dragging = false;
+  drawElement.push(newElement);
+}
+
+function mouseDragged() {
+  if (dragging) {
+    newElement.x2 = mouseX;
+    newElement.y2 = mouseY;
   }
 }
