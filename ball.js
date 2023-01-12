@@ -4,7 +4,7 @@ class Ball {
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
-    this.r = 5;
+    this.r = 50;
   }
   update() {
     this.velocity.add(this.acceleration);
@@ -37,7 +37,7 @@ class Ball {
     }
   }
   collideWithBar(bar) {
-    if (bar.inside(this.position, this.r)) {
+    if (bar.inside(this)) {
       this.velocity.y *= -1;
     }
   }

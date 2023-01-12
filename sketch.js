@@ -3,10 +3,9 @@ let bar;
 function setup() {
   createCanvas(400, 400);
   balls = [];
-  let ball = new Ball(random(width), random(height));
-  ball.velocity = createVector(random(3), random(3));
-  balls.push(ball);
   bar = new Bar();
+  startButton = createButton("Start");
+  startButton.mousePressed(startPlay);
 }
 
 function draw() {
@@ -19,4 +18,10 @@ function draw() {
     ball.display();
   }
   bar.show();
+}
+
+function startPlay() {
+  let ball = new Ball(0, 0);
+  ball.velocity = createVector(3, 3);
+  balls.push(ball);
 }
