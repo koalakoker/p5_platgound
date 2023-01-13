@@ -4,7 +4,7 @@ class Element {
   constructor() {
     this.id = newID;
     newID++;
-    this.style = new Style();
+    this.style = new Style(newElementStyle);
   }
   draw() {}
   setStyle() {

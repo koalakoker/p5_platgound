@@ -1,6 +1,7 @@
 let drawElement = [];
 let dragging = false;
 let state;
+let newElementStyle;
 
 function setup() {
   createCanvas(400, 400);
@@ -14,6 +15,20 @@ function setup() {
   state = new stateAddCircle();
 
   sel.changed(changeMode);
+
+  newElementStyle = new Style();
+  fillColorPicker = createColorPicker(newElementStyle.fillColor);
+  fillColorPicker.input(changeFillColor);
+  strokeColorPicker = createColorPicker(newElementStyle.strokeColor);
+  strokeColorPicker.input(changeStrokeColor);
+}
+
+function changeFillColor() {
+  newElementStyle.fillColor = fillColorPicker.color();
+}
+
+function changeStrokeColor() {
+  newElementStyle.strokeColor = strokeColorPicker.color();
 }
 
 function changeMode() {
