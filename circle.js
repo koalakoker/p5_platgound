@@ -10,6 +10,6 @@ class Circle extends Element {
   draw() {
     stroke(this.stroke);
     fill(this.fill);
-    circle(this.x, this.y, this.r);
+    circle(this.x, this.y, this.r * 2);
   }
 }

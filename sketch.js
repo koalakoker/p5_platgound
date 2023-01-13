@@ -1,6 +1,6 @@
 let drawElement = [];
 let dragging = false;
-let state = new stateAddRect();
+let state = new stateAddCircle();
 
 function setup() {
   createCanvas(400, 400);
