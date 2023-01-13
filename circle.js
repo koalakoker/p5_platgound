@@ -4,12 +4,9 @@ class Circle extends Element {
     this.x = x;
     this.y = y;
     this.r = r;
-    this.stroke = 255;
-    this.fill = 0;
   }
   draw() {
-    stroke(this.stroke);
-    fill(this.fill);
+    this.setStyle();
     circle(this.x, this.y, this.r * 2);
   }
 }

@@ -5,12 +5,9 @@ class Line extends Element {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
-    this.stroke = 255;
-    this.fill = 0;
   }
   draw() {
-    stroke(this.stroke);
-    fill(this.fill);
+    this.setStyle();
     line(this.x1, this.y1, this.x2, this.y2);
   }
 }

@@ -9,7 +9,10 @@ function setup() {
   sel.option("addLine");
   sel.option("addCircle");
   sel.option("addRect");
-  sel.selected("");
+
+  sel.selected("addCircle");
+  state = new stateAddCircle();
+
   sel.changed(changeMode);
 }
 
