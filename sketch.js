@@ -17,10 +17,22 @@ function setup() {
   sel.changed(changeMode);
 
   newElementStyle = new Style();
+  fillCheck = createCheckbox("fill", newElementStyle.fill);
+  fillCheck.changed(fillCheckClick);
   fillColorPicker = createColorPicker(newElementStyle.fillColor);
   fillColorPicker.input(changeFillColor);
+  strokeCheck = createCheckbox("stroke", newElementStyle.stroke);
+  strokeCheck.changed(strokeCheckClick);
   strokeColorPicker = createColorPicker(newElementStyle.strokeColor);
   strokeColorPicker.input(changeStrokeColor);
+}
+
+function fillCheckClick() {
+  newElementStyle.fill = fillCheck.checked();
+}
+
+function strokeCheckClick() {
+  newElementStyle.stroke = strokeCheck.checked();
 }
 
 function changeFillColor() {
@@ -72,8 +84,10 @@ function mousePressed() {
 
 function mouseReleased() {
   if (state) {
-    dragging = false;
-    drawElement.push(state.mouseReleased());
+    if (mouseX > 0 && mouseY > 0 && mouseX < width && mouseY < height) {
+      dragging = false;
+      drawElement.push(state.mouseReleased());
+    }
   }
 }
 
