@@ -1,6 +1,6 @@
 let drawElement = [];
 let dragging = false;
-let newElement;
+let state = new stateAddRect();
 
 function setup() {
   createCanvas(400, 400);
@@ -12,24 +12,21 @@ function draw() {
     const element = drawElement[i];
     element.draw();
   }
-  if (newElement) {
-    newElement.draw();
-  }
+  state.draw();
 }
 
 function mousePressed() {
   dragging = true;
-  newElement = new Rectangle(mouseX, mouseY, mouseX, mouseY);
+  state.mousePressed();
 }
 
 function mouseReleased() {
   dragging = false;
-  drawElement.push(newElement);
+  drawElement.push(state.mouseReleased());
 }
 
 function mouseDragged() {
   if (dragging) {
-    newElement.x2 = mouseX;
-    newElement.y2 = mouseY;
+    state.mouseDragged();
   }
 }
