@@ -26,8 +26,11 @@ function setup() {
 
 function draw() {
   walker.draw();
-  walker.walk();
+  walker.walk(grid);
   grid[walker.pos.x][walker.pos.y] = true;
+}
+
+function drawGrid() {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
       if (grid[i][j]) {
