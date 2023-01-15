@@ -1,5 +1,5 @@
 let grid;
-let dim = 40;
+let dim = 5;
 let rows, cols;
 
 function create2DArray(rows, cols) {
@@ -7,6 +7,9 @@ function create2DArray(rows, cols) {
   for (let i = 0; i < grid.length; i++) {
     let col = grid[i];
     col = new Array(rows);
+    for (let j = 0; j < col.length; j++) {
+      col[j] = false;
+    }
   }
   return grid;
 }
@@ -16,8 +19,11 @@ function setup() {
   cols = width / dim;
   rows = height / dim;
   grid = create2DArray(rows, cols);
+  walker = new Walker(cols / 2, rows / 2);
+  background(0);
 }
 
 function draw() {
-  background(0);
+  walker.draw();
+  walker.walk();
 }
