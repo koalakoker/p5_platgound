@@ -1,100 +1,21 @@
-let drawElement = [];
-let dragging = false;
-let state;
-let newElementStyle;
+let drawing = new Drawing(400, 400);
 
 function setup() {
-  createCanvas(400, 400);
-  sel = createSelect();
-  sel.option("");
-  sel.option("addLine");
-  sel.option("addCircle");
-  sel.option("addRect");
-
-  sel.selected("addCircle");
-  state = new stateAddCircle();
-
-  sel.changed(changeMode);
-
-  newElementStyle = new Style();
-  fillCheck = createCheckbox("fill", newElementStyle.fill);
-  fillCheck.changed(fillCheckClick);
-  fillColorPicker = createColorPicker(newElementStyle.fillColor);
-  fillColorPicker.input(changeFillColor);
-  strokeCheck = createCheckbox("stroke", newElementStyle.stroke);
-  strokeCheck.changed(strokeCheckClick);
-  strokeColorPicker = createColorPicker(newElementStyle.strokeColor);
-  strokeColorPicker.input(changeStrokeColor);
-}
-
-function fillCheckClick() {
-  newElementStyle.fill = fillCheck.checked();
-}
-
-function strokeCheckClick() {
-  newElementStyle.stroke = strokeCheck.checked();
-}
-
-function changeFillColor() {
-  newElementStyle.fillColor = fillColorPicker.color();
-}
-
-function changeStrokeColor() {
-  newElementStyle.strokeColor = strokeColorPicker.color();
-}
-
-function changeMode() {
-  let selected = sel.value();
-  switch (selected) {
-    case "addLine":
-      state = new stateAddLine();
-      break;
-    case "addCircle":
-      state = new stateAddCircle();
-      break;
-    case "addRect":
-      state = new stateAddRect();
-      break;
-
-    default:
-      state = null;
-      break;
-  }
+  drawing.setup();
 }
 
 function draw() {
-  background(0);
-  for (let i = 0; i < drawElement.length; i++) {
-    const element = drawElement[i];
-    element.draw();
-  }
-  if (state) {
-    state.draw();
-  }
+  drawing.draw();
 }
 
 function mousePressed() {
-  if (state) {
-    if (mouseX > 0 && mouseY > 0 && mouseX < width && mouseY < height) {
-      dragging = true;
-      state.mousePressed();
-    }
-  }
+  drawing.mousePressed();
 }
 
 function mouseReleased() {
-  if (state) {
-    if (mouseX > 0 && mouseY > 0 && mouseX < width && mouseY < height) {
-      dragging = false;
-      drawElement.push(state.mouseReleased());
-    }
-  }
+  drawing.mouseReleased();
 }
 
 function mouseDragged() {
-  if (state) {
-    if (dragging) {
-      state.mouseDragged();
-    }
-  }
+  drawing.mouseDragged();
 }
