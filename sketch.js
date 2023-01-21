@@ -1,24 +1,29 @@
 let movers = [];
+let actractor;
 
 function setup() {
   createCanvas(400, 400);
+
+  actractor = new createVector(200, 200);
+
   movers = new Array(20);
   for (let i = 0; i < movers.length; i++) {
-    movers[i] = new Mover(random(width), height);
-    movers[i].velocity = createVector(0, -random(10));
+    movers[i] = new Mover(random(width), random(height));
+    //movers[i].velocity = createVector();
   }
 }
 
 function draw() {
   background(0);
+
+  stroke(0, 255, 0);
+  strokeWeight(4);
+  point(actractor.x, actractor.y);
+
   for (let i = 0; i < movers.length; i++) {
     mover = movers[i];
-
-    const g = createVector(0, 0.1);
-    mover.applyForce(g);
-
+    mover.actraction(actractor);
     mover.update();
-    mover.checkEdge();
     mover.display();
   }
 }

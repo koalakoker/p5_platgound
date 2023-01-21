@@ -19,18 +19,16 @@ class Mover {
     fill(255);
     circle(this.position.x, this.position.y, 5, 5);
   }
-  checkEdge() {
-    if (this.position.x < 0) {
-      this.position.x = width;
+  actraction(actractor) {
+    let force = p5.Vector.sub(actractor, this.position);
+    let g = 1;
+    let d = force.mag();
+    d = constrain(d, 0.1, 50);
+    force.mult(g / (d * d));
+    if (d < 20) {
+      force.mult(-10);
     }
-    if (this.position.x > width) {
-      this.position.x = 0;
-    }
-    if (this.position.y < 0) {
-      this.position.y = height;
-    }
-    if (this.position.y > height) {
-      this.position.y = 0;
-    }
+
+    this.applyForce(force);
   }
 }
