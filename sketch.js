@@ -2,19 +2,24 @@ let movers = [];
 let actractors = [];
 
 function setup() {
-  createCanvas(400, 400);
-  movers = new Array(20);
-  for (let i = 0; i < movers.length; i++) {
-    movers[i] = new Mover(random(width), random(height));
-  }
-  actractors = new Array(6);
-  for (let i = 0; i < actractors.length; i++) {
-    actractors[i] = createVector(random(width), random(height));
-  }
+  createCanvas(800, 600);
+}
+
+function mousePressed() {
+  actractors.push(createVector(mouseX, mouseY));
 }
 
 function draw() {
   background(0);
+
+  if (random(1) < 0.1) {
+    let mover = new Mover(random(width), random(height));
+    mover.velocity = createVector(random(-2, 2), random(-2, 2));
+    movers.push(mover);
+    if (movers.length > 30) {
+      movers.shift();
+    }
+  }
 
   stroke(0, 255, 0);
   strokeWeight(4);
