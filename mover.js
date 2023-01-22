@@ -1,7 +1,8 @@
 class Mover {
   constructor(x, y) {
     this.position = createVector(x, y);
-    this.prevPosition = createVector(x, y);
+    this.prevPosition = [];
+    this.trayLen = 10;
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
@@ -18,16 +19,17 @@ class Mover {
   display() {
     stroke(255);
     strokeWeight(4);
-    line(
-      this.prevPosition.x,
-      this.prevPosition.y,
-      this.position.x,
-      this.position.y,
-      5,
-      5
-    );
-    this.prevPosition.x = this.position.x;
-    this.prevPosition.y = this.position.y;
+    beginShape();
+    vertex(this.position.x, this.position.y);
+    for (let i = this.prevPosition.length - 1; i >= 0; i--) {
+      vertex(this.prevPosition[i].x, this.prevPosition[i].y);
+    }
+    endShape();
+    let newElement = createVector(this.position.x, this.position.y);
+    this.prevPosition.push(newElement);
+    if (this.prevPosition.length > this.trayLen) {
+      this.prevPosition.shift();
+    }
   }
   actraction(actractor) {
     let force = p5.Vector.sub(actractor, this.position);
