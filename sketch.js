@@ -1,20 +1,26 @@
-let movers = [];
+let mover;
 
 function setup() {
   createCanvas(400, 400);
-  movers = new Array(20);
-  for (let i = 0; i < movers.length; i++) {
-    movers[i] = new Mover(random(width), random(height));
-  }
+  shoot();
+}
+
+function shoot() {
+  mover = new Mover(0, height);
+  mover.applyForce(createVector(random(0, 5), random(-5, 0)));
+  mover.aAcceleration = mover.acceleration.x / 10;
 }
 
 function draw() {
   background(0);
-  for (let i = 0; i < movers.length; i++) {
-    mover = movers[i];
 
-    mover.update();
-    mover.checkEdge();
-    mover.display();
+  mover.applyForce(createVector(0, 0.1));
+
+  mover.update();
+  //mover.checkEdge();
+  mover.display();
+
+  if (mover.position.y >= height) {
+    shoot();
   }
 }
