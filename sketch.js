@@ -1,13 +1,13 @@
 let mover;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(800, 400);
   shoot();
 }
 
 function shoot() {
-  mover = new Mover(0, height);
-  mover.applyForce(createVector(random(0, 5), random(-5, 0)));
+  mover = new Mover(width / 2, height);
+  mover.applyForce(createVector(random(-5, 5), random(-7, -2)));
   mover.aAcceleration = mover.acceleration.x / 10;
 }
 
