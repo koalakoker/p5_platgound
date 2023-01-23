@@ -4,6 +4,12 @@ class Mover {
     this.velocity = createVector();
     this.acceleration = createVector();
     this.speedLimit = 10;
+
+    this.angle = 0;
+    this.aVelocity = 0;
+    this.aAcceleration = 0;
+
+    this.radius = 16;
   }
   applyForce(force) {
     this.acceleration.add(force);
@@ -13,11 +19,21 @@ class Mover {
     this.velocity.limit(this.speedLimit);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
+
+    this.aVelocity += this.aAcceleration;
+    this.angle += this.aVelocity;
+    this.aAcceleration = 0;
   }
   display() {
-    noStroke();
+    stroke(0);
     fill(255);
-    circle(this.position.x, this.position.y, 5, 5);
+
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    circle(0, 0, 2 * this.radius);
+    line(0, 0, this.radius, 0);
+    pop();
   }
   checkEdge() {
     if (this.position.x < 0) {
