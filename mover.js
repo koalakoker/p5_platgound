@@ -6,17 +6,25 @@ class Mover {
     this.speedLimit = 10;
 
     this.angle = 0;
+    this.aAcceleration = 0;
+    this.aVelocity = 0;
+    this.aSpeedLimit = 0.1;
     this.radius = 16;
   }
   applyForce(force) {
     this.acceleration.add(force);
   }
+  applyTorque(torque) {
+    this.aAcceleration += torque;
+  }
   update() {
-    this.aAcceleration = this.acceleration.x / 10;
+    this.aVelocity += this.aAcceleration;
+    this.aAcceleration = 0;
+    //this.aVelocity = constrain(this.aVelocity, 0, this.aSpeedLimit);
+    this.angle += this.aVelocity;
 
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.speedLimit);
-    this.angle = this.velocity.heading();
     this.position.add(this.velocity);
     this.acceleration.mult(0);
   }
