@@ -6,9 +6,6 @@ class Mover {
     this.speedLimit = 10;
 
     this.angle = 0;
-    this.aVelocity = 0;
-    this.aAcceleration = 0;
-
     this.radius = 16;
   }
   applyForce(force) {
@@ -19,13 +16,9 @@ class Mover {
 
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.speedLimit);
+    this.angle = this.velocity.heading();
     this.position.add(this.velocity);
     this.acceleration.mult(0);
-
-    this.aVelocity += this.aAcceleration;
-    this.aVelocity = constrain(this.aVelocity, -0.1, 0.1);
-    this.angle += this.aVelocity;
-    this.aAcceleration = 0;
   }
   display() {
     stroke(0);
