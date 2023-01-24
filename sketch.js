@@ -9,24 +9,25 @@ function setup() {
 function draw() {
   background(0);
 
-  let force = createVector();
-  let torque = 0;
-  let torqueVal = 0.01;
+  let aVelocity = 0;
+  let aVelocityVal = 0.1;
   if (keyIsDown(LEFT_ARROW)) {
-    torque -= torqueVal;
+    aVelocity -= aVelocityVal;
   }
   if (keyIsDown(RIGHT_ARROW)) {
-    torque += torqueVal;
+    aVelocity += aVelocityVal;
   }
-  mover.applyTorque(torque);
+  mover.aVelocity = aVelocity;
 
+  let thrust = 0;
   if (keyIsDown(UP_ARROW)) {
-    force.y -= 0.05;
+    thrust += 0.1;
   }
-
   if (keyIsDown(DOWN_ARROW)) {
-    force.y += 0.05;
+    thrust -= 0.1;
   }
+  let theta = mover.angle;
+  let force = createVector(thrust * cos(theta), thrust * sin(theta));
   mover.applyForce(force);
 
   mover.update();
