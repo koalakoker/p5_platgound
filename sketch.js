@@ -2,18 +2,16 @@ let amplitude = 0;
 let period = 120;
 
 function setup() {
-  createCanvas(800, 400);
-  amplitude = width / 2 - 30;
+  createCanvas(400, 600);
 }
 
 function draw() {
   background(0);
 
-  let x = amplitude * sin((TWO_PI * frameCount) / period);
+  let y = map(sin((TWO_PI * frameCount) / period), -1, 1, -100, 100);
   fill(255);
   stroke(255);
   strokeWeight(1);
-  translate(width / 2, height / 2);
-  circle(x, 0, 20);
-  line(0, 0, x, 0);
+  circle(width / 2, height / 2 + y, 20);
+  line(width / 2, 0, width / 2, height / 2 + y);
 }
