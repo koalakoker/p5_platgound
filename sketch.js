@@ -1,6 +1,6 @@
 let startAngle = 0;
-let angleVel = 0.1;
-let amplitude = 100;
+let angleVel = 0.02;
+let amplitude = 200;
 
 function setup() {
   createCanvas(800, 400);
@@ -9,10 +9,10 @@ function setup() {
 function draw() {
   background(0);
   let angle = startAngle;
-  startAngle += 0.02;
+  startAngle += 0.01;
   beginShape();
-  for (let x = 0; x < width; x += 24) {
-    let y = amplitude * sin(angle);
+  for (let x = 0; x < width; x += 12) {
+    let y = amplitude * map(noise(angle), 0, 1, -1, 1);
     noFill();
     stroke(255);
     strokeWeight(1);
