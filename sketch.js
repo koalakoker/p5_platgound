@@ -1,13 +1,17 @@
-let symbolSize = 27;
-let stream;
+let symbolSize = 16;
+let streams = [];
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
-  stream = new Stream(width / 2, random(10, 20));
+  for (let i = 0; i < width / symbolSize; i++) {
+    streams.push(new Stream(i * symbolSize, random(20, 30)));
+  }
   textSize(symbolSize);
 }
 
 function draw() {
   background(0);
-  stream.display();
+  streams.forEach((stream) => {
+    stream.display();
+  });
 }
