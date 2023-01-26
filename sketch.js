@@ -1,14 +1,13 @@
-let symbol;
 let symbolSize = 27;
+let stream;
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
-  symbol = new SymbolChar(width / 2, height / 2);
-  symbol.setRandomChar();
+  stream = new Stream(width / 2, random(10, 20));
   textSize(symbolSize);
 }
 
 function draw() {
   background(0);
-  symbol.display();
+  stream.display();
 }
