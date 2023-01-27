@@ -10,6 +10,7 @@ function draw() {
     let dist = p5.Vector.sub(pendulum.origin, mousePos);
     pendulum.angle = -dist.heading() - HALF_PI;
     pendulum.r = dist.mag();
+    pendulum.aVelocity = 0;
   } else {
     pendulum.update();
   }

@@ -11,6 +11,7 @@ class Pendulum {
     this.aAcceleration = (-1 * g * sin(this.angle)) / this.r;
     this.aVelocity += this.aAcceleration;
     this.angle += this.aVelocity;
+    this.aVelocity *= 0.99;
   }
   display() {
     let position = createVector(
