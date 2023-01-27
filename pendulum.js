@@ -1,6 +1,6 @@
 class Pendulum {
   constructor(parent) {
-    this.r = random(300);
+    this.r = random(80, 80);
     this.angle = random(HALF_PI);
     this.aVelocity = 0;
     this.aAcceleration = 0;
