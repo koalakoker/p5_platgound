@@ -1,6 +1,7 @@
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   pendulum = new Pendulum();
+  pendulum.addChild(new Pendulum(pendulum));
 }
 
 function draw() {
