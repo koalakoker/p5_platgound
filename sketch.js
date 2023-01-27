@@ -5,6 +5,13 @@ function setup() {
 
 function draw() {
   background(0);
-  pendulum.update();
+  if (mouseIsPressed) {
+    mousePos = createVector(mouseX, mouseY);
+    let dist = p5.Vector.sub(pendulum.origin, mousePos);
+    pendulum.angle = -dist.heading() - HALF_PI;
+    pendulum.r = dist.mag();
+  } else {
+    pendulum.update();
+  }
   pendulum.display();
 }

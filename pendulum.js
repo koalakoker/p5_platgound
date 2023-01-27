@@ -1,9 +1,10 @@
 class Pendulum {
   constructor() {
-    this.r = 200;
-    this.angle = 45;
+    this.r = 300;
+    this.angle = 0;
     this.aVelocity = 0;
     this.aAcceleration = 0;
+    this.origin = createVector(width / 2, 0);
   }
   update() {
     let g = 0.3;
@@ -13,10 +14,12 @@ class Pendulum {
   }
   display() {
     let position = createVector(
-      this.r * sin(this.angle),
-      this.r * cos(this.angle)
+      this.origin.x + this.r * sin(this.angle),
+      this.origin.y + this.r * cos(this.angle)
     );
-    translate(width / 2, height / 2);
+    stroke(255);
+    fill(255);
+    line(this.origin.x, this.origin.y, position.x, position.y);
     circle(position.x, position.y, 16);
   }
 }
