@@ -8,6 +8,7 @@ function draw() {
   background(0);
   drawPlane(planeAngle);
   box.display();
+  //box.slide();
 }
 
 function drawPlane(angle) {
@@ -15,6 +16,7 @@ function drawPlane(angle) {
   translate(width / 2, height / 2);
   rotate(angle);
   stroke(255);
+  strokeWeight(1);
   noFill();
   line(-width / 2, 0, width / 2, 0);
   pop();
