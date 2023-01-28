@@ -1,13 +1,14 @@
-class Box {
+class DynoBox {
   constructor(x, y, angle) {
     this.position = createVector(x, y);
     this.speed = createVector();
     this.acceletarion = createVector();
     this.side = 40;
     this.angle = angle;
+    this.mass = 50;
+    this.frictionCoeff = 0.5;
   }
   display() {
-    this.forceSplit();
     push();
     translate(this.position.x, this.position.y);
     rotate(this.angle);
@@ -27,16 +28,25 @@ class Box {
       this.position.y + this.g
     );
   }
-  slide() {
+  update() {
+    this.forceSplit();
+    let resultantForce = (this.ft - this.frictionCoeff * this.fn) / this.mass;
+    resultantForce = resultantForce < 0 ? 0 : resultantForce;
+    let force = createVector(resultantForce, 0);
+    force.rotate(this.angle);
+    this.applyForce(force);
+
     this.speed.add(this.acceletarion);
     this.position.add(this.speed);
     this.acceletarion.mult(0);
   }
+
   forceSplit() {
-    this.g = 50;
+    this.g = this.mass;
     this.ft = this.g * sin(this.angle);
     this.fn = this.g * cos(this.angle);
   }
+
   applyForce(force) {
     this.acceletarion.add(force);
   }

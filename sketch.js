@@ -1,14 +1,14 @@
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   planeAngle = random(HALF_PI / 2);
-  box = new Box(width / 2, height / 2, planeAngle);
+  dynoBox = new DynoBox(width / 2, height / 2, planeAngle);
 }
 
 function draw() {
   background(0);
   drawPlane(planeAngle);
-  box.display();
-  //box.slide();
+  dynoBox.update();
+  dynoBox.display();
 }
 
 function drawPlane(angle) {
