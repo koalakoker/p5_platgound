@@ -1,4 +1,4 @@
-let drawing = new Drawing(400, 400);
+let drawing = new Drawing(window.innerWidth, window.innerHeight);
 
 function setup() {
   drawing.setup();
