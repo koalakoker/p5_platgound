@@ -18,9 +18,10 @@ class Drawing {
     this.sel.option("addRect");
     this.sel.changed(this.changeMode);
 
-    this.sel.selected("addCircle");
-    this.state = new stateAddCircle();
-    console.log(this.sel);
+    this.sel.selected("addRect");
+    this.grid = new Grid(20);
+    this.grid.active = true;
+    this.state = new stateAddRect(this.grid);
 
     newElementStyle = new Style();
     this.fillCheck = createCheckbox("fill", newElementStyle.fill);
@@ -34,6 +35,7 @@ class Drawing {
   }
   draw() {
     background(0);
+    this.grid.display();
     for (let i = 0; i < this.drawElement.length; i++) {
       const element = this.drawElement[i];
       element.draw();
@@ -63,13 +65,13 @@ class Drawing {
     let selected = this.value();
     switch (selected) {
       case "addLine":
-        this.drawing.state = new stateAddLine();
+        this.drawing.state = new stateAddLine(this.drawing.grid);
         break;
       case "addCircle":
-        this.drawing.state = new stateAddCircle();
+        this.drawing.state = new stateAddCircle(this.drawing.grid);
         break;
       case "addRect":
-        this.drawing.state = new stateAddRect();
+        this.drawing.state = new stateAddRect(this.drawing.grid);
         break;
 
       default:

@@ -1,14 +1,17 @@
-class stateAddCircle {
-  constructor() {}
+class stateAddCircle extends AddState {
+  constructor(grid) {
+    super(grid);
+  }
   mousePressed() {
-    this.center = createVector(mouseX, mouseY);
-    this.newElement = new Circle(mouseX, mouseY, 0);
+    this.center = this.grid.snap(mouseX, mouseY);
+    this.newElement = new Circle(this.center.x, this.center.y, 0);
   }
   mouseReleased() {
     return this.newElement;
   }
   mouseDragged() {
-    this.newElement.r = dist(this.center.x, this.center.y, mouseX, mouseY);
+    let point = this.grid.snap(mouseX, mouseY);
+    this.newElement.r = dist(this.center.x, this.center.y, point.x, point.y);
   }
   draw() {
     if (this.newElement) {
