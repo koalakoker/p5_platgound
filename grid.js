@@ -19,7 +19,7 @@ class Grid {
       strokeWeight(1);
       for (let row = 0; row < height / this.space; row++) {
         for (let col = 0; col < width / this.space; col++) {
-          point(row * this.space, col * this.space);
+          point(col * this.space, row * this.space);
         }
       }
     }

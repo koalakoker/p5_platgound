@@ -1,6 +1,7 @@
-let drawing = new Drawing(window.innerWidth, window.innerHeight);
+let drawing;
 
 function setup() {
+  drawing = new Drawing(window.innerWidth, window.innerHeight);
   drawing.setup();
 }
 
