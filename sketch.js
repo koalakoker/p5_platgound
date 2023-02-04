@@ -1,19 +1,37 @@
 let drawing;
 let bar = new Group(0, 0);
 
-let buttonAddLine = new Button("png/addLine.png", () => {
-  drawing.changeState(new stateAddLine(drawing.grid));
-});
+let buttonAddLine = new Button(
+  "png/addLine.png",
+  () => {
+    drawing.changeState(new stateAddLine(drawing.grid));
+  },
+  () => {
+    drawing.changeState(null);
+  }
+);
 bar.append(buttonAddLine);
 
-let buttonAddRect = new Button("png/addRect.png", () => {
-  drawing.changeState(new stateAddRect(drawing.grid));
-});
+let buttonAddRect = new Button(
+  "png/addRect.png",
+  () => {
+    drawing.changeState(new stateAddRect(drawing.grid));
+  },
+  () => {
+    drawing.changeState(null);
+  }
+);
 bar.append(buttonAddRect);
 
-let buttonAddCircle = new Button("png/addCircle.png", () => {
-  drawing.changeState(new stateAddCircle(drawing.grid));
-});
+let buttonAddCircle = new Button(
+  "png/addCircle.png",
+  () => {
+    drawing.changeState(new stateAddCircle(drawing.grid));
+  },
+  () => {
+    drawing.changeState(null);
+  }
+);
 bar.append(buttonAddCircle);
 
 function preload() {

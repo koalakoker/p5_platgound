@@ -1,7 +1,8 @@
 class Button {
-  constructor(fileName, callBack) {
+  constructor(fileName, selectCallBack, deSelectCallBack) {
     this.fileName = fileName;
-    this.callBack = callBack;
+    this.selectCallBack = selectCallBack;
+    this.deSelectCallBack = deSelectCallBack;
     this.selected = false;
     this.clickDebounce = 0;
   }
@@ -44,11 +45,20 @@ class Button {
   }
   mousePressed() {
     if (this.inside()) {
-      this.selected = true;
       this.fillColor = this.clickColor();
       this.clickDebounce = 5;
-      this.callBack();
-      return true;
+      if (!this.selected) {
+        this.selected = true;
+        if (this.selectCallBack) {
+          this.selectCallBack();
+        }
+        return true;
+      } else {
+        this.selected = false;
+        if (this.deSelectCallBack) {
+          this.deSelectCallBack();
+        }
+      }
     }
     return false;
   }
