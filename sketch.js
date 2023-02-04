@@ -1,6 +1,21 @@
 let drawing;
 let bar = new Bar(0, 0);
 
+let buttonAddLine = new Button("png/addLine.png", () => {
+  print("Add line");
+});
+bar.append(buttonAddLine);
+
+let buttonAddRect = new Button("png/addRect.png", () => {
+  print("Add rect");
+});
+bar.append(buttonAddRect);
+
+let buttonAddCircle = new Button("png/addCircle.png", () => {
+  print("Add circle");
+});
+bar.append(buttonAddCircle);
+
 function preload() {
   bar.preload();
 }

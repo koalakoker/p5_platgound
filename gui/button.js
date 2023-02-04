@@ -1,8 +1,7 @@
 class Button {
-  constructor(x, y, fileName) {
-    this.x = x;
-    this.y = y;
+  constructor(fileName, callBack) {
     this.fileName = fileName;
+    this.callBack = callBack;
     this.fillColor = 180;
   }
   preload() {
@@ -37,6 +36,7 @@ class Button {
   mousePressed() {
     if (this.inside()) {
       this.fillColor = 255;
+      this.callBack();
     }
   }
 }

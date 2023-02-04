@@ -5,17 +5,19 @@ class Bar {
     this.margin = 3;
     this.buttons = [];
     this.xPos = this.x;
-    this.append("png/addLine.png");
-    this.append("png/addRect.png");
-    this.append("png/addCircle.png");
+    //this.append("png/addLine.png");
+    //this.append("png/addRect.png");
+    //this.append("png/addCircle.png");
   }
   preload() {
     this.buttons.forEach((button) => {
       button.preload();
     });
   }
-  append(fileName) {
-    this.buttons.push(new Button(this.xPos, this.y, fileName));
+  append(button) {
+    button.x = this.xPos;
+    button.y = this.y;
+    this.buttons.push(button);
     this.xPos += Button.size() + this.margin;
   }
   display() {
