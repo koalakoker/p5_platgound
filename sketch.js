@@ -20,7 +20,11 @@ function mouseMoved() {
 }
 
 function mousePressed() {
-  drawing.mousePressed();
+  if (bar.inside()) {
+    bar.mousePressed();
+  } else {
+    drawing.mousePressed();
+  }
 }
 
 function mouseReleased() {

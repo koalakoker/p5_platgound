@@ -90,9 +90,11 @@ class Drawing {
 
   mouseReleased() {
     if (this.state) {
-      if (mouseX > 0 && mouseY > 0 && mouseX < width && mouseY < height) {
-        this.dragging = false;
-        this.drawElement.push(this.state.mouseReleased());
+      if (this.dragging) {
+        if (mouseX > 0 && mouseY > 0 && mouseX < width && mouseY < height) {
+          this.dragging = false;
+          this.drawElement.push(this.state.mouseReleased());
+        }
       }
     }
   }

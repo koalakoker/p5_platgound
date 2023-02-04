@@ -23,9 +23,24 @@ class Bar {
       button.display();
     });
   }
+  inside() {
+    return Rect.inside(
+      mouseX,
+      mouseY,
+      this.x,
+      this.y,
+      this.xPos - this.x,
+      Button.size()
+    );
+  }
   mouseMoved() {
     this.buttons.forEach((button) => {
       button.mouseMoved();
+    });
+  }
+  mousePressed() {
+    this.buttons.forEach((button) => {
+      button.mousePressed();
     });
   }
 }

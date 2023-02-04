@@ -17,16 +17,26 @@ class Button {
   static size() {
     return 24;
   }
+  inside() {
+    return Rect.inside(
+      mouseX,
+      mouseY,
+      this.x,
+      this.y,
+      Button.size(),
+      Button.size()
+    );
+  }
   mouseMoved() {
-    if (
-      mouseX > this.x &&
-      mouseX < this.x + Button.size() &&
-      mouseY > this.y &&
-      mouseY < this.y + Button.size()
-    ) {
+    if (this.inside()) {
       this.fillColor = 210;
     } else {
       this.fillColor = 180;
+    }
+  }
+  mousePressed() {
+    if (this.inside()) {
+      this.fillColor = 255;
     }
   }
 }
