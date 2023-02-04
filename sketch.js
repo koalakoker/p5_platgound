@@ -1,5 +1,5 @@
 let drawing;
-let bar = new Bar(0, 0);
+let bar = new Group(0, 0);
 
 let buttonAddLine = new Button("png/addLine.png", () => {
   print("Add line");

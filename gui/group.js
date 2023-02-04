@@ -1,4 +1,4 @@
-class Bar {
+class Group {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -39,7 +39,9 @@ class Bar {
   }
   mousePressed() {
     this.buttons.forEach((button) => {
-      button.mousePressed();
+      if (!button.mousePressed()) {
+        button.selected = false;
+      }
     });
   }
   mouseReleased() {

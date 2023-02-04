@@ -3,6 +3,7 @@ class Button {
     this.fileName = fileName;
     this.callBack = callBack;
     this.selected = false;
+    this.clickDebounce = 0;
   }
   preload() {
     this.img = loadImage(this.fileName);
@@ -13,6 +14,10 @@ class Button {
     fill(this.fillColor);
     rect(this.x, this.y, size, size);
     image(this.img, this.x, this.y, size, size);
+    if (this.clickDebounce > 0) {
+      this.clickDebounce--;
+      this.mouseMoved();
+    }
   }
   static size() {
     return 24;
@@ -28,6 +33,9 @@ class Button {
     );
   }
   mouseMoved() {
+    if (this.clickDebounce > 0) {
+      return;
+    }
     if (this.inside()) {
       this.fillColor = this.overColor();
     } else {
@@ -38,8 +46,11 @@ class Button {
     if (this.inside()) {
       this.selected = true;
       this.fillColor = this.clickColor();
+      this.clickDebounce = 5;
       this.callBack();
+      return true;
     }
+    return false;
   }
   mouseReleased() {
     this.mouseMoved();
@@ -48,7 +59,9 @@ class Button {
     return this.selected ? this.selectedColor() : this.unSelectedColor();
   }
   overColor() {
-    return color(230, 230, 230);
+    return this.selected
+      ? this.selectedOverColor()
+      : this.unSelectedOverColor();
   }
   clickColor() {
     return color(255, 255, 255);
@@ -58,5 +71,11 @@ class Button {
   }
   unSelectedColor() {
     return color(180, 180, 180);
+  }
+  selectedOverColor() {
+    return color(160, 230, 160);
+  }
+  unSelectedOverColor() {
+    return color(230, 230, 230);
   }
 }
