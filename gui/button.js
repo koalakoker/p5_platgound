@@ -2,10 +2,11 @@ class Button {
   constructor(fileName, callBack) {
     this.fileName = fileName;
     this.callBack = callBack;
-    this.fillColor = 180;
+    this.selected = false;
   }
   preload() {
     this.img = loadImage(this.fileName);
+    this.fillColor = this.normalColor();
   }
   display() {
     let size = Button.size();
@@ -28,15 +29,34 @@ class Button {
   }
   mouseMoved() {
     if (this.inside()) {
-      this.fillColor = 210;
+      this.fillColor = this.overColor();
     } else {
-      this.fillColor = 180;
+      this.fillColor = this.normalColor();
     }
   }
   mousePressed() {
     if (this.inside()) {
-      this.fillColor = 255;
+      this.selected = true;
+      this.fillColor = this.clickColor();
       this.callBack();
     }
+  }
+  mouseReleased() {
+    this.mouseMoved();
+  }
+  normalColor() {
+    return this.selected ? this.selectedColor() : this.unSelectedColor();
+  }
+  overColor() {
+    return color(230, 230, 230);
+  }
+  clickColor() {
+    return color(255, 255, 255);
+  }
+  selectedColor() {
+    return color(130, 200, 130);
+  }
+  unSelectedColor() {
+    return color(180, 180, 180);
   }
 }

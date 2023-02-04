@@ -45,4 +45,9 @@ class Bar {
       button.mousePressed();
     });
   }
+  mouseReleased() {
+    this.buttons.forEach((button) => {
+      button.mouseReleased();
+    });
+  }
 }

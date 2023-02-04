@@ -43,6 +43,9 @@ function mousePressed() {
 }
 
 function mouseReleased() {
+  if (bar.inside()) {
+    bar.mouseReleased();
+  }
   drawing.mouseReleased();
 }
 
