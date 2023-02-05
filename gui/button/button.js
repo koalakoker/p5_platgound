@@ -1,5 +1,7 @@
 class Button {
   constructor(fileName) {
+    this.x = 0;
+    this.y = 0;
     this.fileName = fileName;
     this.clickDebounce = 0;
   }
@@ -8,17 +10,20 @@ class Button {
     this.fillColor = this.normalColor();
   }
   display() {
-    let size = Button.size();
     fill(this.fillColor);
-    rect(this.x, this.y, size, size);
-    image(this.img, this.x, this.y, size, size);
+    rect(this.x, this.y, this.size().x, this.size().y);
+    image(this.img, this.x, this.y, this.size().x, this.size().y);
     if (this.clickDebounce > 0) {
       this.clickDebounce--;
       this.mouseMoved();
     }
   }
-  static size() {
+  updateChildren() {}
+  static side() {
     return 24;
+  }
+  size() {
+    return { x: Button.side(), y: Button.side() };
   }
   inside() {
     return Rect.inside(
@@ -26,8 +31,8 @@ class Button {
       mouseY,
       this.x,
       this.y,
-      Button.size(),
-      Button.size()
+      this.size().x,
+      this.size().y
     );
   }
   mouseMoved() {

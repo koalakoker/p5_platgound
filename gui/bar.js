@@ -1,29 +1,38 @@
 class Bar {
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    this.x = x || 0;
+    this.y = y || 0;
     this.margin = 3;
-    this.buttons = [];
+    this.elements = [];
     this.xPos = this.x;
   }
   preload() {
-    this.buttons.forEach((button) => {
-      button.preload();
+    this.elements.forEach((element) => {
+      element.preload();
     });
   }
-  append(button) {
-    button.x = this.xPos;
-    button.y = this.y;
-    this.buttons.push(button);
-    this.xPos += Button.size() + this.margin;
+  updateChildren() {
+    this.xPos = this.x;
+    this.elements.forEach((element) => {
+      element.x = this.xPos;
+      element.y = this.y;
+      this.xPos += element.size().x + this.margin;
+    });
+  }
+  append(element) {
+    element.x = this.xPos;
+    element.y = this.y;
+    element.updateChildren();
+    this.elements.push(element);
+    this.xPos += element.size().x + this.margin;
   }
   display() {
-    this.buttons.forEach((button) => {
-      button.display();
+    this.elements.forEach((element) => {
+      element.display();
     });
   }
   size() {
-    return this.xPos - this.x;
+    return { x: this.xPos - this.x, y: Button.side() };
   }
   inside() {
     return Rect.inside(
@@ -31,23 +40,23 @@ class Bar {
       mouseY,
       this.x,
       this.y,
-      this.xPos - this.x,
-      Button.size()
+      this.size().x,
+      this.size().y
     );
   }
   mouseMoved() {
-    this.buttons.forEach((button) => {
-      button.mouseMoved();
+    this.elements.forEach((element) => {
+      element.mouseMoved();
     });
   }
   mousePressed() {
-    this.buttons.forEach((button) => {
-      button.mousePressed();
+    this.elements.forEach((element) => {
+      element.mousePressed();
     });
   }
   mouseReleased() {
-    this.buttons.forEach((button) => {
-      button.mouseReleased();
+    this.elements.forEach((element) => {
+      element.mouseReleased();
     });
   }
 }

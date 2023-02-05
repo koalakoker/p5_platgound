@@ -3,7 +3,7 @@ class Group extends Bar {
     super(x, y);
   }
   mousePressed() {
-    this.buttons.forEach((button) => {
+    this.elements.forEach((button) => {
       if (button.mousePressed()) {
         if (this.selected !== button) {
           if (this.selected) {

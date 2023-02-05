@@ -1,9 +1,17 @@
 class Gui {
   constructor() {
-    this.elements = [];
+    // Bar
+    this.mainBar = new Bar();
+
+    // LoadSaveErase
+    const lseBar = new Bar();
+    lseBar.append(new PushButton("png/icons8-clear-58.png"));
+    lseBar.append(new PushButton("png/icons8-file-download-48.png"));
+    lseBar.append(new PushButton("png/icons8-salva-30.png"));
+    this.mainBar.append(lseBar);
 
     // Add group
-    let addBar = new Group(0, 0);
+    const addBar = new Group();
     addBar.append(
       new CheckButton(
         "png/addLine.png",
@@ -37,10 +45,10 @@ class Gui {
         }
       )
     );
-    this.elements.push(addBar);
+    this.mainBar.append(addBar);
 
     // Grid
-    let gridGroup = new Group(addBar.size(), 0);
+    const gridGroup = new Group();
     const gridButton = new CheckButton(
       "png/grid.png",
       () => {
@@ -52,38 +60,24 @@ class Gui {
     );
     gridButton.selected = true;
     gridGroup.append(gridButton);
-    this.elements.push(gridGroup);
+    this.mainBar.append(gridGroup);
   }
   preload() {
-    this.elements.forEach((element) => {
-      element.preload();
-    });
+    this.mainBar.preload();
   }
   display() {
-    this.elements.forEach((element) => {
-      element.display();
-    });
+    this.mainBar.display();
   }
   inside() {
-    let inside = false;
-    this.elements.forEach((element) => {
-      inside = inside || element.inside();
-    });
-    return inside;
+    return this.mainBar.inside();
   }
   mouseMoved() {
-    this.elements.forEach((element) => {
-      element.mouseMoved();
-    });
+    this.mainBar.mouseMoved();
   }
   mousePressed() {
-    this.elements.forEach((element) => {
-      element.mousePressed();
-    });
+    this.mainBar.mousePressed();
   }
   mouseReleased() {
-    this.elements.forEach((element) => {
-      element.mouseReleased();
-    });
+    this.mainBar.mousePressed();
   }
 }
