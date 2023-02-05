@@ -22,6 +22,9 @@ class Bar {
       button.display();
     });
   }
+  size() {
+    return this.xPos - this.x;
+  }
   inside() {
     return Rect.inside(
       mouseX,
