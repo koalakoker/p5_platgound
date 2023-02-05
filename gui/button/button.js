@@ -1,9 +1,6 @@
 class Button {
-  constructor(fileName, selectCallBack, deSelectCallBack) {
+  constructor(fileName) {
     this.fileName = fileName;
-    this.selectCallBack = selectCallBack;
-    this.deSelectCallBack = deSelectCallBack;
-    this.selected = false;
     this.clickDebounce = 0;
   }
   preload() {
@@ -47,18 +44,6 @@ class Button {
     if (this.inside()) {
       this.fillColor = this.clickColor();
       this.clickDebounce = 5;
-      if (!this.selected) {
-        this.selected = true;
-        if (this.selectCallBack) {
-          this.selectCallBack();
-        }
-        return true;
-      } else {
-        this.selected = false;
-        if (this.deSelectCallBack) {
-          this.deSelectCallBack();
-        }
-      }
     }
     return false;
   }
@@ -66,12 +51,10 @@ class Button {
     this.mouseMoved();
   }
   normalColor() {
-    return this.selected ? this.selectedColor() : this.unSelectedColor();
+    return this.unSelectedColor();
   }
   overColor() {
-    return this.selected
-      ? this.selectedOverColor()
-      : this.unSelectedOverColor();
+    return this.unSelectedOverColor();
   }
   clickColor() {
     return color(255, 255, 255);

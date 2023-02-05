@@ -1,56 +1,79 @@
 class Gui {
   constructor() {
-    this.bar = new Group(0, 0);
+    this.elements = [];
+    let addBar = new Group(0, 0);
 
-    let buttonAddLine = new Button(
-      "png/addLine.png",
-      () => {
-        drawing.changeState(new stateAddLine(drawing.grid));
-      },
-      () => {
-        drawing.changeState(null);
-      }
+    addBar.append(
+      new CheckButton(
+        "png/addLine.png",
+        () => {
+          drawing.changeState(new stateAddLine(drawing.grid));
+        },
+        () => {
+          drawing.changeState(null);
+        }
+      )
     );
-    this.bar.append(buttonAddLine);
 
-    let buttonAddRect = new Button(
-      "png/addRect.png",
-      () => {
-        drawing.changeState(new stateAddRect(drawing.grid));
-      },
-      () => {
-        drawing.changeState(null);
-      }
+    addBar.append(
+      new CheckButton(
+        "png/addRect.png",
+        () => {
+          drawing.changeState(new stateAddRect(drawing.grid));
+        },
+        () => {
+          drawing.changeState(null);
+        }
+      )
     );
-    this.bar.append(buttonAddRect);
 
-    let buttonAddCircle = new Button(
-      "png/addCircle.png",
-      () => {
-        drawing.changeState(new stateAddCircle(drawing.grid));
-      },
-      () => {
-        drawing.changeState(null);
-      }
+    addBar.append(
+      new CheckButton(
+        "png/addCircle.png",
+        () => {
+          drawing.changeState(new stateAddCircle(drawing.grid));
+        },
+        () => {
+          drawing.changeState(null);
+        }
+      )
     );
-    this.bar.append(buttonAddCircle);
+    this.elements.push(addBar);
+
+    let gridGroup = new Group(addBar.size(), 0);
+    gridGroup.append(new PushButton("png/grid.png"));
+    this.elements.push(gridGroup);
   }
   preload() {
-    this.bar.preload();
+    this.elements.forEach((element) => {
+      element.preload();
+    });
   }
   display() {
-    this.bar.display();
+    this.elements.forEach((element) => {
+      element.display();
+    });
   }
   inside() {
-    return this.bar.inside();
+    let inside = false;
+    this.elements.forEach((element) => {
+      inside = inside || element.inside();
+    });
+    return inside;
   }
   mouseMoved() {
-    this.bar.mouseMoved();
+    this.elements.forEach((element) => {
+      element.mouseMoved();
+    });
   }
   mousePressed() {
-    this.bar.mousePressed();
+    this.elements.forEach((element) => {
+      element.mousePressed();
+    });
   }
   mouseReleased() {
-    this.bar.mouseReleased();
+    this.elements.forEach((element) => {
+      element.mouseReleased();
+    });
   }
 }
