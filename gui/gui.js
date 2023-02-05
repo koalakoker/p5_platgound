@@ -41,7 +41,7 @@ class Gui {
     this.elements.push(addBar);
 
     let gridGroup = new Group(addBar.size(), 0);
-    gridGroup.append(new PushButton("png/grid.png"));
+    gridGroup.append(new CheckButton("png/grid.png"));
     this.elements.push(gridGroup);
   }
   preload() {

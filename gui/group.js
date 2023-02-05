@@ -42,8 +42,13 @@ class Group {
   }
   mousePressed() {
     this.buttons.forEach((button) => {
-      if (!button.mousePressed()) {
-        button.selected = false;
+      if (button.mousePressed()) {
+        if (this.selected !== button) {
+          if (this.selected) {
+            this.selected.selected = false;
+          }
+          this.selected = button;
+        }
       }
     });
   }
