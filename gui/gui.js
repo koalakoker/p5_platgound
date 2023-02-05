@@ -1,8 +1,9 @@
 class Gui {
   constructor() {
     this.elements = [];
-    let addBar = new Group(0, 0);
 
+    // Add group
+    let addBar = new Group(0, 0);
     addBar.append(
       new CheckButton(
         "png/addLine.png",
@@ -14,7 +15,6 @@ class Gui {
         }
       )
     );
-
     addBar.append(
       new CheckButton(
         "png/addRect.png",
@@ -26,7 +26,6 @@ class Gui {
         }
       )
     );
-
     addBar.append(
       new CheckButton(
         "png/addCircle.png",
@@ -40,8 +39,19 @@ class Gui {
     );
     this.elements.push(addBar);
 
+    // Grid
     let gridGroup = new Group(addBar.size(), 0);
-    gridGroup.append(new CheckButton("png/grid.png"));
+    const gridButton = new CheckButton(
+      "png/grid.png",
+      () => {
+        drawing.grid.active = !drawing.grid.active;
+      },
+      () => {
+        drawing.grid.active = !drawing.grid.active;
+      }
+    );
+    gridButton.selected = true;
+    gridGroup.append(gridButton);
     this.elements.push(gridGroup);
   }
   preload() {
