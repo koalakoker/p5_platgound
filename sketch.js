@@ -20,9 +20,7 @@ function mouseMoved() {
 }
 
 function mousePressed() {
-  if (gui.inside()) {
-    gui.mousePressed();
-  } else {
+  if (gui.mousePressed() === false) {
     drawing.mousePressed();
   }
 }

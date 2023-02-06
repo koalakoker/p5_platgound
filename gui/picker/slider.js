@@ -31,4 +31,7 @@ class Slider {
       this.cursorFill = color(255);
     }
   }
+  mousePressed() {
+    this.value = mouseY - this.y;
+  }
 }

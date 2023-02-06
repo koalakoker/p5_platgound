@@ -3,15 +3,18 @@ class Group extends Bar {
     super(x, y);
   }
   mousePressed() {
-    this.elements.forEach((button) => {
-      if (button.mousePressed()) {
-        if (this.selected !== button) {
+    for (let i = 0; i < this.elements.length; i++) {
+      const element = this.elements[i];
+      if (element.mousePressed()) {
+        if (this.selected !== element) {
           if (this.selected) {
             this.selected.selected = false;
           }
-          this.selected = button;
+          this.selected = element;
         }
+        return true;
       }
-    });
+    }
+    return false;
   }
 }

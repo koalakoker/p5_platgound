@@ -32,11 +32,21 @@ class ColoPicker extends GElem {
   mousePressed() {
     if (this.inside()) {
       this.showPicker = !this.showPicker;
+      return true;
     }
+    if (this.insideSlider()) {
+      this.bSlider.mousePressed();
+      return true;
+    }
+    if (this.insidePicker()) {
+      return true;
+    }
+    return false;
   }
   mouseMoved() {
     if (this.showPicker) {
-      if (!(this.inside() || this.insidePicker())) {
+      if (!(this.inside() || this.insidePicker() || this.insideSlider())) {
+        // Ouside the sensitive area -> hide picker
         if (!this.debounceTimer) {
           this.debounceTimer = setTimeout(() => {
             this.showPicker = false;
@@ -44,12 +54,13 @@ class ColoPicker extends GElem {
           }, 50);
         }
       } else {
+        // Inside one of the sensitive area
         if (this.debounceTimer) {
           clearTimeout(this.debounceTimer);
           this.debounceTimer = null;
         }
+        this.bSlider.mouseMoved();
       }
-      this.bSlider.mouseMoved();
     }
   }
   basePoint() {
@@ -58,17 +69,16 @@ class ColoPicker extends GElem {
     return { x: bx, y: by };
   }
   insidePicker() {
-    return (
-      this.showPicker &&
-      (Rect.inside(
-        mouseX,
-        mouseY,
-        this.basePoint().x,
-        this.basePoint().y,
-        this.side,
-        this.side
-      ) ||
-        this.bSlider.inside())
+    return Rect.inside(
+      mouseX,
+      mouseY,
+      this.basePoint().x,
+      this.basePoint().y,
+      this.side,
+      this.side
     );
+  }
+  insideSlider() {
+    return this.bSlider.inside();
   }
 }

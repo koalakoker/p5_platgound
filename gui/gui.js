@@ -66,7 +66,7 @@ class Gui {
     this.mainBar.mouseMoved();
   }
   mousePressed() {
-    this.mainBar.mousePressed();
+    return this.mainBar.mousePressed();
   }
   mouseReleased() {
     this.mainBar.mouseReleased();
