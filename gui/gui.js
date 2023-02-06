@@ -1,7 +1,7 @@
 class Gui {
   constructor() {
     // Bar
-    this.mainBar = new Bar();
+    this.mainBar = new Bar(1, 1);
 
     // LoadSaveErase
     const lseBar = new Bar();
@@ -44,6 +44,14 @@ class Gui {
     gridButton.selected = true;
     gridGroup.append(gridButton);
     this.mainBar.append(gridGroup);
+
+    // Picker
+    const pickBar = new Bar();
+    const strokeColorPicker = new ColoPicker(255);
+    pickBar.append(strokeColorPicker);
+    const fillColorPicker = new ColoPicker(0);
+    pickBar.append(fillColorPicker);
+    this.mainBar.append(pickBar);
   }
   preload() {
     this.mainBar.preload();

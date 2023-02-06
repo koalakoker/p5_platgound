@@ -31,7 +31,7 @@ class Bar extends GElem {
     });
   }
   size() {
-    return { x: this.xPos - this.x, y: Button.side() };
+    return { x: this.xPos - this.x, y: GElem.side() };
   }
   inside() {
     return Rect.inside(

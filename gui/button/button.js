@@ -9,6 +9,8 @@ class Button extends GElem {
     this.fillColor = this.normalColor();
   }
   display() {
+    stroke(255);
+    strokeWeight(1);
     fill(this.fillColor);
     rect(this.x, this.y, this.size().x, this.size().y);
     image(this.img, this.x, this.y, this.size().x, this.size().y);
@@ -16,23 +18,6 @@ class Button extends GElem {
       this.clickDebounce--;
       this.mouseMoved();
     }
-  }
-  updateChildren() {}
-  static side() {
-    return 24;
-  }
-  size() {
-    return { x: Button.side(), y: Button.side() };
-  }
-  inside() {
-    return Rect.inside(
-      mouseX,
-      mouseY,
-      this.x,
-      this.y,
-      this.size().x,
-      this.size().y
-    );
   }
   mouseMoved() {
     if (this.clickDebounce > 0) {
