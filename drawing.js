@@ -34,7 +34,9 @@ class Drawing {
       this.state.draw();
     }
   }
-
+  clear() {
+    this.drawElement = [];
+  }
   fillCheckClick() {
     newElementStyle.fill = this.fillCheck.checked();
   }
@@ -70,6 +72,7 @@ class Drawing {
         if (mouseX > 0 && mouseY > 0 && mouseX < width && mouseY < height) {
           this.dragging = false;
           this.drawElement.push(this.state.mouseReleased());
+          this.state.newElement = null;
         }
       }
     }

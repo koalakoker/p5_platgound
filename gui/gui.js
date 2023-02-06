@@ -5,7 +5,11 @@ class Gui {
 
     // LoadSaveErase
     const lseBar = new Bar();
-    lseBar.append(new PushButton("png/icons8-clear-58.png"));
+    lseBar.append(
+      new PushButton("png/icons8-clear-58.png", () => {
+        drawing.clear();
+      })
+    );
     lseBar.append(new PushButton("png/icons8-file-download-48.png"));
     lseBar.append(new PushButton("png/icons8-salva-30.png"));
     this.mainBar.append(lseBar);
