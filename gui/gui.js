@@ -17,51 +17,30 @@ class Gui {
     // Add group
     const addBar = new Group();
     addBar.append(
-      new CheckButton(
-        "png/addLine.png",
-        () => {
-          drawing.changeState(new stateAddLine(drawing.grid));
-        },
-        () => {
-          drawing.changeState(null);
-        }
-      )
+      new CheckButton("png/addLine.png", (sel) => {
+        const state = sel ? new stateAddLine(drawing.grid) : null;
+        drawing.changeState(state);
+      })
     );
     addBar.append(
-      new CheckButton(
-        "png/addRect.png",
-        () => {
-          drawing.changeState(new stateAddRect(drawing.grid));
-        },
-        () => {
-          drawing.changeState(null);
-        }
-      )
+      new CheckButton("png/addRect.png", (sel) => {
+        const state = sel ? new stateAddRect(drawing.grid) : null;
+        drawing.changeState(state);
+      })
     );
     addBar.append(
-      new CheckButton(
-        "png/addCircle.png",
-        () => {
-          drawing.changeState(new stateAddCircle(drawing.grid));
-        },
-        () => {
-          drawing.changeState(null);
-        }
-      )
+      new CheckButton("png/addCircle.png", (sel) => {
+        const state = sel ? new stateAddCircle(drawing.grid) : null;
+        drawing.changeState(state);
+      })
     );
     this.mainBar.append(addBar);
 
     // Grid
     const gridGroup = new Group();
-    const gridButton = new CheckButton(
-      "png/grid.png",
-      () => {
-        drawing.grid.active = !drawing.grid.active;
-      },
-      () => {
-        drawing.grid.active = !drawing.grid.active;
-      }
-    );
+    const gridButton = new CheckButton("png/grid.png", (sel) => {
+      drawing.grid.active = sel;
+    });
     gridButton.selected = true;
     gridGroup.append(gridButton);
     this.mainBar.append(gridGroup);

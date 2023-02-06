@@ -1,28 +1,23 @@
 class CheckButton extends Button {
-  constructor(fileName, selectCallBack, deSelectCallBack) {
+  constructor(fileName, cbSelChange) {
     super(fileName);
-    this.selectCallBack = selectCallBack;
-    this.deSelectCallBack = deSelectCallBack;
+    this.cbSelChange = cbSelChange;
     this.selected = false;
   }
   mousePressed() {
+    let retVal = false;
     if (this.inside()) {
       this.fillColor = this.clickColor();
       this.clickDebounce = 5;
-      if (!this.selected) {
-        this.selected = true;
-        if (this.selectCallBack) {
-          this.selectCallBack();
-        }
-        return true;
-      } else {
-        this.selected = false;
-        if (this.deSelectCallBack) {
-          this.deSelectCallBack();
-        }
+
+      this.selected = !this.selected;
+      retVal = this.selected;
+
+      if (this.cbSelChange) {
+        this.cbSelChange(this.selected);
       }
     }
-    return false;
+    return retVal;
   }
   normalColor() {
     return this.selected ? this.selectedColor() : this.unSelectedColor();
