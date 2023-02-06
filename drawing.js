@@ -1,5 +1,3 @@
-let newElementStyle = null;
-
 class Drawing {
   constructor(w, h) {
     this.w = w;
@@ -12,16 +10,7 @@ class Drawing {
     createCanvas(this.w, this.h);
     this.grid = new Grid(20);
     this.grid.active = true;
-
-    newElementStyle = new Style();
-    this.fillCheck = createCheckbox("fill", newElementStyle.fill);
-    this.fillCheck.changed(this.fillCheckClick);
-    this.fillColorPicker = createColorPicker(newElementStyle.fillColor);
-    this.fillColorPicker.input(this.changeFillColor);
-    this.strokeCheck = createCheckbox("stroke", newElementStyle.stroke);
-    this.strokeCheck.changed(this.strokeCheckClick);
-    this.strokeColorPicker = createColorPicker(newElementStyle.strokeColor);
-    this.strokeColorPicker.input(this.changeStrokeColor);
+    this.newElementStyle = new Style();
   }
   display() {
     background(0);
@@ -43,14 +32,6 @@ class Drawing {
 
   strokeCheckClick() {
     newElementStyle.stroke = this.strokeCheck.checked();
-  }
-
-  changeFillColor() {
-    newElementStyle.fillColor = this.fillColorPicker.color();
-  }
-
-  changeStrokeColor() {
-    newElementStyle.strokeColor = this.strokeColorPicker.color();
   }
 
   changeState(state) {

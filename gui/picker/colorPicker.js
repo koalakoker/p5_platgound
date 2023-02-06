@@ -1,5 +1,5 @@
 class ColorPicker extends GElem {
-  constructor(color, x, y) {
+  constructor(color, cbColorPicked, x, y) {
     super(x, y);
     this.color = color;
     this.showPicker = false;
@@ -15,6 +15,7 @@ class ColorPicker extends GElem {
       }
     );
     this.bValue = this.bSlider.value;
+    this.cbColorPicked = cbColorPicked;
   }
   display() {
     stroke(255);
@@ -53,6 +54,9 @@ class ColorPicker extends GElem {
       const b = this.bSlider.value;
       colorMode(HSB, this.side);
       this.color = color(h, s, b);
+      if (this.cbColorPicked) {
+        this.cbColorPicked(this.color);
+      }
       colorMode(RGB);
       return true;
     }

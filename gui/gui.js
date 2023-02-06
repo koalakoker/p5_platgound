@@ -48,9 +48,13 @@ class Gui {
 
     // Picker
     const pickBar = new Bar();
-    const strokeColorPicker = new ColorPicker(255);
+    const strokeColorPicker = new ColorPicker(255, (color) => {
+      drawing.newElementStyle.strokeColor = color;
+    });
     pickBar.append(strokeColorPicker);
-    const fillColorPicker = new ColorPicker(0);
+    const fillColorPicker = new ColorPicker(0, (color) => {
+      drawing.newElementStyle.fillColor = color;
+    });
     pickBar.append(fillColorPicker);
     this.mainBar.append(pickBar);
   }
