@@ -49,6 +49,7 @@ class ColoPicker extends GElem {
           this.debounceTimer = null;
         }
       }
+      this.bSlider.mouseMoved();
     }
   }
   basePoint() {
