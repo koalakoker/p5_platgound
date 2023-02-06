@@ -1,7 +1,6 @@
-class Button {
+class Button extends GElem {
   constructor(fileName) {
-    this.x = 0;
-    this.y = 0;
+    super();
     this.fileName = fileName;
     this.clickDebounce = 0;
   }
