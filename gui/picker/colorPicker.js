@@ -3,10 +3,10 @@ class ColoPicker extends GElem {
     super(x, y);
     this.color = color;
     this.showPicker = false;
-    this.pl = 200;
-    this.ph = 200;
+    this.side = 100;
     this.margin = 4;
     this.debounceTimer = null;
+    this.bSlider = new Slider(this.size().x, this.side);
   }
   display() {
     stroke(255);
@@ -15,12 +15,18 @@ class ColoPicker extends GElem {
     rect(this.x, this.y, this.size().x, this.size().y);
 
     if (this.showPicker) {
-      rect(
-        this.x - (this.pl - this.size().x) / 2,
-        this.y + this.size().y + this.margin,
-        this.pl,
-        this.ph
-      );
+      noFill();
+      rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
+      this.bSlider.display(this.basePoint().x + this.side, this.basePoint().y);
+
+      colorMode(HSB, this.side);
+      for (let h = 0; h < this.side; h++) {
+        for (let s = 0; s < this.side; s++) {
+          stroke(h, s, 100);
+          point(this.basePoint().x + h, this.basePoint().y + s);
+        }
+      }
+      colorMode(RGB);
     }
   }
   mousePressed() {
@@ -45,17 +51,23 @@ class ColoPicker extends GElem {
       }
     }
   }
+  basePoint() {
+    const bx = this.x - (this.side - this.size().x) / 2;
+    const by = this.y + this.size().y + this.margin;
+    return { x: bx, y: by };
+  }
   insidePicker() {
     return (
       this.showPicker &&
-      Rect.inside(
+      (Rect.inside(
         mouseX,
         mouseY,
-        this.x - (this.pl - this.size().x) / 2,
-        this.y + this.size().y + this.margin,
-        this.pl,
-        this.ph
-      )
+        this.basePoint().x,
+        this.basePoint().y,
+        this.side,
+        this.side
+      ) ||
+        this.bSlider.inside())
     );
   }
 }
