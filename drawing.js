@@ -23,7 +23,7 @@ class Drawing {
     this.strokeColorPicker = createColorPicker(newElementStyle.strokeColor);
     this.strokeColorPicker.input(this.changeStrokeColor);
   }
-  draw() {
+  display() {
     background(0);
     this.grid.display();
     for (let i = 0; i < this.drawElement.length; i++) {

@@ -48,6 +48,11 @@ class Bar extends GElem {
       element.mouseMoved();
     });
   }
+  mouseDragged() {
+    this.elements.forEach((element) => {
+      element.mouseDragged();
+    });
+  }
   mousePressed() {
     for (let i = 0; i < this.elements.length; i++) {
       const element = this.elements[i];

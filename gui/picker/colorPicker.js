@@ -6,7 +6,10 @@ class ColoPicker extends GElem {
     this.side = 100;
     this.margin = 4;
     this.debounceTimer = null;
-    this.bSlider = new Slider(this.size().x, this.side);
+    this.bSlider = new Slider(this.size().x, this.side, (val) => {
+      this.bValue = val;
+    });
+    this.bValue = this.bSlider.value;
   }
   display() {
     stroke(255);
@@ -22,7 +25,8 @@ class ColoPicker extends GElem {
       colorMode(HSB, this.side);
       for (let h = 0; h < this.side; h++) {
         for (let s = 0; s < this.side; s++) {
-          stroke(h, s, 100);
+          stroke(h, s, this.bValue);
+          strokeWeight(2);
           point(this.basePoint().x + h, this.basePoint().y + s);
         }
       }
@@ -43,6 +47,12 @@ class ColoPicker extends GElem {
     }
     return false;
   }
+  mouseReleased() {
+    this.bSlider.mouseReleased();
+  }
+  mouseDragged() {
+    this.bSlider.mouseDragged();
+  }
   mouseMoved() {
     if (this.showPicker) {
       if (!(this.inside() || this.insidePicker() || this.insideSlider())) {
@@ -59,7 +69,6 @@ class ColoPicker extends GElem {
           clearTimeout(this.debounceTimer);
           this.debounceTimer = null;
         }
-        this.bSlider.mouseMoved();
       }
     }
   }

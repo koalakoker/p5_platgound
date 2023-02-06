@@ -11,7 +11,7 @@ function setup() {
 }
 
 function draw() {
-  drawing.draw();
+  drawing.display();
   gui.display();
 }
 
@@ -26,12 +26,11 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-  if (gui.inside()) {
-    gui.mouseReleased();
-  }
+  gui.mouseReleased();
   drawing.mouseReleased();
 }
 
 function mouseDragged() {
+  gui.mouseDragged();
   drawing.mouseDragged();
 }

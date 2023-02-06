@@ -71,4 +71,7 @@ class Gui {
   mouseReleased() {
     this.mainBar.mouseReleased();
   }
+  mouseDragged() {
+    this.mainBar.mouseDragged();
+  }
 }
