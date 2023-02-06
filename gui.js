@@ -11,8 +11,19 @@ class Gui {
         drawing.clear();
       })
     );
-    lseBar.append(new PushButton("png/icons8-file-download-48.png"));
-    lseBar.append(new PushButton("png/icons8-salva-30.png"));
+    lseBar.append(
+      new PushButton("png/icons8-file-download-48.png", () => {
+        drawing = loadJSON("drawing.json", () => {
+          Object.setPrototypeOf(drawing, new Drawing(100, 100));
+          Object.setPrototypeOf(drawing.grid, new Grid(20));
+        });
+      })
+    );
+    lseBar.append(
+      new PushButton("png/icons8-salva-30.png", () => {
+        saveJSON(drawing, "drawing.json");
+      })
+    );
     this.mainBar.append(lseBar);
 
     // Add group

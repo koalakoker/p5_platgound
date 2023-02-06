@@ -1,0 +1,354 @@
+{
+  "w": 690,
+  "h": 711,
+  "drawElement": [
+    {
+      "id": 0,
+      "style": {
+        "fill": true,
+        "fillColor": {
+          "mode": "rgb",
+          "maxes": {
+            "rgb": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "hsb": [
+              360,
+              100,
+              100,
+              1
+            ],
+            "hsl": [
+              360,
+              100,
+              100,
+              1
+            ]
+          },
+          "_array": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "levels": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "hsla": null,
+          "hsba": null
+        },
+        "stroke": true,
+        "strokeColor": {
+          "mode": "rgb",
+          "maxes": {
+            "rgb": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "hsb": [
+              360,
+              100,
+              100,
+              1
+            ],
+            "hsl": [
+              360,
+              100,
+              100,
+              1
+            ]
+          },
+          "_array": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "levels": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "hsla": null,
+          "hsba": null
+        }
+      },
+      "x": 120,
+      "y": 160,
+      "r": 100
+    },
+    {
+      "id": 1,
+      "style": {
+        "fill": true,
+        "fillColor": {
+          "mode": "rgb",
+          "maxes": {
+            "rgb": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "hsb": [
+              360,
+              100,
+              100,
+              1
+            ],
+            "hsl": [
+              360,
+              100,
+              100,
+              1
+            ]
+          },
+          "_array": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "levels": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "hsla": null,
+          "hsba": null
+        },
+        "stroke": true,
+        "strokeColor": {
+          "mode": "rgb",
+          "maxes": {
+            "rgb": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "hsb": [
+              360,
+              100,
+              100,
+              1
+            ],
+            "hsl": [
+              360,
+              100,
+              100,
+              1
+            ]
+          },
+          "_array": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "levels": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "hsla": null,
+          "hsba": null
+        }
+      },
+      "x": 300,
+      "y": 240,
+      "r": 84.8528137423857
+    },
+    {
+      "id": 2,
+      "style": {
+        "fill": true,
+        "fillColor": {
+          "mode": "rgb",
+          "maxes": {
+            "rgb": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "hsb": [
+              360,
+              100,
+              100,
+              1
+            ],
+            "hsl": [
+              360,
+              100,
+              100,
+              1
+            ]
+          },
+          "_array": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "levels": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "hsla": null,
+          "hsba": null
+        },
+        "stroke": true,
+        "strokeColor": {
+          "mode": "rgb",
+          "maxes": {
+            "rgb": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "hsb": [
+              360,
+              100,
+              100,
+              1
+            ],
+            "hsl": [
+              360,
+              100,
+              100,
+              1
+            ]
+          },
+          "_array": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "levels": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "hsla": null,
+          "hsba": null
+        }
+      },
+      "x": 200,
+      "y": 400,
+      "r": 84.8528137423857
+    }
+  ],
+  "dragging": false,
+  "state": {
+    "grid": {
+      "space": 20,
+      "active": true
+    },
+    "center": {
+      "isPInst": true,
+      "x": 200,
+      "y": 400,
+      "z": 0
+    },
+    "newElement": null
+  },
+  "grid": {
+    "space": 20,
+    "active": true
+  },
+  "newElementStyle": {
+    "fill": true,
+    "fillColor": {
+      "mode": "rgb",
+      "maxes": {
+        "rgb": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "hsb": [
+          360,
+          100,
+          100,
+          1
+        ],
+        "hsl": [
+          360,
+          100,
+          100,
+          1
+        ]
+      },
+      "_array": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "levels": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "hsla": null,
+      "hsba": null
+    },
+    "stroke": true,
+    "strokeColor": {
+      "mode": "rgb",
+      "maxes": {
+        "rgb": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "hsb": [
+          360,
+          100,
+          100,
+          1
+        ],
+        "hsl": [
+          360,
+          100,
+          100,
+          1
+        ]
+      },
+      "_array": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "levels": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "hsla": null,
+      "hsba": null
+    }
+  }
+}
