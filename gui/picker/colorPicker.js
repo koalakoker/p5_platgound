@@ -2,7 +2,7 @@ class ColorPicker extends GElem {
   constructor(color, cbColorPicked, x, y) {
     super(x, y);
     this.color = color;
-    this.showPicker = false;
+    this.selected = false;
     this.side = 100;
     this.margin = 4;
     this.debounceTimer = null;
@@ -16,6 +16,7 @@ class ColorPicker extends GElem {
     );
     this.bValue = this.bSlider.value;
     this.cbColorPicked = cbColorPicked;
+    this.fadeOutTimeMs = 1000;
   }
   display() {
     stroke(255);
@@ -23,7 +24,7 @@ class ColorPicker extends GElem {
     fill(this.color);
     rect(this.x, this.y, this.size().x, this.size().y);
 
-    if (this.showPicker) {
+    if (this.selected) {
       noFill();
       rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
       this.bSlider.display(this.basePoint().x + this.side, this.basePoint().y);
@@ -41,14 +42,14 @@ class ColorPicker extends GElem {
   }
   mousePressed() {
     if (this.inside()) {
-      this.showPicker = !this.showPicker;
+      this.selected = !this.selected;
       return true;
     }
     if (this.insideSlider()) {
       this.bSlider.mousePressed();
       return true;
     }
-    if (this.insidePicker()) {
+    if (this.insidePicker() && this.selected) {
       const h = mouseX - this.basePoint().x;
       const s = mouseY - this.basePoint().y;
       const b = this.bSlider.value;
@@ -66,17 +67,19 @@ class ColorPicker extends GElem {
     this.bSlider.mouseReleased();
   }
   mouseDragged() {
-    this.bSlider.mouseDragged();
+    if (this.insideSlider()) {
+      this.bSlider.mouseDragged();
+    }
   }
   mouseMoved() {
-    if (this.showPicker) {
+    if (this.selected) {
       if (!(this.inside() || this.insidePicker() || this.insideSlider())) {
         // Ouside the sensitive area -> hide picker
         if (!this.debounceTimer) {
           this.debounceTimer = setTimeout(() => {
-            this.showPicker = false;
+            this.selected = false;
             this.debounceTimer = null;
-          }, 50);
+          }, this.fadeOutTimeMs);
         }
       } else {
         // Inside one of the sensitive area

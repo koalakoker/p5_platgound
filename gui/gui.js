@@ -47,7 +47,7 @@ class Gui {
     this.mainBar.append(gridGroup);
 
     // Picker
-    const pickBar = new Bar();
+    const pickBar = new Group();
     const strokeColorPicker = new ColorPicker(255, (color) => {
       drawing.newElementStyle.strokeColor = color;
     });
