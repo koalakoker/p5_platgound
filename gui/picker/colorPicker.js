@@ -1,4 +1,4 @@
-class ColoPicker extends GElem {
+class ColorPicker extends GElem {
   constructor(color, x, y) {
     super(x, y);
     this.color = color;
@@ -6,9 +6,14 @@ class ColoPicker extends GElem {
     this.side = 100;
     this.margin = 4;
     this.debounceTimer = null;
-    this.bSlider = new Slider(this.size().x, this.side, (val) => {
-      this.bValue = val;
-    });
+    this.bSlider = new Slider(
+      brightness(color),
+      this.size().x,
+      this.side,
+      (val) => {
+        this.bValue = val;
+      }
+    );
     this.bValue = this.bSlider.value;
   }
   display() {
@@ -43,6 +48,12 @@ class ColoPicker extends GElem {
       return true;
     }
     if (this.insidePicker()) {
+      const h = mouseX - this.basePoint().x;
+      const s = mouseY - this.basePoint().y;
+      const b = this.bSlider.value;
+      colorMode(HSB, this.side);
+      this.color = color(h, s, b);
+      colorMode(RGB);
       return true;
     }
     return false;

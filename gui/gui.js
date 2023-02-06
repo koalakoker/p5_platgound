@@ -1,5 +1,6 @@
 class Gui {
-  constructor() {
+  constructor() {}
+  setup() {
     // Bar
     this.mainBar = new Bar(1, 1);
 
@@ -47,9 +48,9 @@ class Gui {
 
     // Picker
     const pickBar = new Bar();
-    const strokeColorPicker = new ColoPicker(255);
+    const strokeColorPicker = new ColorPicker(255);
     pickBar.append(strokeColorPicker);
-    const fillColorPicker = new ColoPicker(0);
+    const fillColorPicker = new ColorPicker(0);
     pickBar.append(fillColorPicker);
     this.mainBar.append(pickBar);
   }

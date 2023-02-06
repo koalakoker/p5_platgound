@@ -2,6 +2,7 @@ let drawing;
 let gui = new Gui(drawing);
 
 function preload() {
+  gui.setup();
   gui.preload();
 }
 
