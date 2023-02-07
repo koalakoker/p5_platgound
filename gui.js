@@ -13,15 +13,12 @@ class Gui {
     );
     lseBar.append(
       new PushButton("png/icons8-file-download-48.png", () => {
-        drawing = loadJSON("drawing.json", () => {
-          Object.setPrototypeOf(drawing, new Drawing(100, 100));
-          Object.setPrototypeOf(drawing.grid, new Grid(20));
-        });
+        drawing.deserialize();
       })
     );
     lseBar.append(
       new PushButton("png/icons8-salva-30.png", () => {
-        saveJSON(drawing, "drawing.json");
+        drawing.serialize();
       })
     );
     this.mainBar.append(lseBar);

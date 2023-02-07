@@ -24,4 +24,20 @@ class Style {
       noStroke();
     }
   }
+  static serializeColor(color) {
+    return JSON.stringify({
+      r: red(color),
+      g: green(color),
+      b: blue(color),
+    });
+  }
+  serialize() {
+    return JSON.stringify({
+      fill: this.fill,
+      fillColor: JSON.parse(Style.serializeColor(this.fillColor)),
+      stroke: this.stroke,
+      strokeColor: JSON.parse(Style.serializeColor(this.strokeColor)),
+    });
+  }
+  deserialize() {}
 }
