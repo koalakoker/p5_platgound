@@ -67,37 +67,17 @@ class Drawing {
     for (let i = 0; i < this.drawElement.length; i++) {
       serialList.push(JSON.parse(this.drawElement[i].serialize()));
     }
-    this.serialTxt = JSON.stringify(serialList);
-    //saveJSON(this, "drawing.json");
+    saveJSON(serialList, "drawing.json");
   }
   deserialize() {
-    // drawing = loadJSON("drawing.json", () => {
-    //   Object.setPrototypeOf(drawing, new Drawing(100, 100));
-    //   Object.setPrototypeOf(drawing.grid, new Grid(20));
-    // });
-    print("Deserialize");
-    let deserialList = JSON.parse(this.serialTxt);
-    this.drawElement = []; // Clear drawing
-    for (let i = 0; i < deserialList.length; i++) {
-      const element = deserialList[i];
-      if (element.id === 1) {
-        let line = new Line(element.x1, element.y1, element.x2, element.y2);
-        let style = new Style();
-        style.fill = element.style.fill;
-        style.fillColor = color(
-          element.style.fillColor.r,
-          element.style.fillColor.g,
-          element.style.fillColor.b
+    loadJSON("drawing.json", (json) => {
+      this.drawElement = []; // Clear drawing
+      for (let i = 0; i < json.length; i++) {
+        const element = json[i];
+        this.drawElement.push(
+          new Element().deserialize(JSON.stringify(element))
         );
-        style.stroke = element.style.stroke;
-        style.strokeColor = color(
-          element.style.strokeColor.r,
-          element.style.strokeColor.g,
-          element.style.strokeColor.b
-        );
-        line.style = style;
-        this.drawElement.push(line);
       }
-    }
+    });
   }
 }

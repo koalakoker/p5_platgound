@@ -1,0 +1,1 @@
+[{"id":2,"style":{"fill":true,"fillColor":{"r":255,"g":255,"b":255},"stroke":true,"strokeColor":{"r":255,"g":255,"b":255}},"x":180,"y":240,"r":282.842712474619}]
