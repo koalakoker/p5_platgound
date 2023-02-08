@@ -69,13 +69,21 @@ class Drawing {
       serialList.push(JSON.parse(this.drawElement[i].serialize()));
     }
 
-    httpPost(url, "json", serialList, function (result) {});
+    httpPost(
+      url,
+      "json",
+      { w: this.w, h: this.h, elements: serialList },
+      function (result) {}
+    );
   }
   deserialize() {
     httpGet(url, "json", false, (json) => {
+      this.w = json.w;
+      this.h = json.h;
+      const elements = json.elements;
       this.drawElement = []; // Clear drawing
-      for (let i = 0; i < json.length; i++) {
-        const element = json[i];
+      for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
         this.drawElement.push(
           new Element().deserialize(JSON.stringify(element))
         );
