@@ -2,7 +2,7 @@ class Style {
   constructor(style) {
     if (!style) {
       this.fill = true;
-      this.fillColor = color(255, 255, 255, 255);
+      this.fillColor = color(0, 0, 0, 255);
       this.stroke = true;
       this.strokeColor = color(255, 255, 255, 255);
     } else {
