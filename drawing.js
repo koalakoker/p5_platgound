@@ -1,3 +1,4 @@
+const url = "http://localhost:3000";
 class Drawing {
   constructor(w, h) {
     this.w = w;
@@ -67,30 +68,20 @@ class Drawing {
     for (let i = 0; i < this.drawElement.length; i++) {
       serialList.push(JSON.parse(this.drawElement[i].serialize()));
     }
-    //saveJSON(serialList, "drawing.json");
-    let postData = {
-      w: 100,
-      h: 200,
-    };
-    const url = "http://localhost:3000";
+
     httpPost(url, "json", serialList, function (result) {
       console.log(result);
     });
   }
   deserialize() {
-    // loadJSON("drawing.json", (json) => {
-    //   this.drawElement = []; // Clear drawing
-    //   for (let i = 0; i < json.length; i++) {
-    //     const element = json[i];
-    //     this.drawElement.push(
-    //       new Element().deserialize(JSON.stringify(element))
-    //     );
-    //   }
-    // });
-
-    const url = "http://localhost:3000";
-    httpGet(url, "json", false, (res) => {
-      console.log(res);
+    httpGet(url, "json", false, (json) => {
+      this.drawElement = []; // Clear drawing
+      for (let i = 0; i < json.length; i++) {
+        const element = json[i];
+        this.drawElement.push(
+          new Element().deserialize(JSON.stringify(element))
+        );
+      }
     });
   }
 }
