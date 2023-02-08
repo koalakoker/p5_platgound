@@ -69,9 +69,7 @@ class Drawing {
       serialList.push(JSON.parse(this.drawElement[i].serialize()));
     }
 
-    httpPost(url, "json", serialList, function (result) {
-      console.log(result);
-    });
+    httpPost(url, "json", serialList, function (result) {});
   }
   deserialize() {
     httpGet(url, "json", false, (json) => {
