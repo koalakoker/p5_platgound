@@ -27,12 +27,6 @@ class Drawing {
   clear() {
     this.drawElement = [];
   }
-  fillCheckClick() {
-    newElementStyle.fill = this.fillCheck.checked();
-  }
-  strokeCheckClick() {
-    newElementStyle.stroke = this.strokeCheck.checked();
-  }
   changeState(state) {
     this.state = state;
   }

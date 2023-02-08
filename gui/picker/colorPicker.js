@@ -1,5 +1,5 @@
 class ColorPicker extends GElem {
-  constructor(color, cbColorPicked, x, y) {
+  constructor(color, cbColorPicked, cbTransparentChange, x, y) {
     super(x, y);
     this.color = color;
     this.transparent = false;
@@ -17,9 +17,13 @@ class ColorPicker extends GElem {
     );
     this.cTransparent = new TransparentCheck(this.transparent, (state) => {
       this.transparent = state;
+      if (this.cbTransparentChange) {
+        this.cbTransparentChange(state);
+      }
     });
     this.bValue = this.bSlider.value;
     this.cbColorPicked = cbColorPicked;
+    this.cbTransparentChange = cbTransparentChange;
     this.fadeOutTimeMs = 1000;
   }
   display() {
