@@ -94,6 +94,11 @@ class ColorPicker extends GElem {
         this.cbColorPicked(this.color);
       }
       colorMode(RGB);
+      this.transparent = false;
+      this.cTransparent.selected = false;
+      if (this.cbTransparentChange) {
+        this.cbTransparentChange(false);
+      }
       return true;
     }
     return false;
