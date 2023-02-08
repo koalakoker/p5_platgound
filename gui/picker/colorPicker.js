@@ -137,6 +137,12 @@ class ColorPicker extends GElem {
       }
     }
   }
+  keyPressed() {
+    if (keyCode === ESCAPE) {
+      this.selected = false;
+      this.debounceTimer = null;
+    }
+  }
   basePoint() {
     const bx = this.x - (this.side - this.size().x) / 2;
     const by = this.y + this.size().y + this.margin;

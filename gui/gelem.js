@@ -26,4 +26,5 @@ class GElem {
   mousePressed() {}
   mouseReleased() {}
   mouseDragged() {}
+  keyPressed() {}
 }

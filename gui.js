@@ -99,4 +99,7 @@ class Gui {
   mouseDragged() {
     this.mainBar.mouseDragged();
   }
+  keyPressed() {
+    this.mainBar.keyPressed();
+  }
 }

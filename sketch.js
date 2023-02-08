@@ -35,3 +35,7 @@ function mouseDragged() {
   gui.mouseDragged();
   drawing.mouseDragged();
 }
+
+function keyPressed() {
+  gui.keyPressed();
+}
