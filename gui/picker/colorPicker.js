@@ -2,6 +2,7 @@ class ColorPicker extends GElem {
   constructor(color, cbColorPicked, x, y) {
     super(x, y);
     this.color = color;
+    this.transparent = true;
     this.selected = false;
     this.side = 100;
     this.margin = 4;
@@ -14,6 +15,7 @@ class ColorPicker extends GElem {
         this.bValue = val;
       }
     );
+    this.cTransparent = new TransparentCheck();
     this.bValue = this.bSlider.value;
     this.cbColorPicked = cbColorPicked;
     this.fadeOutTimeMs = 1000;
@@ -21,13 +23,31 @@ class ColorPicker extends GElem {
   display() {
     stroke(255);
     strokeWeight(1);
-    fill(this.color);
+    if (this.transparent) {
+      fill(0);
+    } else {
+      fill(this.color);
+    }
     rect(this.x, this.y, this.size().x, this.size().y);
+    if (this.transparent) {
+      stroke(255, 0, 0);
+      strokeWeight(2);
+      line(
+        this.x + 2,
+        this.y + 2,
+        this.x + this.size().x - 2,
+        this.y + this.size().y - 2
+      );
+    }
 
     if (this.selected) {
-      noFill();
-      rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
       this.bSlider.display(this.basePoint().x + this.side, this.basePoint().y);
+      this.cTransparent.display(
+        this.basePoint().x - this.size().x,
+        this.basePoint().y,
+        this.size().x,
+        this.size().y
+      );
 
       colorMode(HSB, this.side);
       for (let h = 0; h < this.side; h++) {
@@ -38,6 +58,10 @@ class ColorPicker extends GElem {
         }
       }
       colorMode(RGB);
+      stroke(255);
+      strokeWeight(1);
+      noFill();
+      rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
     }
   }
   mousePressed() {
