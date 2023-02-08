@@ -2,7 +2,7 @@ class ColorPicker extends GElem {
   constructor(color, cbColorPicked, x, y) {
     super(x, y);
     this.color = color;
-    this.transparent = true;
+    this.transparent = false;
     this.selected = false;
     this.side = 100;
     this.margin = 4;
@@ -15,7 +15,9 @@ class ColorPicker extends GElem {
         this.bValue = val;
       }
     );
-    this.cTransparent = new TransparentCheck();
+    this.cTransparent = new TransparentCheck(this.transparent, (state) => {
+      this.transparent = state;
+    });
     this.bValue = this.bSlider.value;
     this.cbColorPicked = cbColorPicked;
     this.fadeOutTimeMs = 1000;
@@ -42,12 +44,6 @@ class ColorPicker extends GElem {
 
     if (this.selected) {
       this.bSlider.display(this.basePoint().x + this.side, this.basePoint().y);
-      this.cTransparent.display(
-        this.basePoint().x - this.size().x,
-        this.basePoint().y,
-        this.size().x,
-        this.size().y
-      );
 
       colorMode(HSB, this.side);
       for (let h = 0; h < this.side; h++) {
@@ -62,6 +58,13 @@ class ColorPicker extends GElem {
       strokeWeight(1);
       noFill();
       rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
+
+      this.cTransparent.display(
+        this.basePoint().x - this.size().x,
+        this.basePoint().y,
+        this.size().x,
+        this.size().y
+      );
     }
   }
   mousePressed() {
@@ -71,6 +74,10 @@ class ColorPicker extends GElem {
     }
     if (this.insideSlider()) {
       this.bSlider.mousePressed();
+      return true;
+    }
+    if (this.insideCheck()) {
+      this.cTransparent.mousePressed();
       return true;
     }
     if (this.insidePicker() && this.selected) {
@@ -97,7 +104,14 @@ class ColorPicker extends GElem {
   }
   mouseMoved() {
     if (this.selected) {
-      if (!(this.inside() || this.insidePicker() || this.insideSlider())) {
+      if (
+        !(
+          this.inside() ||
+          this.insidePicker() ||
+          this.insideSlider() ||
+          this.insideCheck()
+        )
+      ) {
         // Ouside the sensitive area -> hide picker
         if (!this.debounceTimer) {
           this.debounceTimer = setTimeout(() => {
@@ -131,5 +145,8 @@ class ColorPicker extends GElem {
   }
   insideSlider() {
     return this.bSlider.inside();
+  }
+  insideCheck() {
+    return this.cTransparent.inside();
   }
 }
