@@ -1,5 +1,5 @@
-class AddState {
-  constructor(grid) {
-    this.grid = grid;
+class AddState extends State {
+  constructor() {
+    super();
   }
 }

@@ -1,16 +1,16 @@
-class stateAddLine extends AddState {
-  constructor(grid) {
-    super(grid);
+class stateAddLine extends State {
+  constructor() {
+    super();
   }
   mousePressed() {
-    let point = this.grid.snap(mouseX, mouseY);
+    let point = drawing.grid.snap(mouseX, mouseY);
     this.newElement = new Line(point.x, point.y, point.x, point.y);
   }
   mouseReleased() {
     return this.newElement;
   }
   mouseDragged() {
-    let point = this.grid.snap(mouseX, mouseY);
+    let point = drawing.grid.snap(mouseX, mouseY);
     this.newElement.x2 = point.x;
     this.newElement.y2 = point.y;
   }
