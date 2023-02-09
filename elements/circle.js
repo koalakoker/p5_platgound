@@ -7,7 +7,7 @@ class Circle extends Element {
     this.r = r;
   }
   draw() {
-    this.setStyle();
+    super.draw();
     circle(this.x, this.y, this.r * 2);
   }
   inside(x, y) {

@@ -8,7 +8,7 @@ class Rectangle extends Element {
     this.y2 = y2;
   }
   draw() {
-    this.setStyle();
+    super.draw();
     rectMode(CORNERS);
     rect(this.x1, this.y1, this.x2, this.y2);
     rectMode(CORNER);

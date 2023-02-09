@@ -22,7 +22,7 @@ class Line extends Element {
     return createVector(t00 * p.x + t01 * p.y, t10 * p.x + t11 * p.y);
   }
   draw() {
-    this.setStyle();
+    super.draw();
     line(this.x1, this.y1, this.x2, this.y2);
   }
   inside(x, y) {

@@ -2,8 +2,15 @@ class Element {
   constructor() {
     this.id = 0;
     this.style = new Style(drawing.newElementStyle);
+    this.selected = false;
   }
-  draw() {}
+  draw() {
+    this.setStyle();
+    if (this.selected) {
+      strokeWeight(4);
+      stroke(255, 255, 0);
+    }
+  }
   inside() {
     return false;
   }

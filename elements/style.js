@@ -5,11 +5,13 @@ class Style {
       this.fillColor = color(0, 0, 0, 255);
       this.stroke = true;
       this.strokeColor = color(255, 255, 255, 255);
+      this.strokeWeight = 1;
     } else {
       this.fill = style.fill;
       this.fillColor = style.fillColor;
       this.stroke = style.stroke;
       this.strokeColor = style.strokeColor;
+      this.strokeWeight = style.strokeWeight;
     }
   }
   set() {
@@ -20,6 +22,7 @@ class Style {
     }
     if (this.stroke) {
       stroke(this.strokeColor);
+      strokeWeight(this.strokeWeight);
     } else {
       noStroke();
     }

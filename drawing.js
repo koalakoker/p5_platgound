@@ -38,7 +38,6 @@ class Drawing {
     for (let i = 0; i < this.drawElement.length; i++) {
       if (this.drawElement[i].inside(x, y)) {
         elements.push(this.drawElement[i]);
-        console.log(this.drawElement[i]);
       }
     }
     return elements;
