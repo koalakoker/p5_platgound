@@ -3,7 +3,9 @@ class StateSelect extends State {
     super();
   }
   draw() {}
-  mousePressed() {}
+  mousePressed() {
+    console.log(drawing.elementsAtPoint(mouseX, mouseY));
+  }
   mouseReleased() {}
   mouseDragged() {}
 }

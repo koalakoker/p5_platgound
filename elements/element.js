@@ -4,6 +4,9 @@ class Element {
     this.style = new Style(drawing.newElementStyle);
   }
   draw() {}
+  inside() {
+    return false;
+  }
   setStyle() {
     this.style.set();
   }

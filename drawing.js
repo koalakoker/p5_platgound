@@ -32,6 +32,17 @@ class Drawing {
   inside() {
     return Rect.inside(mouseX, mouseY, 0, 0, this.w, this.h);
   }
+  elementsAtPoint(x, y) {
+    // Select which elements are present at point x,y
+    const elements = [];
+    for (let i = 0; i < this.drawElement.length; i++) {
+      if (this.drawElement[i].inside(x, y)) {
+        elements.push(this.drawElement[i]);
+        console.log(this.drawElement[i]);
+      }
+    }
+    return elements;
+  }
   mousePressed() {
     if (this.state) {
       if (this.inside()) {
