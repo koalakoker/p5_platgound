@@ -1,8 +1,8 @@
 class LinePicker extends Picker {
-  constructor(x, y) {
+  constructor(weight, cbWeightChaged, x, y) {
     super(x, y);
     this.space = 30;
-    this.weight = 1;
+    this.weight = weight;
     this.weights = [];
     this.weights.push(1);
     this.weights.push(2);
@@ -16,6 +16,7 @@ class LinePicker extends Picker {
     this.weights.push(10);
     const l = this.weights.length;
     this.hPick = this.space * l;
+    this.cbWeightChaged = cbWeightChaged;
   }
   display() {
     stroke(255);
@@ -73,6 +74,9 @@ class LinePicker extends Picker {
     if (this.insidePicker() && this.selected) {
       const i = floor((mouseY - this.basePoint().y) / this.space);
       this.weight = i + 1;
+      if (this.cbWeightChaged) {
+        this.cbWeightChaged(this.weight);
+      }
     }
   }
 }
