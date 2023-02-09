@@ -18,8 +18,11 @@ class StateSelect extends State {
       let selected = this.selectedElements[this.index];
       this.index++;
       if (this.lastSelected != selected) {
-        if (this.lastSelected) {
-          this.lastSelected.selected = false;
+        if (keyCode == SHIFT) {
+        } else {
+          if (this.lastSelected) {
+            this.lastSelected.selected = false;
+          }
         }
         selected.selected = true;
         this.lastSelected = selected;
