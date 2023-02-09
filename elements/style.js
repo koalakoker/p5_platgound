@@ -40,6 +40,7 @@ class Style {
       fillColor: JSON.parse(Style.serializeColor(this.fillColor)),
       stroke: this.stroke,
       strokeColor: JSON.parse(Style.serializeColor(this.strokeColor)),
+      strokeWeight: this.strokeWeight,
     });
   }
   deserialize(jsonStr) {
@@ -56,5 +57,6 @@ class Style {
       element.strokeColor.g,
       element.strokeColor.b
     );
+    this.strokeWeight = element.strokeWeight;
   }
 }

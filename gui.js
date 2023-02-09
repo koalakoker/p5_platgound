@@ -72,7 +72,11 @@ class Gui {
       }
     );
     pickBar.append(strokeColorPicker);
-    pickBar.append(new LinePicker());
+    pickBar.append(
+      new LinePicker(1, (weight) => {
+        drawing.newElementStyle.strokeWeight = weight;
+      })
+    );
     const fillColorPicker = new ColorPicker(
       0,
       (color) => {
