@@ -38,6 +38,12 @@ class LinePicker extends Picker {
       for (let i = 0; i < l; i++) {
         const y = this.space / 2 + this.basePoint().y + i * this.space;
         strokeWeight(this.weights[i]);
+        if (this.weight === this.weights[i]) {
+          stroke(255, 255, 0);
+          strokeWeight(this.weights[i] + 1);
+        } else {
+          stroke(255, 255, 255);
+        }
         line(
           this.basePoint().x + 10,
           y,
@@ -59,5 +65,14 @@ class LinePicker extends Picker {
       this.side,
       this.hPick
     );
+  }
+  mousePressed() {
+    if (super.mousePressed()) {
+      return true;
+    }
+    if (this.insidePicker() && this.selected) {
+      const i = floor((mouseY - this.basePoint().y) / this.space);
+      this.weight = i + 1;
+    }
   }
 }
