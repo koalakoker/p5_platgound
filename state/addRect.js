@@ -1,4 +1,4 @@
-class stateAddRect extends AddState {
+class StateAddRect extends StateAdd {
   constructor() {
     super();
   }

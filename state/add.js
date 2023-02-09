@@ -1,4 +1,4 @@
-class AddState extends State {
+class StateAdd extends State {
   constructor() {
     super();
     this.dragging = false;

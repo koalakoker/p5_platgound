@@ -1,4 +1,4 @@
-class stateAddLine extends AddState {
+class StateAddLine extends StateAdd {
   constructor() {
     super();
   }

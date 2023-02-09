@@ -1,4 +1,4 @@
-class stateAddCircle extends AddState {
+class StateAddCircle extends StateAdd {
   constructor() {
     super();
   }

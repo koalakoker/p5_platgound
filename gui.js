@@ -27,25 +27,25 @@ class Gui {
     const addBar = new Group();
     addBar.append(
       new CheckButton("png/icons8-cursore-mano-25.png", (sel) => {
-        const state = sel ? new stateSelect() : null;
+        const state = sel ? new StateSelect() : null;
         drawing.changeState(state);
       })
     );
     addBar.append(
       new CheckButton("png/addLine.png", (sel) => {
-        const state = sel ? new stateAddLine() : null;
+        const state = sel ? new StateAddLine() : null;
         drawing.changeState(state);
       })
     );
     addBar.append(
       new CheckButton("png/addRect.png", (sel) => {
-        const state = sel ? new stateAddRect() : null;
+        const state = sel ? new StateAddRect() : null;
         drawing.changeState(state);
       })
     );
     addBar.append(
       new CheckButton("png/addCircle.png", (sel) => {
-        const state = sel ? new stateAddCircle() : null;
+        const state = sel ? new StateAddCircle() : null;
         drawing.changeState(state);
       })
     );

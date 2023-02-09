@@ -1,4 +1,4 @@
-class stateSelect extends State {
+class StateSelect extends State {
   constructor() {
     super();
   }
