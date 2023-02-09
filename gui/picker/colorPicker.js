@@ -1,12 +1,8 @@
-class ColorPicker extends GElem {
+class ColorPicker extends Picker {
   constructor(color, cbColorPicked, cbTransparentChange, x, y) {
     super(x, y);
     this.color = color;
     this.transparent = false;
-    this.selected = false;
-    this.side = 100;
-    this.margin = 4;
-    this.debounceTimer = null;
     this.bSlider = new Slider(
       brightness(color),
       this.size().x,
@@ -24,7 +20,6 @@ class ColorPicker extends GElem {
     this.bValue = this.bSlider.value;
     this.cbColorPicked = cbColorPicked;
     this.cbTransparentChange = cbTransparentChange;
-    this.fadeOutTimeMs = 1000;
   }
   display() {
     stroke(255);
@@ -72,10 +67,7 @@ class ColorPicker extends GElem {
     }
   }
   mousePressed() {
-    if (this.inside()) {
-      this.selected = !this.selected;
-      return true;
-    }
+    super.mousePressed();
     if (this.insideSlider()) {
       this.bSlider.mousePressed();
       return true;
@@ -111,42 +103,13 @@ class ColorPicker extends GElem {
       this.bSlider.mouseDragged();
     }
   }
-  mouseMoved() {
-    if (this.selected) {
-      if (
-        !(
-          this.inside() ||
-          this.insidePicker() ||
-          this.insideSlider() ||
-          this.insideCheck()
-        )
-      ) {
-        // Ouside the sensitive area -> hide picker
-        if (!this.debounceTimer) {
-          this.debounceTimer = setTimeout(() => {
-            this.selected = false;
-            this.debounceTimer = null;
-          }, this.fadeOutTimeMs);
-        }
-      } else {
-        // Inside one of the sensitive area
-        if (this.debounceTimer) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = null;
-        }
-      }
-    }
-  }
-  keyPressed() {
-    if (keyCode === ESCAPE) {
-      this.selected = false;
-      this.debounceTimer = null;
-    }
-  }
-  basePoint() {
-    const bx = this.x - (this.side - this.size().x) / 2;
-    const by = this.y + this.size().y + this.margin;
-    return { x: bx, y: by };
+  inside() {
+    return (
+      super.inside() ||
+      this.insidePicker() ||
+      this.insideSlider() ||
+      this.insideCheck()
+    );
   }
   insidePicker() {
     return Rect.inside(
