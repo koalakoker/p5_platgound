@@ -4,7 +4,6 @@ class Drawing {
     this.w = w;
     this.h = h;
     this.drawElement = [];
-    this.dragging = false;
     this.state = null;
   }
   setup() {
@@ -36,25 +35,18 @@ class Drawing {
   mousePressed() {
     if (this.state) {
       if (this.inside()) {
-        this.dragging = true;
         this.state.mousePressed();
       }
     }
   }
   mouseReleased() {
     if (this.state) {
-      if (this.dragging) {
-        this.dragging = false;
-        this.drawElement.push(this.state.mouseReleased());
-        this.state.newElement = null;
-      }
+      this.state.mouseReleased();
     }
   }
   mouseDragged() {
     if (this.state) {
-      if (this.dragging) {
-        this.state.mouseDragged();
-      }
+      this.state.mouseDragged();
     }
   }
   serialize() {
