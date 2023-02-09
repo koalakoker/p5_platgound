@@ -24,7 +24,9 @@ class Gui {
     this.mainBar.append(lseBar);
 
     // Add group
-    const addBar = new Group();
+    const addBar = new Group(() => {
+      drawing.deSelectAll();
+    });
     addBar.append(
       new CheckButton("png/icons8-cursore-mano-25.png", (sel) => {
         const state = sel ? new StateSelect() : null;

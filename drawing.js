@@ -69,6 +69,11 @@ class Drawing {
       }
     }
   }
+  deSelectAll() {
+    this.drawElement.forEach((element) => {
+      element.selected = false;
+    });
+  }
   serialize() {
     //let thisJSON = JSON.stringify({ w: this.w, h: this.h });
     let serialList = [];
