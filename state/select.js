@@ -4,12 +4,19 @@ class StateSelect extends State {
     this.selectedElements = [];
     this.selected;
     this.lastSelected;
+    this.index = 0;
   }
   draw() {}
   mousePressed() {
     this.selectedElements = drawing.elementsAtPoint(mouseX, mouseY);
-    if (this.selectedElements.length > 0) {
-      let selected = this.selectedElements[0];
+    reverse(this.selectedElements);
+    const selNum = this.selectedElements.length;
+    if (selNum > 0) {
+      if (this.index > selNum - 1) {
+        this.index = 0;
+      }
+      let selected = this.selectedElements[this.index];
+      this.index++;
       if (this.lastSelected != selected) {
         if (this.lastSelected) {
           this.lastSelected.selected = false;
