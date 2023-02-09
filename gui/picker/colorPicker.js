@@ -67,7 +67,9 @@ class ColorPicker extends Picker {
     }
   }
   mousePressed() {
-    super.mousePressed();
+    if (super.mousePressed()) {
+      return true;
+    }
     if (this.insideSlider()) {
       this.bSlider.mousePressed();
       return true;

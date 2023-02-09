@@ -14,6 +14,7 @@ class Picker extends GElem {
       this.selected = !this.selected;
       return true;
     }
+    return false;
   }
   mouseMoved() {
     if (this.selected) {
