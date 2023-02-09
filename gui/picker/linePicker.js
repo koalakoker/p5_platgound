@@ -1,15 +1,21 @@
 class LinePicker extends Picker {
   constructor(x, y) {
     super(x, y);
-    this.hPick = 200;
+    this.space = 30;
     this.weight = 1;
     this.weights = [];
     this.weights.push(1);
     this.weights.push(2);
+    this.weights.push(3);
     this.weights.push(4);
+    this.weights.push(5);
     this.weights.push(6);
+    this.weights.push(7);
     this.weights.push(8);
+    this.weights.push(9);
     this.weights.push(10);
+    const l = this.weights.length;
+    this.hPick = this.space * l;
   }
   display() {
     stroke(255);
@@ -26,11 +32,11 @@ class LinePicker extends Picker {
     );
     if (this.selected) {
       strokeWeight(1);
-      rect(this.basePoint().x, this.basePoint().y, this.side, this.hPick);
       const l = this.weights.length;
-      const space = this.hPick / l;
+      this.hPick = this.space * l;
+      rect(this.basePoint().x, this.basePoint().y, this.side, this.hPick);
       for (let i = 0; i < l; i++) {
-        const y = space / 2 + this.basePoint().y + i * space;
+        const y = this.space / 2 + this.basePoint().y + i * this.space;
         strokeWeight(this.weights[i]);
         line(
           this.basePoint().x + 10,
