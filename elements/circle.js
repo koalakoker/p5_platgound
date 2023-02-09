@@ -10,6 +10,10 @@ class Circle extends Element {
     super.draw();
     circle(this.x, this.y, this.r * 2);
   }
+  move(mx, my) {
+    this.x += mx;
+    this.y += my;
+  }
   inside(x, y) {
     return (
       (x - this.x) * (x - this.x) + (y - this.y) * (y - this.y) <

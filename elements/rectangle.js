@@ -13,6 +13,12 @@ class Rectangle extends Element {
     rect(this.x1, this.y1, this.x2, this.y2);
     rectMode(CORNER);
   }
+  move(mx, my) {
+    this.x1 += mx;
+    this.x2 += mx;
+    this.y1 += my;
+    this.y2 += my;
+  }
   inside(x, y) {
     let left;
     let top;

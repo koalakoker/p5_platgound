@@ -27,5 +27,7 @@ class StateSelect extends State {
     }
   }
   mouseReleased() {}
-  mouseDragged() {}
+  mouseDragged() {
+    this.lastSelected.move(movedX, movedY);
+  }
 }

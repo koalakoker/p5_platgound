@@ -25,6 +25,12 @@ class Line extends Element {
     super.draw();
     line(this.x1, this.y1, this.x2, this.y2);
   }
+  move(mx, my) {
+    this.x1 += mx;
+    this.x2 += mx;
+    this.y1 += my;
+    this.y2 += my;
+  }
   inside(x, y) {
     let p1 = createVector(this.x1, this.y1);
     let p2 = createVector(this.x2, this.y2);
