@@ -10,6 +10,12 @@ class Circle extends Element {
     this.setStyle();
     circle(this.x, this.y, this.r * 2);
   }
+  inside(x, y) {
+    return (
+      (x - this.x) * (x - this.x) + (y - this.y) * (y - this.y) <
+      this.r * this.r
+    );
+  }
   serialize() {
     const base = super.serialize();
     const child = {
