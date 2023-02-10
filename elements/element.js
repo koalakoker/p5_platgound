@@ -7,7 +7,7 @@ class Element {
   draw() {
     this.setStyle();
     if (this.selected) {
-      strokeWeight(4);
+      strokeWeight(this.style.strokeWeight + 1);
       stroke(255, 255, 0);
     }
   }
