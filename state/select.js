@@ -21,6 +21,7 @@ class StateSelect extends State {
     }
   }
   mousePressed() {
+    drawing.deSelectAll();
     let selectedElements = drawing.elementsAtPoint(mouseX, mouseY);
     reverse(selectedElements);
     const selNum = selectedElements.length;
@@ -41,7 +42,6 @@ class StateSelect extends State {
         this.lastSelected = selected;
       }
     } else {
-      drawing.deSelectAll();
       this.selectionArea.p1.x = mouseX;
       this.selectionArea.p1.y = mouseY;
       this.selectionArea.p2.x = mouseX;
