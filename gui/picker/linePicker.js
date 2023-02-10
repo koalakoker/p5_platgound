@@ -77,6 +77,7 @@ class LinePicker extends Picker {
       if (this.cbWeightChaged) {
         this.cbWeightChaged(this.weight);
       }
+      return true;
     }
   }
 }
