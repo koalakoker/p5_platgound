@@ -1,30 +1,29 @@
 class StateSelect extends State {
   constructor() {
     super();
-    this.selectedElements = [];
     this.selected;
     this.lastSelected;
     this.index = 0;
   }
   draw() {}
   mousePressed() {
-    this.selectedElements = drawing.elementsAtPoint(mouseX, mouseY);
-    reverse(this.selectedElements);
-    const selNum = this.selectedElements.length;
+    let selectedElements = drawing.elementsAtPoint(mouseX, mouseY);
+    reverse(selectedElements);
+    const selNum = selectedElements.length;
     if (selNum > 0) {
       if (this.index > selNum - 1) {
         this.index = 0;
       }
-      let selected = this.selectedElements[this.index];
+      let selected = selectedElements[this.index];
       this.index++;
       if (this.lastSelected != selected) {
         if (keyCode == SHIFT) {
         } else {
           if (this.lastSelected) {
-            this.lastSelected.selected = false;
+            drawing.selectElement(this.lastSelected, false);
           }
         }
-        selected.selected = true;
+        drawing.selectElement(selected, true);
         this.lastSelected = selected;
       }
     } else {
@@ -33,6 +32,11 @@ class StateSelect extends State {
   }
   mouseReleased() {}
   mouseDragged() {
-    this.lastSelected.move(movedX, movedY);
+    let selectedElements = drawing.selectedElements;
+    if (selectedElements.length > 0) {
+      selectedElements.forEach((element) => {
+        element.move(movedX, movedY);
+      });
+    }
   }
 }

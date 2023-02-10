@@ -4,6 +4,7 @@ class Drawing {
     this.w = w;
     this.h = h;
     this.drawElement = [];
+    this.selectedElements = [];
     this.state = null;
   }
   setup() {
@@ -69,10 +70,26 @@ class Drawing {
       }
     }
   }
+
+  updateSelectedElements() {
+    this.selectedElements = [];
+    for (let i = 0; i < this.drawElement.length; i++) {
+      const element = this.drawElement[i];
+      if (element.selected) {
+        this.selectedElements.push(element);
+      }
+    }
+  }
+  selectElement(element, state) {
+    element.selected = state;
+    this.updateSelectedElements();
+    // cb
+  }
   deSelectAll() {
     this.drawElement.forEach((element) => {
       element.selected = false;
     });
+    this.selectedElements = [];
   }
   serialize() {
     //let thisJSON = JSON.stringify({ w: this.w, h: this.h });
