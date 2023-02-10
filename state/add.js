@@ -10,7 +10,12 @@ class StateAdd extends State {
     if (this.dragging) {
       this.dragging = false;
       if (this.newElement) {
-        drawing.drawElement.push(this.newElement);
+        if (this.newElement.isEmpty()) {
+          addBar.changeSelection(selectButton, true);
+          drawing.state.mousePressed();
+        } else {
+          drawing.drawElement.push(this.newElement);
+        }
         this.newElement = null;
       }
     }

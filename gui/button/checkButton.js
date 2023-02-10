@@ -4,18 +4,21 @@ class CheckButton extends Button {
     this.cbSelChange = cbSelChange;
     this.selected = false;
   }
+  click(sel, cbExec) {
+    if (sel) {
+      this.fillColor = this.clickColor();
+    }
+    this.clickDebounce = 5;
+    this.selected = sel;
+    if (this.cbSelChange && cbExec) {
+      this.cbSelChange(this.selected);
+    }
+  }
   mousePressed() {
     let retVal = false;
     if (this.inside()) {
-      this.fillColor = this.clickColor();
-      this.clickDebounce = 5;
-
-      this.selected = !this.selected;
+      this.click(!this.selected, true);
       retVal = this.selected;
-
-      if (this.cbSelChange) {
-        this.cbSelChange(this.selected);
-      }
     }
     return retVal;
   }

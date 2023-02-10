@@ -20,6 +20,9 @@ class Circle extends Element {
       this.r * this.r
     );
   }
+  isEmpty() {
+    return this.r === 0;
+  }
   serialize() {
     const base = super.serialize();
     const child = {

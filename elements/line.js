@@ -47,6 +47,9 @@ class Line extends Element {
     ms = this.rotCCW(ms, th);
     return Rect.inside(ms.x, ms.y, r11.x, r11.y, w, h);
   }
+  isEmpty() {
+    return this.x1 === this.x2 && this.y1 === this.y2;
+  }
   serialize() {
     const base = super.serialize();
     const child = {

@@ -1,3 +1,5 @@
+let selectButton;
+let addBar;
 class Gui {
   constructor() {}
   setup() {
@@ -24,15 +26,14 @@ class Gui {
     this.mainBar.append(lseBar);
 
     // Add group
-    const addBar = new Group(() => {
+    addBar = new Group(() => {
       drawing.deSelectAll();
     });
-    addBar.append(
-      new CheckButton("png/icons8-cursore-mano-25.png", (sel) => {
-        const state = sel ? new StateSelect() : null;
-        drawing.changeState(state);
-      })
-    );
+    selectButton = new CheckButton("png/icons8-cursore-mano-25.png", (sel) => {
+      const state = sel ? new StateSelect() : null;
+      drawing.changeState(state);
+    });
+    addBar.append(selectButton);
     addBar.append(
       new CheckButton("png/addLine.png", (sel) => {
         const state = sel ? new StateAddLine() : null;

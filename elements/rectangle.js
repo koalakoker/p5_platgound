@@ -40,6 +40,9 @@ class Rectangle extends Element {
     }
     return Rect.inside(x || mouseX, y || mouseY, left, top, w, h);
   }
+  isEmpty() {
+    return this.x1 === this.x2 && this.y1 === this.y2;
+  }
   serialize() {
     const base = super.serialize();
     const child = {
