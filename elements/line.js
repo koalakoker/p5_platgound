@@ -31,6 +31,19 @@ class Line extends Element {
     this.y1 += my;
     this.y2 += my;
   }
+  isInsideArea(area) {
+    const a = Rect.rect(area.p1, area.p2);
+    return collideLineRect(
+      this.x1,
+      this.y1,
+      this.x2,
+      this.y2,
+      a.left,
+      a.top,
+      a.w,
+      a.h
+    );
+  }
   inside(x, y) {
     let p1 = createVector(this.x1, this.y1);
     let p2 = createVector(this.x2, this.y2);

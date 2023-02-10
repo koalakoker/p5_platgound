@@ -80,6 +80,14 @@ class Drawing {
       }
     }
   }
+  selectArea(selectionArea) {
+    for (let i = 0; i < this.drawElement.length; i++) {
+      const element = this.drawElement[i];
+      if (element.isInsideArea(selectionArea)) {
+        this.selectElement(element, true);
+      }
+    }
+  }
   selectElement(element, state) {
     element.selected = state;
     this.updateSelectedElements();

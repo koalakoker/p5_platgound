@@ -4,8 +4,22 @@ class StateSelect extends State {
     this.selected;
     this.lastSelected;
     this.index = 0;
+    this.selectionArea = {
+      visible: false,
+      p1: createVector(),
+      p2: createVector(),
+    };
   }
-  draw() {}
+  draw() {
+    if (this.selectionArea.visible) {
+      stroke(255);
+      strokeWeight(1);
+      noFill();
+      const p1 = this.selectionArea.p1;
+      const p2 = this.selectionArea.p2;
+      rect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+    }
+  }
   mousePressed() {
     let selectedElements = drawing.elementsAtPoint(mouseX, mouseY);
     reverse(selectedElements);
@@ -28,15 +42,28 @@ class StateSelect extends State {
       }
     } else {
       drawing.deSelectAll();
+      this.selectionArea.p1.x = mouseX;
+      this.selectionArea.p1.y = mouseY;
+      this.selectionArea.p2.x = mouseX;
+      this.selectionArea.p2.y = mouseY;
+      this.selectionArea.visible = true;
     }
   }
-  mouseReleased() {}
+  mouseReleased() {
+    if (this.selectionArea.visible) {
+      drawing.selectArea(this.selectionArea);
+      this.selectionArea.visible = false;
+    }
+  }
   mouseDragged() {
     let selectedElements = drawing.selectedElements;
     if (selectedElements.length > 0) {
       selectedElements.forEach((element) => {
         element.move(movedX, movedY);
       });
+    } else {
+      this.selectionArea.p2.x = mouseX;
+      this.selectionArea.p2.y = mouseY;
     }
   }
 }
