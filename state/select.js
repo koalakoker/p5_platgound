@@ -27,6 +27,8 @@ class StateSelect extends State {
         selected.selected = true;
         this.lastSelected = selected;
       }
+    } else {
+      drawing.deSelectAll();
     }
   }
   mouseReleased() {}
