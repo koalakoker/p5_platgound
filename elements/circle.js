@@ -37,15 +37,7 @@ class Circle extends Element {
   }
   isInsideArea(area) {
     const a = Rect.rect(area.p1, area.p2);
-    return collideRectCircle(
-      a.left,
-      a.top,
-      a.w,
-      a.h,
-      this.x,
-      this.y,
-      this.r * 2
-    );
+    return collideRectCircle(a.x, a.y, a.w, a.h, this.x, this.y, this.r * 2);
   }
   inside(x, y) {
     return (

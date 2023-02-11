@@ -44,11 +44,11 @@ class Rectangle extends Element {
   isInsideArea(area) {
     const r = Rect.rect({ x: this.x1, y: this.y1 }, { x: this.x2, y: this.y2 });
     const a = Rect.rect(area.p1, area.p2);
-    return collideRectRect(r.left, r.top, r.w, r.h, a.left, a.top, a.w, a.h);
+    return collideRectRect(r.x, r.y, r.w, r.h, a.x, a.y, a.w, a.h);
   }
   inside(x, y) {
     const r = Rect.rect({ x: this.x1, y: this.y1 }, { x: this.x2, y: this.y2 });
-    return Rect.inside(x || mouseX, y || mouseY, r.left, r.top, r.w, r.h);
+    return Rect.inside(x || mouseX, y || mouseY, r.x, r.y, r.w, r.h);
   }
   isEmpty() {
     return this.x1 === this.x2 && this.y1 === this.y2;
