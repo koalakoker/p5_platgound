@@ -35,7 +35,7 @@ class Rectangle extends Element {
     this.controls[1].x = this.x2;
     this.controls[1].y = this.y2;
   }
-  setEndPoint(point) {
+  addPoint(point) {
     this.x2 = point.x;
     this.y2 = point.y;
     this.controls[1].x = this.x2;

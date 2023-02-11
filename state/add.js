@@ -24,7 +24,7 @@ class StateAdd extends State {
   mouseDragged() {
     if (this.dragging) {
       let point = drawing.grid.snap(mouseX, mouseY);
-      this.newElement.setEndPoint(point);
+      this.newElement.addPoint(point);
     }
   }
 }
