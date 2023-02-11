@@ -5,6 +5,8 @@ class Circle extends Element {
     this.x = x;
     this.y = y;
     this.r = r;
+    this.controls.push(new Control(x, y));
+    this.controls.push(new Control(x + r, y));
   }
   draw() {
     super.draw();

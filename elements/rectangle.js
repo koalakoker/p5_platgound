@@ -6,6 +6,8 @@ class Rectangle extends Element {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+    this.controls.push(new Control(x1, y1));
+    this.controls.push(new Control(x2, y2));
   }
   draw() {
     super.draw();

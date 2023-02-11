@@ -1,7 +1,6 @@
 class StateSelect extends State {
   constructor() {
     super();
-    this.selected;
     this.lastSelected;
     this.index = 0;
     this.selectionArea = {
@@ -19,6 +18,9 @@ class StateSelect extends State {
       const p2 = this.selectionArea.p2;
       rect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
     }
+    drawing.selectedElements.forEach((element) => {
+      element.showControls();
+    });
   }
   mousePressed() {
     drawing.deSelectAll();

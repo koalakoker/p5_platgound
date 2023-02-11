@@ -3,6 +3,7 @@ class Element {
     this.id = 0;
     this.style = new Style(drawing.newElementStyle);
     this.selected = false;
+    this.controls = [];
   }
   draw() {
     this.setStyle();
@@ -10,6 +11,11 @@ class Element {
       strokeWeight(this.style.strokeWeight + 1);
       stroke(255, 255, 0);
     }
+  }
+  showControls() {
+    this.controls.forEach((control) => {
+      control.draw();
+    });
   }
   inside() {
     return false;

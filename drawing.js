@@ -26,6 +26,7 @@ class Drawing {
   }
   clear() {
     this.drawElement = [];
+    this.selectedElements = [];
   }
   changeState(state) {
     this.state = state;
@@ -68,6 +69,7 @@ class Drawing {
           this.drawElement.splice(i, 1);
         }
       }
+      this.updateSelectedElements();
     }
   }
 

@@ -6,20 +6,8 @@ class Line extends Element {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
-  }
-  rotCCW(p, th) {
-    let t00 = cos(th);
-    let t11 = t00;
-    let t01 = sin(th);
-    let t10 = -t01;
-    return createVector(t00 * p.x + t01 * p.y, t10 * p.x + t11 * p.y);
-  }
-  rotCW(p, th) {
-    let t00 = cos(th);
-    let t11 = t00;
-    let t01 = -sin(th);
-    let t10 = -t01;
-    return createVector(t00 * p.x + t01 * p.y, t10 * p.x + t11 * p.y);
+    this.controls.push(new Control(x1, y1));
+    this.controls.push(new Control(x2, y2));
   }
   draw() {
     super.draw();
@@ -76,5 +64,19 @@ class Line extends Element {
       ...base,
       ...child,
     });
+  }
+  rotCCW(p, th) {
+    let t00 = cos(th);
+    let t11 = t00;
+    let t01 = sin(th);
+    let t10 = -t01;
+    return createVector(t00 * p.x + t01 * p.y, t10 * p.x + t11 * p.y);
+  }
+  rotCW(p, th) {
+    let t00 = cos(th);
+    let t11 = t00;
+    let t01 = -sin(th);
+    let t10 = -t01;
+    return createVector(t00 * p.x + t01 * p.y, t10 * p.x + t11 * p.y);
   }
 }
