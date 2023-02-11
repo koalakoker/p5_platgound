@@ -1,6 +1,7 @@
 class Group extends Bar {
   constructor(cbSelectionChange, x, y) {
     super(x, y);
+    this.selected = null;
     this.cbSelectionChange = cbSelectionChange;
   }
   mousePressed() {
