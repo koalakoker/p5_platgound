@@ -11,6 +11,8 @@ class StateSelect extends State {
     });
   }
   mousePressed() {
+    const point = drawing.grid.snap(mouseX, mouseY);
+    this.clickPoint = createVector(point.x, point.y);
     if (
       this.actionOnControls((control) => {
         return control.mousePressed();
@@ -57,8 +59,11 @@ class StateSelect extends State {
     let selectedElements = drawing.selectedElements;
     if (selectedElements.length > 0 && !keyIsDown(SHIFT)) {
       // Drag selected elemnts
+      const point = drawing.grid.snap(mouseX, mouseY);
+      const d = p5.Vector.sub(point, this.clickPoint);
+      this.clickPoint = point;
       selectedElements.forEach((element) => {
-        element.move(movedX, movedY);
+        element.move(d.x, d.y);
       });
     } else {
       this.selectionArea.mouseDragged();
