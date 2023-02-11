@@ -116,11 +116,11 @@ class Drawing {
     );
   }
   deserialize() {
+    drawing.clear();
     httpGet(url, "json", false, (json) => {
       this.w = json.w;
       this.h = json.h;
       const elements = json.elements;
-      this.drawElement = []; // Clear drawing
       for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
         this.drawElement.push(
