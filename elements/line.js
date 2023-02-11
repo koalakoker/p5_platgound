@@ -6,8 +6,18 @@ class Line extends Element {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
-    this.controls.push(new Control(x1, y1));
-    this.controls.push(new Control(x2, y2));
+    this.controls.push(
+      new Control(x1, y1, (p) => {
+        this.x1 = p.x;
+        this.y1 = p.y;
+      })
+    );
+    this.controls.push(
+      new Control(x2, y2, (p) => {
+        this.x2 = p.x;
+        this.y2 = p.y;
+      })
+    );
   }
   draw() {
     super.draw();

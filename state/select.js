@@ -22,7 +22,28 @@ class StateSelect extends State {
       element.showControls();
     });
   }
+  actionOnControls(action) {
+    let found = 0;
+    for (let i = 0; i < drawing.selectedElements.length; i++) {
+      const element = drawing.selectedElements[i];
+      for (let j = 0; j < element.controls.length; j++) {
+        const control = element.controls[j];
+        if (action(control)) {
+          found++;
+        }
+      }
+    }
+    return found > 0;
+  }
   mousePressed() {
+    if (
+      this.actionOnControls((control) => {
+        return control.mousePressed();
+      })
+    ) {
+      return;
+    }
+
     drawing.deSelectAll();
     let selectedElements = drawing.elementsAtPoint(mouseX, mouseY);
     reverse(selectedElements);
@@ -52,12 +73,21 @@ class StateSelect extends State {
     }
   }
   mouseReleased() {
+    this.actionOnControls((control) => control.mouseReleased());
     if (this.selectionArea.visible) {
       drawing.selectArea(this.selectionArea);
       this.selectionArea.visible = false;
     }
   }
   mouseDragged() {
+    if (
+      this.actionOnControls((control) => {
+        return control.mouseDragged();
+      })
+    ) {
+      return;
+    }
+
     let selectedElements = drawing.selectedElements;
     if (selectedElements.length > 0) {
       selectedElements.forEach((element) => {
