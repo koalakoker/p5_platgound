@@ -71,6 +71,9 @@ class Drawing {
       }
       this.updateSelectedElements();
     }
+    if (keyCode === ESCAPE) {
+      this.deSelectAll();
+    }
   }
 
   updateSelectedElements() {
