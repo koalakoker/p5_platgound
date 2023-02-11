@@ -1,23 +1,11 @@
 class StateSelect extends State {
   constructor() {
     super();
-    this.lastSelected;
     this.index = 0;
-    this.selectionArea = {
-      visible: false,
-      p1: createVector(),
-      p2: createVector(),
-    };
+    this.selectionArea = new SelectionArea();
   }
   draw() {
-    if (this.selectionArea.visible) {
-      stroke(255);
-      strokeWeight(1);
-      noFill();
-      const p1 = this.selectionArea.p1;
-      const p2 = this.selectionArea.p2;
-      rect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
-    }
+    this.selectionArea.draw();
     drawing.selectedElements.forEach((element) => {
       element.showControls();
     });
@@ -45,14 +33,14 @@ class StateSelect extends State {
     }
 
     drawing.deSelectAll();
-    let selectedElements = drawing.elementsAtPoint(mouseX, mouseY);
-    reverse(selectedElements);
-    const selNum = selectedElements.length;
+    let pointedElements = drawing.elementsAtPoint(mouseX, mouseY);
+    reverse(pointedElements);
+    const selNum = pointedElements.length;
     if (selNum > 0) {
       if (this.index > selNum - 1) {
         this.index = 0;
       }
-      let selected = selectedElements[this.index];
+      let selected = pointedElements[this.index];
       this.index++;
       if (this.lastSelected != selected) {
         if (keyCode == SHIFT) {
@@ -65,19 +53,12 @@ class StateSelect extends State {
         this.lastSelected = selected;
       }
     } else {
-      this.selectionArea.p1.x = mouseX;
-      this.selectionArea.p1.y = mouseY;
-      this.selectionArea.p2.x = mouseX;
-      this.selectionArea.p2.y = mouseY;
-      this.selectionArea.visible = true;
+      this.selectionArea.mousePressed();
     }
   }
   mouseReleased() {
     this.actionOnControls((control) => control.mouseReleased());
-    if (this.selectionArea.visible) {
-      drawing.selectArea(this.selectionArea);
-      this.selectionArea.visible = false;
-    }
+    this.selectionArea.mouseReleased();
   }
   mouseDragged() {
     if (
@@ -94,8 +75,7 @@ class StateSelect extends State {
         element.move(movedX, movedY);
       });
     } else {
-      this.selectionArea.p2.x = mouseX;
-      this.selectionArea.p2.y = mouseY;
+      this.selectionArea.mouseDragged();
     }
   }
 }
