@@ -30,6 +30,11 @@ class Circle extends Element {
     this.controls[1].x = this.x + this.r;
     this.controls[1].y = this.y;
   }
+  setEndPoint(point) {
+    this.r = dist(this.x, this.y, point.x, point.y);
+    this.controls[1].x = this.x + this.r;
+    this.controls[1].y = this.y;
+  }
   isInsideArea(area) {
     const a = Rect.rect(area.p1, area.p2);
     return collideRectCircle(
