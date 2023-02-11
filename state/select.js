@@ -10,19 +10,6 @@ class StateSelect extends State {
       element.showControls();
     });
   }
-  actionOnControls(action) {
-    let found = 0;
-    for (let i = 0; i < drawing.selectedElements.length; i++) {
-      const element = drawing.selectedElements[i];
-      for (let j = 0; j < element.controls.length; j++) {
-        const control = element.controls[j];
-        if (action(control)) {
-          found++;
-        }
-      }
-    }
-    return found > 0;
-  }
   mousePressed() {
     if (
       this.actionOnControls((control) => {
@@ -32,7 +19,6 @@ class StateSelect extends State {
       return;
     }
 
-    drawing.deSelectAll();
     let pointedElements = drawing.elementsAtPoint(mouseX, mouseY);
     reverse(pointedElements);
     const selNum = pointedElements.length;
@@ -42,17 +28,16 @@ class StateSelect extends State {
       }
       let selected = pointedElements[this.index];
       this.index++;
-      if (this.lastSelected != selected) {
-        if (keyCode == SHIFT) {
-        } else {
-          if (this.lastSelected) {
-            drawing.selectElement(this.lastSelected, false);
-          }
+      if (!selected.selected) {
+        if (!keyIsDown(SHIFT)) {
+          drawing.deSelectAll();
         }
         drawing.selectElement(selected, true);
-        this.lastSelected = selected;
       }
     } else {
+      if (!keyIsDown(SHIFT)) {
+        drawing.deSelectAll();
+      }
       this.selectionArea.mousePressed();
     }
   }
@@ -70,12 +55,26 @@ class StateSelect extends State {
     }
 
     let selectedElements = drawing.selectedElements;
-    if (selectedElements.length > 0) {
+    if (selectedElements.length > 0 && !keyIsDown(SHIFT)) {
+      // Drag selected elemnts
       selectedElements.forEach((element) => {
         element.move(movedX, movedY);
       });
     } else {
       this.selectionArea.mouseDragged();
     }
+  }
+  actionOnControls(action) {
+    let found = 0;
+    for (let i = 0; i < drawing.selectedElements.length; i++) {
+      const element = drawing.selectedElements[i];
+      for (let j = 0; j < element.controls.length; j++) {
+        const control = element.controls[j];
+        if (action(control)) {
+          found++;
+        }
+      }
+    }
+    return found > 0;
   }
 }
