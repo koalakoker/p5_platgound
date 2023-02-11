@@ -32,8 +32,9 @@ class Control {
   }
   mouseDragged() {
     if (this.dragged) {
-      this.x += movedX;
-      this.y += movedY;
+      let point = drawing.grid.snap(mouseX, mouseY);
+      this.x = point.x;
+      this.y = point.y;
       if (this.cbUpdated) {
         this.cbUpdated({ x: this.x, y: this.y });
       }
