@@ -25,6 +25,10 @@ class Circle extends Element {
   move(mx, my) {
     this.x += mx;
     this.y += my;
+    this.controls[0].x = this.x;
+    this.controls[0].y = this.y;
+    this.controls[1].x = this.x + this.r;
+    this.controls[1].y = this.y;
   }
   isInsideArea(area) {
     const a = Rect.rect(area.p1, area.p2);

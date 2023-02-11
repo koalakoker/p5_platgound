@@ -30,6 +30,10 @@ class Rectangle extends Element {
     this.x2 += mx;
     this.y1 += my;
     this.y2 += my;
+    this.controls[0].x = this.x1;
+    this.controls[0].y = this.y1;
+    this.controls[1].x = this.x2;
+    this.controls[1].y = this.y2;
   }
   isInsideArea(area) {
     const r = Rect.rect({ x: this.x1, y: this.y1 }, { x: this.x2, y: this.y2 });
