@@ -5,17 +5,18 @@ class Circle extends Element {
     this.x = x;
     this.y = y;
     this.r = r;
-    this.controls.push(
-      new Control(x, y, (p) => {
-        this.x = p.x;
-        this.y = p.y;
-      })
-    );
-    this.controls.push(
-      new Control(x + r, y, (p) => {
-        this.r = p.x - this.x;
-      })
-    );
+    const c1 = new Control(x, y, (p) => {
+      this.x = p.x;
+      this.y = p.y;
+      this.controls[1].x = p.x + this.r;
+      this.controls[1].y = p.y;
+    });
+    const c2 = new Control(x + r, y, (p) => {
+      this.r = p.x - this.x;
+      this.controls[1].y = this.y;
+    });
+    this.controls.push(c1);
+    this.controls.push(c2);
   }
   draw() {
     super.draw();
