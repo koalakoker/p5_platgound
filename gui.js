@@ -27,7 +27,7 @@ class Gui {
           new Message(
             width / 2,
             height / 2,
-            "Draw has been saved",
+            "Sketch has been saved",
             3000,
             (dialog) => {
               const i = this.dialogs.indexOf(dialog);
