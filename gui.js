@@ -2,6 +2,9 @@ let addBar;
 class Gui {
   constructor() {}
   setup() {
+    // Dialogs
+    this.dialogs = [];
+
     // Bar
     this.mainBar = new Bar(1, 1);
 
@@ -20,6 +23,18 @@ class Gui {
     lseBar.append(
       new PushButton("png/icons8-salva-30.png", () => {
         drawing.serialize();
+        this.dialogs.push(
+          new Message(
+            width / 2,
+            height / 2,
+            "Draw has been saved",
+            3000,
+            (dialog) => {
+              const i = this.dialogs.indexOf(dialog);
+              this.dialogs.splice(i, 1);
+            }
+          )
+        );
       })
     );
     this.mainBar.append(lseBar);
@@ -91,6 +106,9 @@ class Gui {
   }
   display() {
     this.mainBar.display();
+    this.dialogs.forEach((dialog) => {
+      dialog.draw();
+    });
   }
   inside() {
     return this.mainBar.inside();
