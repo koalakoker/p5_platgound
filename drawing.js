@@ -5,7 +5,7 @@ class Drawing {
     this.h = h;
     this.drawElement = [];
     this.selectedElements = [];
-    this.state = null;
+    this.state = new StateSelect();
   }
   setup() {
     createCanvas(this.w, this.h);
