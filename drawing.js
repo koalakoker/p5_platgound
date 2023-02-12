@@ -28,6 +28,8 @@ class Drawing {
   clear() {
     this.drawElement = [];
     this.selectedElements = [];
+    this.w = window.innerWidth;
+    this.h = window.innerHeight;
   }
   changeState(state) {
     this.state = state;
