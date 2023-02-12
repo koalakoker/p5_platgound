@@ -97,8 +97,6 @@ class Gui {
     this.mainBar.preload();
   }
   setup() {
-    // Hints
-    console.log(width, height);
     new Hints();
   }
   display() {
