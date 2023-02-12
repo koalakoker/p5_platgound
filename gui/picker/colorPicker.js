@@ -5,7 +5,7 @@ class ColorPicker extends Picker {
     this.transparent = false;
     this.bSlider = new Slider(
       brightness(color),
-      this.size().x,
+      this.size().w,
       this.side,
       (val) => {
         this.bValue = val;
@@ -59,7 +59,7 @@ class ColorPicker extends Picker {
       rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
 
       this.cTransparent.display(
-        this.basePoint().x - this.size().x,
+        this.basePoint().x - this.size().w,
         this.basePoint().y,
         this.size().w,
         this.size().h
