@@ -6,19 +6,22 @@ class Message extends Dialog {
     this.cbEnd = cbEnd;
     this.margin = 20;
     this.alpha = 0;
-    // this.start = millis();
-    // this.fadeIn = fadeIn;
-    // this.fadeOut = fadeOut;
-    // this.duration = duration;
 
-    // p5.tween.manager
-    //   .addTween(this)
-    //   .addMotion('alpha', 255, fadeIn, "easeInOutQuint")
-    //   .start();
+    p5.tween.manager
+      .addTween(this)
+      .addMotion("alpha", 255, fadeIn, "easeInQuad")
+      .addMotion("alpha", 255, duration)
+      .addMotion("alpha", 0, fadeOut, "easeOutQuad")
+      .onEnd(() => {
+        if (this.cbEnd) {
+          this.cbEnd(this);
+        }
+      })
+      .startTween();
   }
   draw() {
-    stroke(0);
-    fill(0);
+    stroke(0, this.alpha);
+    fill(0, this.alpha);
     rectMode(CENTER);
     rect(this.x, this.y, textWidth(this.text) + this.margin, 16 + this.margin);
     rectMode(CORNER);
@@ -27,22 +30,5 @@ class Message extends Dialog {
     stroke(255, this.alpha);
     fill(255, this.alpha);
     text(this.text, this.x, this.y);
-    // let time = this.start - millis();
-    // this.alpha = map(time, 0, this.fadeIn, 0, 255);
-
-    // if (millis() >= this.endLife) {
-    //   this.alpha = map(
-    //     time,
-    //     this.duration,
-    //     this.duration + this.fadeOut,
-    //     255,
-    //     0
-    //   );
-    //   if (this.alpha === 0) {
-    //     if (this.cbEnd) {
-    //       this.cbEnd(this);
-    //     }
-    //   }
-    //}
   }
 }
