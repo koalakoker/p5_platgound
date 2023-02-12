@@ -12,6 +12,12 @@ class Picker extends GElem {
   mousePressed() {
     if (super.inside()) {
       this.selected = !this.selected;
+      // If picker is selected lock main bar else unlock
+      if (this.selected) {
+        gui.mainBar.lock = true;
+      } else {
+        gui.mainBar.lock = false;
+      }
       return true;
     }
     return false;
@@ -39,6 +45,8 @@ class Picker extends GElem {
     if (keyCode === ESCAPE) {
       this.selected = false;
       this.debounceTimer = null;
+      gui.mainBar.lock = false;
+      gui.mainBar.mouseMoved();
     }
   }
   basePoint() {
