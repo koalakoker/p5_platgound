@@ -32,7 +32,10 @@ class Gui {
             (dialog) => {
               const i = this.dialogs.indexOf(dialog);
               this.dialogs.splice(i, 1);
-            }
+              console.log("Removed");
+            },
+            2000,
+            1000
           )
         );
       })
