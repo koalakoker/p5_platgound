@@ -1,6 +1,6 @@
 class CheckButton extends Button {
-  constructor(fileName, cbSelChange) {
-    super(fileName);
+  constructor(parent, fileName, cbSelChange) {
+    super(parent, fileName);
     this.cbSelChange = cbSelChange;
     this.selected = false;
   }

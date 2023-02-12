@@ -1,6 +1,6 @@
 class Group extends Bar {
-  constructor(cbSelectionChange, x, y) {
-    super(x, y);
+  constructor(parent, cbSelectionChange, x, y) {
+    super(parent, x, y);
     this.selected = null;
     this.cbSelectionChange = cbSelectionChange;
   }

@@ -1,6 +1,6 @@
 class PushButton extends Button {
-  constructor(fileName, pushedCallBack) {
-    super(fileName);
+  constructor(parent, fileName, pushedCallBack) {
+    super(parent, fileName);
     this.pushedCallBack = pushedCallBack;
   }
   mousePressed() {

@@ -1,6 +1,6 @@
 class LinePicker extends Picker {
-  constructor(weight, cbWeightChaged, x, y) {
-    super(x, y);
+  constructor(parent, weight, cbWeightChaged, x, y) {
+    super(parent, x, y);
     this.space = 30;
     this.weight = weight;
     this.weights = [];
@@ -22,14 +22,14 @@ class LinePicker extends Picker {
     stroke(255);
     strokeWeight(1);
     fill(0);
-    rect(this.x, this.y, this.size().x, this.size().y);
+    rect(this.getX(), this.getY(), this.size().w, this.size().h);
     strokeWeight(this.weight);
     const m = 4;
     line(
-      this.x + m,
-      this.y + m,
-      this.x + this.size().x - m,
-      this.y + this.size().y - m
+      this.getX() + m,
+      this.getY() + m,
+      this.getX() + this.size().w - m,
+      this.getY() + this.size().h - m
     );
     if (this.selected) {
       strokeWeight(1);

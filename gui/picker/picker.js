@@ -1,6 +1,6 @@
 class Picker extends GElem {
-  constructor(x, y) {
-    super(x, y);
+  constructor(parent, x, y) {
+    super(parent, x, y);
 
     this.selected = false;
     this.side = 100;
@@ -42,8 +42,8 @@ class Picker extends GElem {
     }
   }
   basePoint() {
-    const bx = this.x - (this.side - this.size().x) / 2;
-    const by = this.y + this.size().y + this.margin;
+    const bx = this.getX() - (this.side - this.size().w) / 2;
+    const by = this.getY() + this.size().w + this.margin;
     return { x: bx, y: by };
   }
 }

@@ -1,29 +1,19 @@
 class Bar extends GElem {
-  constructor(x, y) {
-    super(x, y);
+  constructor(parent, x, y) {
+    super(parent, x, y);
     this.margin = 3;
     this.elements = [];
-    this.xPos = this.x;
+    this.width = 0;
   }
   preload() {
     this.elements.forEach((element) => {
       element.preload();
     });
   }
-  updateChildren() {
-    this.xPos = this.x;
-    this.elements.forEach((element) => {
-      element.x = this.xPos;
-      element.y = this.y;
-      this.xPos += element.size().x + this.margin;
-    });
-  }
   append(element) {
-    element.x = this.xPos;
-    element.y = this.y;
-    element.updateChildren();
+    element.x = this.width;
+    this.width += element.size().w + this.margin;
     this.elements.push(element);
-    this.xPos += element.size().x + this.margin;
   }
   display() {
     this.elements.forEach((element) => {
@@ -31,16 +21,19 @@ class Bar extends GElem {
     });
   }
   size() {
-    return { x: this.xPos - this.x, y: GElem.side() };
+    return {
+      w: this.width,
+      h: GElem.side(),
+    };
   }
   inside() {
     return Rect.inside(
       mouseX,
       mouseY,
-      this.x,
-      this.y,
-      this.size().x,
-      this.size().y
+      this.getX(),
+      this.getY(),
+      this.size().w,
+      this.size().h
     );
   }
   mouseMoved() {

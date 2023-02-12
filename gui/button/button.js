@@ -1,6 +1,6 @@
 class Button extends GElem {
-  constructor(fileName) {
-    super();
+  constructor(parent, fileName) {
+    super(parent);
     this.fileName = fileName;
     this.clickDebounce = 0;
   }
@@ -12,8 +12,9 @@ class Button extends GElem {
     stroke(255);
     strokeWeight(1);
     fill(this.fillColor);
-    rect(this.x, this.y, this.size().x, this.size().y);
-    image(this.img, this.x, this.y, this.size().x, this.size().y);
+
+    rect(this.getX(), this.getY(), this.size().w, this.size().h);
+    image(this.img, this.getX(), this.getY(), this.size().w, this.size().h);
     if (this.clickDebounce > 0) {
       this.clickDebounce--;
       this.mouseMoved();

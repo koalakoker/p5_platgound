@@ -1,6 +1,6 @@
 class ColorPicker extends Picker {
-  constructor(color, cbColorPicked, cbTransparentChange, x, y) {
-    super(x, y);
+  constructor(parent, color, cbColorPicked, cbTransparentChange, x, y) {
+    super(parent, x, y);
     this.color = color;
     this.transparent = false;
     this.bSlider = new Slider(
@@ -29,15 +29,15 @@ class ColorPicker extends Picker {
     } else {
       fill(this.color);
     }
-    rect(this.x, this.y, this.size().x, this.size().y);
+    rect(this.getX(), this.getY(), this.size().w, this.size().h);
     if (this.transparent) {
       stroke(255, 0, 0);
       strokeWeight(2);
       line(
-        this.x + 2,
-        this.y + 2,
-        this.x + this.size().x - 2,
-        this.y + this.size().y - 2
+        this.getX() + 2,
+        this.getY() + 2,
+        this.getX() + this.size().w - 2,
+        this.getY() + this.size().h - 2
       );
     }
 
@@ -61,8 +61,8 @@ class ColorPicker extends Picker {
       this.cTransparent.display(
         this.basePoint().x - this.size().x,
         this.basePoint().y,
-        this.size().x,
-        this.size().y
+        this.size().w,
+        this.size().h
       );
     }
   }
