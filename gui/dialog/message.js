@@ -1,6 +1,6 @@
 class Message extends Dialog {
-  constructor(x, y, text, duration, cbEnd, fadeIn, fadeOut) {
-    super(x, y);
+  constructor(text, duration, cbEnd, fadeIn, fadeOut) {
+    super();
     this.text = text;
     this.endLife = millis() + duration;
     this.cbEnd = cbEnd;

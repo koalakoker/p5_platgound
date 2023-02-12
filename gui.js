@@ -1,7 +1,7 @@
 let addBar;
 class Gui {
   constructor() {}
-  setup() {
+  init() {
     // Dialogs
     this.dialogs = [];
 
@@ -23,20 +23,7 @@ class Gui {
     lseBar.append(
       new PushButton(lseBar, "png/icons8-salva-30.png", () => {
         drawing.serialize();
-        this.dialogs.push(
-          new Message(
-            width / 2,
-            height / 2,
-            "Sketch has been saved",
-            2000,
-            (dialog) => {
-              const i = this.dialogs.indexOf(dialog);
-              this.dialogs.splice(i, 1);
-            },
-            200,
-            200
-          )
-        );
+        this.showDialog("Sketch has been saved");
       })
     );
     this.mainBar.append(lseBar);
@@ -106,7 +93,13 @@ class Gui {
     this.mainBar.append(pickBar);
   }
   preload() {
+    this.init();
     this.mainBar.preload();
+  }
+  setup() {
+    // Hints
+    console.log(width, height);
+    new Hints();
   }
   display() {
     this.mainBar.display();
@@ -116,6 +109,23 @@ class Gui {
   }
   inside() {
     return this.mainBar.inside();
+  }
+  showDialog(text) {
+    this.dialogs.push(
+      new Message(
+        text,
+        3000,
+        (dialog) => {
+          this.removeDialog(dialog);
+        },
+        200,
+        200
+      )
+    );
+  }
+  removeDialog(dialog) {
+    const i = this.dialogs.indexOf(dialog);
+    this.dialogs.splice(i, 1);
   }
   mouseMoved() {
     this.mainBar.mouseMoved();

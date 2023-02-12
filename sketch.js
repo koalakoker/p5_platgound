@@ -2,13 +2,13 @@ let drawing;
 let gui = new Gui(drawing);
 
 function preload() {
-  gui.setup();
   gui.preload();
 }
 
 function setup() {
   drawing = new Drawing(window.innerWidth, window.innerHeight);
   drawing.setup();
+  gui.setup();
 }
 
 function draw() {

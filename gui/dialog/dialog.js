@@ -1,7 +1,7 @@
 class Dialog {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  constructor() {
+    this.x = width / 2;
+    this.y = height / 2;
   }
   draw() {}
 }
