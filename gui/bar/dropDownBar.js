@@ -4,7 +4,7 @@ class DropDownBar extends Bar {
     this.hideY = y - GElem.side();
     this.showY = y + 1;
     this.visible = true;
-    this.lock = false;
+    this.lock = true;
     this.fadeIn = 300;
     this.fadeOut = 600;
   }
@@ -34,7 +34,7 @@ class DropDownBar extends Bar {
         this.lock = true;
       }
     }
-    super.keyPressed();
+    return super.keyPressed();
   }
   mouseMoved() {
     if (mouseY < 5 && !this.visible) {

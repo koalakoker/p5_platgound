@@ -1,4 +1,5 @@
 const url = "http://localhost:3000";
+let store = new Store();
 class Drawing {
   constructor(w, h) {
     this.w = w;
@@ -12,7 +13,8 @@ class Drawing {
     this.grid = new Grid(20);
     this.grid.active = true;
     this.newElementStyle = new Style();
-    this.deserialize();
+    this.load();
+    store.addState();
   }
   display() {
     background(0);
@@ -107,32 +109,30 @@ class Drawing {
     });
     this.selectedElements = [];
   }
+  save() {
+    httpPost(url, "json", JSON.parse(this.serialize()), function (result) {});
+  }
   serialize() {
-    //let thisJSON = JSON.stringify({ w: this.w, h: this.h });
     let serialList = [];
     for (let i = 0; i < this.drawElement.length; i++) {
       serialList.push(JSON.parse(this.drawElement[i].serialize()));
     }
-
-    httpPost(
-      url,
-      "json",
-      { w: this.w, h: this.h, elements: serialList },
-      function (result) {}
-    );
+    return JSON.stringify({ w: this.w, h: this.h, elements: serialList });
   }
-  deserialize() {
-    drawing.clear();
+  load() {
     httpGet(url, "json", false, (json) => {
-      this.w = json.w;
-      this.h = json.h;
-      const elements = json.elements;
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        this.drawElement.push(
-          new Element().deserialize(JSON.stringify(element))
-        );
-      }
+      this.deserialize(JSON.stringify(json));
     });
+  }
+  deserialize(jsonString) {
+    this.clear();
+    let json = JSON.parse(jsonString);
+    this.w = json.w;
+    this.h = json.h;
+    const elements = json.elements;
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      this.drawElement.push(new Element().deserialize(JSON.stringify(element)));
+    }
   }
 }

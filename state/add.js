@@ -16,6 +16,7 @@ class StateAdd extends State {
           drawing.state.mousePressed();
         } else {
           drawing.drawElement.push(this.newElement);
+          store.addState();
         }
         this.newElement = null;
       }

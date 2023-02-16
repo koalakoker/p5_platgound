@@ -1,6 +1,6 @@
 class Button extends GElem {
-  constructor(parent, fileName) {
-    super(parent);
+  constructor(parent, fileName, shortCut) {
+    super(parent, shortCut);
     this.fileName = fileName;
     this.clickDebounce = 0;
   }
@@ -40,6 +40,7 @@ class Button extends GElem {
   mouseReleased() {
     this.mouseMoved();
   }
+  keyPressed() {}
   normalColor() {
     return this.unSelectedColor();
   }

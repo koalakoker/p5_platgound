@@ -1,4 +1,6 @@
 let addBar;
+const KEY_CTRL = 91;
+const KEY_Z = 90;
 class Gui {
   constructor() {}
   init() {
@@ -17,14 +19,34 @@ class Gui {
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-file-download-48.png", () => {
-        drawing.deserialize();
+        drawing.load();
       })
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-salva-30.png", () => {
-        drawing.serialize();
+        drawing.save();
         this.showDialog("Sketch has been saved");
       })
+    );
+    lseBar.append(
+      new PushButton(
+        lseBar,
+        "png/icons8-annulla-26.png",
+        () => {
+          store.moveToPreviousState();
+        },
+        new ShortCut("z", "Meta")
+      )
+    );
+    lseBar.append(
+      new PushButton(
+        lseBar,
+        "png/icons8-right-2-50.png",
+        () => {
+          store.moveToNextState();
+        },
+        new ShortCut("z", "Meta", "Shift")
+      )
     );
     this.mainBar.append(lseBar);
 
@@ -138,6 +160,9 @@ class Gui {
     this.mainBar.mouseDragged();
   }
   keyPressed() {
-    this.mainBar.keyPressed();
+    return !this.mainBar.keyPressed();
+  }
+  keyReleased() {
+    this.mainBar.keyReleased();
   }
 }

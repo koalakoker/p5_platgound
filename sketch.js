@@ -37,6 +37,12 @@ function mouseDragged() {
 }
 
 function keyPressed() {
-  gui.keyPressed();
   drawing.keyPressed();
+  const retVal = gui.keyPressed();
+  console.log(retVal);
+  //return retVal;
+}
+
+function keyReleased() {
+  gui.keyReleased();
 }
