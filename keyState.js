@@ -1,14 +1,10 @@
-const metaKey = "meta";
-const altKey = "alt";
-const controlKey = "control";
-const shiftKey = "shift";
 class KeyState {
   constructor() {
     this.mods = new Map();
-    this.mods.set(metaKey, false);
-    this.mods.set(altKey, false);
-    this.mods.set(controlKey, false);
-    this.mods.set(shiftKey, false);
+    this.mods.set(KeyState.metaKey(), false);
+    this.mods.set(KeyState.altKey(), false);
+    this.mods.set(KeyState.controlKey(), false);
+    this.mods.set(KeyState.shiftKey(), false);
     this.key = "";
   }
   setKey(key) {
@@ -25,5 +21,17 @@ class KeyState {
   }
   isActive(modifier) {
     return this.mods.get(modifier);
+  }
+  static metaKey() {
+    return "meta";
+  }
+  static altKey() {
+    return "alt";
+  }
+  static controlKey() {
+    return "control";
+  }
+  static shiftKey() {
+    return "shift";
   }
 }

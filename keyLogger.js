@@ -13,16 +13,16 @@ class KeyLogger extends Subject {
   keyPressed() {
     switch (key) {
       case "Meta":
-        this.keyState.setModifier(metaKey);
+        this.keyState.setModifier(KeyState.metaKey());
         break;
       case "Alt":
-        this.keyState.setModifier(altKey);
+        this.keyState.setModifier(KeyState.altKey());
         break;
       case "Control":
-        this.keyState.setModifier(controlKey);
+        this.keyState.setModifier(KeyState.controlKey());
         break;
       case "Shift":
-        this.keyState.setModifier(shiftKey);
+        this.keyState.setModifier(KeyState.shiftKey());
         break;
 
       default:
@@ -34,16 +34,16 @@ class KeyLogger extends Subject {
   keyReleased() {
     switch (key) {
       case "Meta":
-        this.keyState.resetModifier(metaKey);
+        this.keyState.resetModifier(KeyState.metaKey());
         break;
       case "Alt":
-        this.keyState.resetModifier(altKey);
+        this.keyState.resetModifier(KeyState.altKey());
         break;
       case "Control":
-        this.keyState.resetModifier(controlKey);
+        this.keyState.resetModifier(KeyState.controlKey());
         break;
       case "Shift":
-        this.keyState.resetModifier(shiftKey);
+        this.keyState.resetModifier(KeyState.shiftKey());
         break;
 
       default:
