@@ -1,12 +1,7 @@
 class KeyLogger extends Subject {
   constructor() {
     super();
-    this.state;
-    this.meta = false;
-    this.alt = false;
-    this.control = false;
-    this.shift = false;
-    this.key = "";
+    this.keyState = new KeyState();
   }
   setState(state) {
     this.state = state;
@@ -18,61 +13,43 @@ class KeyLogger extends Subject {
   keyPressed() {
     switch (key) {
       case "Meta":
-        this.meta = true;
+        this.keyState.setModifier("meta");
         break;
       case "Alt":
-        this.alt = true;
+        this.keyState.setModifier("alt");
         break;
       case "Control":
-        this.control = true;
+        this.keyState.setModifier("control");
         break;
       case "Shift":
-        this.shift = true;
+        this.keyState.setModifier("shift");
         break;
 
       default:
-        this.key = key;
-        this.setState("key pressed: " + this.stateString());
+        this.keyState.setKey(key);
         break;
     }
+    this.setState(this.keyState);
   }
   keyReleased() {
     switch (key) {
       case "Meta":
-        this.meta = false;
+        this.keyState.resetModifier("meta");
         break;
       case "Alt":
-        this.alt = false;
+        this.keyState.resetModifier("alt");
         break;
       case "Control":
-        this.control = false;
+        this.keyState.resetModifier("control");
         break;
       case "Shift":
-        this.shift = false;
+        this.keyState.resetModifier("shift");
         break;
 
       default:
-        this.key = key;
-        this.setState("Key released: " + this.stateString());
+        this.keyState.setKey("");
         break;
     }
-  }
-  stateString() {
-    let str = "";
-    if (this.meta) {
-      str += "cmd+";
-    }
-    if (this.alt) {
-      str += "alt+";
-    }
-    if (this.control) {
-      str += "ctrl+";
-    }
-    if (this.shift) {
-      str += "shift+";
-    }
-    str += this.key;
-    return str;
   }
 }
 
