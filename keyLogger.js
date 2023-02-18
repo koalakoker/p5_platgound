@@ -10,4 +10,20 @@ class KeyLogger extends Subject {
   getState() {
     return this.state;
   }
+  keyPressed() {
+    this.setState("key pressed: " + key);
+  }
+  keyReleased() {
+    this.setState("Key released: " + key);
+  }
+}
+
+kl = new KeyLogger();
+
+function keyPressed() {
+  kl.keyPressed();
+}
+
+function keyReleased() {
+  kl.keyReleased();
 }

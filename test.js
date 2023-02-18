@@ -18,7 +18,6 @@ class Test {
     subj2.notify("Sub2");
   }
   test2() {
-    const kl = new KeyLogger();
     const shortCut = new ShortCut("ShortCut");
     kl.attach(shortCut);
     kl.setState("Key logger - State change");
