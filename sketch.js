@@ -1,7 +1,8 @@
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
-  const t1 = new Test();
-  t1.test1();
+  const test = new Test();
+  test.test1();
+  test.test2();
 }
 
 function draw() {

@@ -13,9 +13,9 @@ class Subject {
       this.observers.splice(i, 1);
     }
   }
-  notify() {
+  notify(msg) {
     this.observers.forEach((obs) => {
-      obs.update(this.name);
+      obs.update(msg);
     });
   }
   index(obs) {
