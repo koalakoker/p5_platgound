@@ -1,9 +1,14 @@
+const metaKey = "meta";
+const altKey = "alt";
+const controlKey = "control";
+const shiftKey = "shift";
 class KeyState {
   constructor() {
-    this.meta = false;
-    this.alt = false;
-    this.control = false;
-    this.shift = false;
+    this.mods = new Map();
+    this.mods.set(metaKey, false);
+    this.mods.set(altKey, false);
+    this.mods.set(controlKey, false);
+    this.mods.set(shiftKey, false);
     this.key = "";
   }
   setKey(key) {
@@ -13,53 +18,12 @@ class KeyState {
     return this.key;
   }
   setModifier(modifier) {
-    switch (modifier) {
-      case "meta":
-        this.meta = true;
-        break;
-      case "alt":
-        this.alt = true;
-        break;
-      case "control":
-        this.control = true;
-        break;
-      case "shift":
-        this.shift = true;
-        break;
-      default:
-        break;
-    }
+    this.mods.set(modifier, true);
   }
   resetModifier() {
-    switch (modifier) {
-      case "meta":
-        this.meta = false;
-        break;
-      case "alt":
-        this.alt = false;
-        break;
-      case "control":
-        this.control = false;
-        break;
-      case "shift":
-        this.shift = false;
-        break;
-      default:
-        break;
-    }
+    this.mods.set(modifier, false);
   }
   isActive(modifier) {
-    switch (modifier) {
-      case "meta":
-        return this.meta;
-      case "alt":
-        return this.alt;
-      case "control":
-        return this.control;
-      case "shift":
-        return this.shift;
-      default:
-        return false;
-    }
+    return this.mods.get(modifier);
   }
 }
