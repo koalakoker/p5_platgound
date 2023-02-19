@@ -57,8 +57,10 @@ kl = new KeyLogger();
 
 function keyPressed() {
   kl.keyPressed(key);
+  return false;
 }
 
 function keyReleased() {
   kl.keyReleased(key);
+  return false;
 }

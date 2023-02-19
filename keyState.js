@@ -9,16 +9,38 @@ class KeyState {
   }
   isEqual(key) {
     let retVal = true;
+    //console.log(key.getKey(), this.getKey());
     retVal &&= key.getKey() === this.getKey();
+    //console.log(retVal);
+    //console.log(
+    //   key.isActive(KeyState.metaKey()),
+    //   this.isActive(KeyState.metaKey())
+    // );
     retVal &&=
       key.isActive(KeyState.metaKey()) === this.isActive(KeyState.metaKey());
+    //console.log(retVal);
+    //console.log(
+    //   key.isActive(KeyState.altKey()),
+    //   this.isActive(KeyState.altKey())
+    // );
     retVal &&=
       key.isActive(KeyState.altKey()) === this.isActive(KeyState.altKey());
+    //console.log(retVal);
+    //console.log(
+    //   key.isActive(KeyState.controlKey()),
+    //   this.isActive(KeyState.controlKey())
+    // );
     retVal &&=
       key.isActive(KeyState.controlKey()) ===
       this.isActive(KeyState.controlKey());
+    //console.log(retVal);
+    //console.log(
+    //   key.isActive(KeyState.shiftKey()),
+    //   this.isActive(KeyState.shiftKey())
+    // );
     retVal &&=
       key.isActive(KeyState.shiftKey()) === this.isActive(KeyState.shiftKey());
+    //console.log(retVal);
     return retVal;
   }
   toString() {

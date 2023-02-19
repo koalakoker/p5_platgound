@@ -16,51 +16,64 @@ class Test {
     console.log("checkKeyLoggerAndShortCut");
     return new Promise((resolve, reject) => {
       let activations = 0;
-      const ks = new KeyState("z", true);
+      const expectedActivation = 7;
+
+      const ks = new KeyState("z", false, false, true, false);
+      const ks2 = new KeyState("Z", false, false, true, true);
       const shortCut = new ShortCut(ks, () => {
         activations++;
-        if (activations === 4) {
-          resolve();
-        }
       });
-      this.keyLogSimulatePress_cmd_z();
+      const shortCut2 = new ShortCut(ks2, () => {
+        activations++;
+      });
+
+      this.keyLogSimulatePress_ctrl_z();
       kl.attach(shortCut);
-      this.keyLogSimulatePress_shift_cmd_z();
+      kl.attach(shortCut2);
+      this.keyLogSimulatePress_shift_ctrl_z(); // Trigger
       this.keyLogSimulatePress_z();
-      this.keyLogSimulatePress_cmd_z(); // Trigger
-      this.keyLogSimulatePress_shift_cmd_z();
-      this.keyLogSimulatePress_cmd_z(); // Trigger
+      this.keyLogSimulatePress_ctrl_z(); // Trigger
+      this.keyLogSimulatePress_shift_ctrl_z(); // Trigger
+      kl.detach(shortCut2);
+      this.keyLogSimulatePress_ctrl_z(); // Trigger
+      this.keyLogSimulatePress_shift_ctrl_z();
       kl.detach(shortCut);
-      this.keyLogSimulatePress_cmd_z();
+      this.keyLogSimulatePress_ctrl_z();
       kl.attach(shortCut);
-      this.keyLogSimulatePress_cmd_a();
-      this.keyLogSimulatePress_cmd_z(); // Trigger
-      this.keyLogSimulatePress_cmd_z(); // Trigger
-      reject();
+      this.keyLogSimulatePress_ctrl_a();
+      this.keyLogSimulatePress_ctrl_z(); // Trigger
+      this.keyLogSimulatePress_ctrl_z(); // Trigger
+      kl.attach(shortCut2);
+      this.keyLogSimulatePress_shift_ctrl_z(); // Trigger
+      if (activations === expectedActivation) {
+        resolve();
+      } else {
+        reject();
+      }
     });
   }
   keyLogSimulatePress_z() {
     kl.keyPressed("z");
     kl.keyReleased("z");
   }
-  keyLogSimulatePress_cmd_a() {
-    kl.keyPressed("Meta");
+  keyLogSimulatePress_ctrl_a() {
+    kl.keyPressed("Control");
     kl.keyPressed("a");
     kl.keyReleased("a");
-    kl.keyReleased("Meta");
+    kl.keyReleased("Control");
   }
-  keyLogSimulatePress_cmd_z() {
-    kl.keyPressed("Meta");
+  keyLogSimulatePress_ctrl_z() {
+    kl.keyPressed("Control");
     kl.keyPressed("z");
     kl.keyReleased("z");
-    kl.keyReleased("Meta");
+    kl.keyReleased("Control");
   }
-  keyLogSimulatePress_shift_cmd_z() {
+  keyLogSimulatePress_shift_ctrl_z() {
     kl.keyPressed("Shift");
-    kl.keyPressed("Meta");
-    kl.keyPressed("z");
-    kl.keyReleased("z");
-    kl.keyReleased("Meta");
+    kl.keyPressed("Control");
+    kl.keyPressed("Z");
+    kl.keyReleased("Z");
+    kl.keyReleased("Control");
     kl.keyReleased("Shift");
   }
 
