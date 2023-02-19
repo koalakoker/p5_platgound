@@ -7,6 +7,37 @@ class KeyState {
     this.mods.set(KeyState.shiftKey(), shiftState);
     this.key = key;
   }
+  isEqual(key) {
+    let retVal = true;
+    retVal &&= key.getKey() === this.getKey();
+    retVal &&=
+      key.isActive(KeyState.metaKey()) === this.isActive(KeyState.metaKey());
+    retVal &&=
+      key.isActive(KeyState.altKey()) === this.isActive(KeyState.altKey());
+    retVal &&=
+      key.isActive(KeyState.controlKey()) ===
+      this.isActive(KeyState.controlKey());
+    retVal &&=
+      key.isActive(KeyState.shiftKey()) === this.isActive(KeyState.shiftKey());
+    return retVal;
+  }
+  toString() {
+    let str = "";
+    if (this.isActive(KeyState.metaKey())) {
+      str += "cmd+";
+    }
+    if (this.isActive(KeyState.altKey())) {
+      str += "Alt+";
+    }
+    if (this.isActive(KeyState.controlKey())) {
+      str += "ctrl+";
+    }
+    if (this.isActive(KeyState.shiftKey())) {
+      str += "shift+";
+    }
+    str += this.getKey();
+    return str;
+  }
   setKey(key) {
     this.key = key;
   }

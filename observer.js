@@ -1,6 +1,5 @@
 class Observer {
-  constructor(name, cbUpdate) {
-    this.name = name;
+  constructor(cbUpdate) {
     this.cbUpdate = cbUpdate;
   }
   update(msg) {

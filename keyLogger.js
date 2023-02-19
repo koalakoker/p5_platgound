@@ -3,29 +3,12 @@ class KeyLogger extends Subject {
     super();
     this.keyState = new KeyState();
   }
-  setState(state) {
-    this.state = state;
-    this.notify(this.toString());
+  setState(keyState) {
+    this.keyState = keyState;
+    this.notify();
   }
   getState() {
-    return this.state;
-  }
-  toString() {
-    let str = "";
-    if (this.keyState.isActive(KeyState.metaKey())) {
-      str += "cmd+";
-    }
-    if (this.keyState.isActive(KeyState.altKey())) {
-      str += "Alt+";
-    }
-    if (this.keyState.isActive(KeyState.controlKey())) {
-      str += "ctrl+";
-    }
-    if (this.keyState.isActive(KeyState.shiftKey())) {
-      str += "shift+";
-    }
-    str += this.keyState.getKey();
-    return str;
+    return this.keyState;
   }
   keyPressed(key) {
     switch (key) {

@@ -1,8 +1,12 @@
 class ShortCut extends Observer {
-  constructor(name, cbUpdate) {
-    super(name, cbUpdate);
+  constructor(activationKey, cbUpdate) {
+    super(cbUpdate);
+    this.activationKey = activationKey;
   }
-  update(msg) {
-    super.update(msg);
+  update() {
+    const keyState = kl.getState();
+    if (keyState === this.activationKey) {
+      super.update(KeyLogger.toString(keyState));
+    }
   }
 }
