@@ -10,7 +10,7 @@ class Subject {
   }
   detach(obs) {
     if (this.isAttached(obs)) {
-      this.observers.splice(i, 1);
+      this.observers.splice(this.index(obs), 1);
     }
   }
   notify(msg) {
@@ -27,6 +27,6 @@ class Subject {
     return undefined;
   }
   isAttached(obs) {
-    return this.index(obs) ? true : false;
+    return this.index(obs) !== undefined ? true : false;
   }
 }

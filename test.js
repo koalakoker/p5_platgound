@@ -1,29 +1,71 @@
 class Test {
-  constructor() {}
-  test1() {
-    const ks = new KeyState("z", true);
-    const shortCut = new ShortCut(ks, (msg) => {
-      console.log(msg);
+  constructor() {
+    this.separator();
+    this.checkKeyStateIsEqual();
+    this.separator();
+    this.checkKeyLoggerAndShortCut()
+      .then(() => {
+        console.log("Test Passed");
+      })
+      .catch(() => {
+        console.log("Test Rejected");
+      });
+  }
+
+  checkKeyLoggerAndShortCut() {
+    console.log("checkKeyLoggerAndShortCut");
+    return new Promise((resolve, reject) => {
+      let activations = 0;
+      const ks = new KeyState("z", true);
+      const shortCut = new ShortCut(ks, () => {
+        activations++;
+        if (activations === 4) {
+          resolve();
+        }
+      });
+      this.keyLogSimulatePress_cmd_z();
+      kl.attach(shortCut);
+      this.keyLogSimulatePress_shift_cmd_z();
+      this.keyLogSimulatePress_z();
+      this.keyLogSimulatePress_cmd_z(); // Trigger
+      this.keyLogSimulatePress_shift_cmd_z();
+      this.keyLogSimulatePress_cmd_z(); // Trigger
+      kl.detach(shortCut);
+      this.keyLogSimulatePress_cmd_z();
+      kl.attach(shortCut);
+      this.keyLogSimulatePress_cmd_a();
+      this.keyLogSimulatePress_cmd_z(); // Trigger
+      this.keyLogSimulatePress_cmd_z(); // Trigger
+      reject();
     });
-    kl.attach(shortCut);
-    // z
+  }
+  keyLogSimulatePress_z() {
     kl.keyPressed("z");
     kl.keyReleased("z");
-    // cmd+z
+  }
+  keyLogSimulatePress_cmd_a() {
+    kl.keyPressed("Meta");
+    kl.keyPressed("a");
+    kl.keyReleased("a");
+    kl.keyReleased("Meta");
+  }
+  keyLogSimulatePress_cmd_z() {
     kl.keyPressed("Meta");
     kl.keyPressed("z");
     kl.keyReleased("z");
     kl.keyReleased("Meta");
-    // shift+cmd+z
+  }
+  keyLogSimulatePress_shift_cmd_z() {
     kl.keyPressed("Shift");
     kl.keyPressed("Meta");
     kl.keyPressed("z");
     kl.keyReleased("z");
     kl.keyReleased("Meta");
     kl.keyReleased("Shift");
-    kl.detach(shortCut);
   }
+
   checkKeyStateIsEqual() {
+    console.log("checkKeyStateIsEqual");
     const ks1 = new KeyState("a", true, false, false, true);
     const ks2 = new KeyState("b", true, false, false, true);
     const ks3 = new KeyState("z", true);
@@ -40,5 +82,9 @@ class Test {
   }
   compareKeyState(ks1, ks2) {
     return ks1.isEqual(ks2);
+  }
+
+  separator() {
+    console.log("============================================================");
   }
 }

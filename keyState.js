@@ -1,10 +1,10 @@
 class KeyState {
   constructor(key, metaState, altState, controlState, shiftState) {
     this.mods = new Map();
-    this.mods.set(KeyState.metaKey(), metaState);
-    this.mods.set(KeyState.altKey(), altState);
-    this.mods.set(KeyState.controlKey(), controlState);
-    this.mods.set(KeyState.shiftKey(), shiftState);
+    this.mods.set(KeyState.metaKey(), metaState || false);
+    this.mods.set(KeyState.altKey(), altState || false);
+    this.mods.set(KeyState.controlKey(), controlState || false);
+    this.mods.set(KeyState.shiftKey(), shiftState || false);
     this.key = key;
   }
   isEqual(key) {
