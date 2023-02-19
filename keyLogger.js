@@ -5,12 +5,29 @@ class KeyLogger extends Subject {
   }
   setState(state) {
     this.state = state;
-    this.notify(state);
+    this.notify(this.toString());
   }
   getState() {
     return this.state;
   }
-  keyPressed() {
+  toString() {
+    let str = "";
+    if (this.keyState.isActive(KeyState.metaKey())) {
+      str += "cmd+";
+    }
+    if (this.keyState.isActive(KeyState.altKey())) {
+      str += "Alt+";
+    }
+    if (this.keyState.isActive(KeyState.controlKey())) {
+      str += "ctrl+";
+    }
+    if (this.keyState.isActive(KeyState.shiftKey())) {
+      str += "shift+";
+    }
+    str += this.keyState.getKey();
+    return str;
+  }
+  keyPressed(key) {
     switch (key) {
       case "Meta":
         this.keyState.setModifier(KeyState.metaKey());
@@ -27,11 +44,11 @@ class KeyLogger extends Subject {
 
       default:
         this.keyState.setKey(key);
+        this.setState(this.keyState);
         break;
     }
-    this.setState(this.keyState);
   }
-  keyReleased() {
+  keyReleased(key) {
     switch (key) {
       case "Meta":
         this.keyState.resetModifier(KeyState.metaKey());
@@ -56,9 +73,9 @@ class KeyLogger extends Subject {
 kl = new KeyLogger();
 
 function keyPressed() {
-  kl.keyPressed();
+  kl.keyPressed(key);
 }
 
 function keyReleased() {
-  kl.keyReleased();
+  kl.keyReleased(key);
 }

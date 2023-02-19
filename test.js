@@ -1,25 +1,22 @@
 class Test {
   constructor() {}
   test1() {
-    const obs1 = new Observer("OBS1", (msg) => {
-      console.log("OBS1", msg);
+    const shortCut = new ShortCut("Test ShortCut", (msg) => {
+      console.log(msg);
     });
-    const obs2 = new Observer("OBS2", (msg) => {
-      console.log("OBS2", msg);
-    });
-    const subj1 = new Subject();
-    const subj2 = new Subject();
-
-    subj1.attach(obs1);
-    subj2.attach(obs1);
-    subj2.attach(obs2);
-
-    subj1.notify("Sub1");
-    subj2.notify("Sub2");
-  }
-  test2() {
-    const shortCut = new ShortCut("ShortCut");
     kl.attach(shortCut);
-    kl.setState("Key logger - State change");
+    // cmd+z
+    kl.keyPressed("Meta");
+    kl.keyPressed("z");
+    kl.keyReleased("z");
+    kl.keyReleased("Meta");
+    // shift+cmd+z
+    kl.keyPressed("Shift");
+    kl.keyPressed("Meta");
+    kl.keyPressed("z");
+    kl.keyReleased("z");
+    kl.keyReleased("Meta");
+    kl.keyReleased("Shift");
+    kl.detach(shortCut);
   }
 }

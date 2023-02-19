@@ -1,8 +1,8 @@
 class ShortCut extends Observer {
-  constructor(name) {
-    super(name);
+  constructor(name, cbUpdate) {
+    super(name, cbUpdate);
   }
   update(msg) {
-    console.log(this.name, msg);
+    super.update(msg);
   }
 }

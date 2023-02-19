@@ -1,11 +1,11 @@
 class KeyState {
-  constructor() {
+  constructor(key, metaState, altState, controlState, shiftState) {
     this.mods = new Map();
-    this.mods.set(KeyState.metaKey(), false);
-    this.mods.set(KeyState.altKey(), false);
-    this.mods.set(KeyState.controlKey(), false);
-    this.mods.set(KeyState.shiftKey(), false);
-    this.key = "";
+    this.mods.set(KeyState.metaKey(), metaState);
+    this.mods.set(KeyState.altKey(), altState);
+    this.mods.set(KeyState.controlKey(), controlState);
+    this.mods.set(KeyState.shiftKey(), shiftState);
+    this.key = key;
   }
   setKey(key) {
     this.key = key;
@@ -16,7 +16,7 @@ class KeyState {
   setModifier(modifier) {
     this.mods.set(modifier, true);
   }
-  resetModifier() {
+  resetModifier(modifier) {
     this.mods.set(modifier, false);
   }
   isActive(modifier) {
