@@ -18,18 +18,23 @@ class Test {
       let activations = 0;
       const expectedActivation = 7;
 
-      const ks = new KeyState("z", false, false, true, false);
-      const ks2 = new KeyState("Z", false, false, true, true);
-      const shortCut = new ShortCut(ks, () => {
-        activations++;
-      });
-      const shortCut2 = new ShortCut(ks2, () => {
-        activations++;
-      });
+      const shortCut = new ShortCut(
+        new KeyState("z", false, false, true, false),
+        (k) => {
+          if (k.isEqual(shortCut.activationKey)) {
+            activations++;
+          }
+        }
+      );
+      const shortCut2 = new ShortCut(
+        new KeyState("Z", false, false, true, true),
+        (k) => {
+          if (k.isEqual(shortCut2.activationKey)) {
+            activations++;
+          }
+        }
+      );
 
-      this.keyLogSimulatePress_ctrl_z();
-      kl.attach(shortCut);
-      kl.attach(shortCut2);
       this.keyLogSimulatePress_shift_ctrl_z(); // Trigger
       this.keyLogSimulatePress_z();
       this.keyLogSimulatePress_ctrl_z(); // Trigger
