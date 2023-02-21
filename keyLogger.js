@@ -10,57 +10,32 @@ class KeyLogger extends Subject {
   getState() {
     return this.keyState;
   }
-  keyPressed(key) {
-    switch (key) {
+  filterModifierKey(eventKey) {
+    switch (eventKey) {
       case "Meta":
-        this.keyState.setModifier(KeyState.metaKey());
-        break;
+        return "";
       case "Alt":
-        this.keyState.setModifier(KeyState.altKey());
-        break;
+        return "";
       case "Control":
-        this.keyState.setModifier(KeyState.controlKey());
-        break;
+        return "";
       case "Shift":
-        this.keyState.setModifier(KeyState.shiftKey());
-        break;
-
+        return "";
       default:
-        this.keyState.setKey(key);
-        this.setState(this.keyState);
-        break;
-    }
-  }
-  keyReleased(key) {
-    switch (key) {
-      case "Meta":
-        this.keyState.resetModifier(KeyState.metaKey());
-        break;
-      case "Alt":
-        this.keyState.resetModifier(KeyState.altKey());
-        break;
-      case "Control":
-        this.keyState.resetModifier(KeyState.controlKey());
-        break;
-      case "Shift":
-        this.keyState.resetModifier(KeyState.shiftKey());
-        break;
-
-      default:
-        this.keyState.setKey("");
-        break;
+        return eventKey;
     }
   }
 }
 
 kl = new KeyLogger();
-
-function keyPressed() {
-  kl.keyPressed(key);
-  return false;
-}
-
-function keyReleased() {
-  kl.keyReleased(key);
-  return false;
-}
+window.addEventListener("keydown", (event) => {
+  const kf = kl.filterModifierKey(event.key);
+  kl.setState(
+    new KeyState(kf, event.metaKey, event.altKey, event.ctrlKey, event.shiftKey)
+  );
+  event.preventDefault();
+});
+window.addEventListener("keyup", (event) => {
+  kl.setState(
+    new KeyState("", event.metaKey, event.altKey, event.ctrlKey, event.shiftKey)
+  );
+});

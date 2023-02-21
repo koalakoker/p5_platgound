@@ -5,7 +5,7 @@ class KeyState {
     this.mods.set(KeyState.altKey(), altState || false);
     this.mods.set(KeyState.controlKey(), controlState || false);
     this.mods.set(KeyState.shiftKey(), shiftState || false);
-    this.key = key;
+    this.key = key || "";
   }
   isEqual(key) {
     let retVal = true;
@@ -49,7 +49,7 @@ class KeyState {
       str += "cmd+";
     }
     if (this.isActive(KeyState.altKey())) {
-      str += "Alt+";
+      str += "alt+";
     }
     if (this.isActive(KeyState.controlKey())) {
       str += "ctrl+";
