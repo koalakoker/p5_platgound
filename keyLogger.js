@@ -29,9 +29,12 @@ class KeyLogger extends Subject {
 kl = new KeyLogger();
 window.addEventListener("keydown", (event) => {
   const kf = kl.filterModifierKey(event.key);
-  kl.setState(
-    new KeyState(kf, event.metaKey, event.altKey, event.ctrlKey, event.shiftKey)
-  );
+  const ks = new KeyState(kf)
+    .addMeta(event.metaKey)
+    .addAlt(event.altKey)
+    .addCtrl(event.ctrlKey)
+    .addShift(event.shiftKey);
+  kl.setState(ks);
   event.preventDefault();
 });
 window.addEventListener("keyup", (event) => {

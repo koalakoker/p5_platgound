@@ -11,25 +11,22 @@ function setup() {
   klP = createP("KL");
   klP.position(0, 0);
 
-  new ShortCut(new KeyState("z", false, false, true, false), (k) => {
+  new ShortCut(new KeyState("z").addCtrl(), (k) => {
     txt += k.toString() + "<br>";
     consoleP.html(txt);
   });
 
-  new ShortCut(new KeyState("Z", false, false, true, true), (k) => {
+  new ShortCut(new KeyState("Z").addCtrl().addShift(), (k) => {
     txt += k.toString() + "<br>";
     consoleP.html(txt);
   });
 
-  new ShortCut(new KeyState("z", true, false, false, false), (k) => {
+  new ShortCut(new KeyState("z").addMeta(), (k) => {
     txt += k.toString() + "<br>";
     consoleP.html(txt);
-    // setTimeout(() => {
-    //   kl.keyState = new KeyState();
-    // }, 1000);
   });
 
-  new ShortCut(new KeyState("z", true, false, false, true), (k) => {
+  new ShortCut(new KeyState("z").addMeta().addShift(), (k) => {
     txt += k.toString() + "<br>";
     consoleP.html(txt);
   });

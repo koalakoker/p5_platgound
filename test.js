@@ -18,16 +18,13 @@ class Test {
       let activations = 0;
       const expectedActivation = 7;
 
-      const shortCut = new ShortCut(
-        new KeyState("z", false, false, true, false),
-        (k) => {
-          if (k.isEqual(shortCut.activationKey)) {
-            activations++;
-          }
+      const shortCut = new ShortCut(new KeyState("z").addCtrl(), (k) => {
+        if (k.isEqual(shortCut.activationKey)) {
+          activations++;
         }
-      );
+      });
       const shortCut2 = new ShortCut(
-        new KeyState("Z", false, false, true, true),
+        new KeyState("Z").addCtrl().addShift(),
         (k) => {
           if (k.isEqual(shortCut2.activationKey)) {
             activations++;
@@ -36,7 +33,7 @@ class Test {
       );
 
       this.keyLogSimulatePress_shift_ctrl_z(); // Trigger
-      this.keyLogSimulatePress_z();
+      this.keyLogSimulatePress_ctrl_a();
       this.keyLogSimulatePress_ctrl_z(); // Trigger
       this.keyLogSimulatePress_shift_ctrl_z(); // Trigger
       kl.detach(shortCut2);
@@ -57,39 +54,42 @@ class Test {
       }
     });
   }
+
   keyLogSimulatePress_z() {
-    kl.keyPressed("z");
-    kl.keyReleased("z");
+    this.keyEventGen("keydown", new KeyState("z"));
+    this.keyEventGen("keyup", new KeyState("z"));
   }
   keyLogSimulatePress_ctrl_a() {
-    kl.keyPressed("Control");
-    kl.keyPressed("a");
-    kl.keyReleased("a");
-    kl.keyReleased("Control");
+    this.keyEventGen("keydown", new KeyState("a").addCtrl());
+    this.keyEventGen("keyup", new KeyState("a").addCtrl());
   }
   keyLogSimulatePress_ctrl_z() {
-    kl.keyPressed("Control");
-    kl.keyPressed("z");
-    kl.keyReleased("z");
-    kl.keyReleased("Control");
+    this.keyEventGen("keydown", new KeyState("z").addCtrl());
+    this.keyEventGen("keyup", new KeyState("z").addCtrl());
   }
   keyLogSimulatePress_shift_ctrl_z() {
-    kl.keyPressed("Shift");
-    kl.keyPressed("Control");
-    kl.keyPressed("Z");
-    kl.keyReleased("Z");
-    kl.keyReleased("Control");
-    kl.keyReleased("Shift");
+    this.keyEventGen("keydown", new KeyState("Z").addCtrl().addShift());
+    this.keyEventGen("keyup", new KeyState("Z").addCtrl().addShift());
+  }
+  keyEventGen(type, ks) {
+    var e = new KeyboardEvent(type, {
+      key: ks.getKey(),
+      ctrlKey: ks.isActive(KeyState.controlKey()),
+      metaKey: ks.isActive(KeyState.metaKey()),
+      altKey: ks.isActive(KeyState.altKey()),
+      shiftKey: ks.isActive(KeyState.shiftKey()),
+    });
+    window.dispatchEvent(e);
   }
 
   checkKeyStateIsEqual() {
     console.log("checkKeyStateIsEqual");
-    const ks1 = new KeyState("a", true, false, false, true);
-    const ks2 = new KeyState("b", true, false, false, true);
-    const ks3 = new KeyState("z", true);
-    const ks4 = new KeyState("z", true);
-    const ks5 = new KeyState("z", true, false, false, true);
-    const ks6 = new KeyState("z", true, false, false, true);
+    const ks1 = new KeyState("a").addMeta().addShift();
+    const ks2 = new KeyState("b").addMeta().addShift();
+    const ks3 = new KeyState("z").addMeta();
+    const ks4 = new KeyState("z").addMeta();
+    const ks5 = new KeyState("z").addMeta().addShift();
+    const ks6 = new KeyState("z").addMeta().addShift();
     let retVal = true;
     retVal &&= this.compareKeyState(ks1, ks2) === false;
     retVal &&= this.compareKeyState(ks3, ks4) === true;

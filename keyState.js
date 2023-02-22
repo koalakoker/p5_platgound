@@ -1,11 +1,39 @@
 class KeyState {
-  constructor(key, metaState, altState, controlState, shiftState) {
+  constructor(key) {
     this.mods = new Map();
-    this.mods.set(KeyState.metaKey(), metaState || false);
-    this.mods.set(KeyState.altKey(), altState || false);
-    this.mods.set(KeyState.controlKey(), controlState || false);
-    this.mods.set(KeyState.shiftKey(), shiftState || false);
+    this.mods.set(KeyState.metaKey(), false);
+    this.mods.set(KeyState.altKey(), false);
+    this.mods.set(KeyState.controlKey(), false);
+    this.mods.set(KeyState.shiftKey(), false);
     this.key = key || "";
+  }
+  addMeta(enable) {
+    if (enable === undefined) {
+      enable = true;
+    }
+    this.mods.set(KeyState.metaKey(), enable);
+    return this;
+  }
+  addAlt(enable) {
+    if (enable === undefined) {
+      enable = true;
+    }
+    this.mods.set(KeyState.altKey(), enable);
+    return this;
+  }
+  addCtrl(enable) {
+    if (enable === undefined) {
+      enable = true;
+    }
+    this.mods.set(KeyState.controlKey(), enable);
+    return this;
+  }
+  addShift(enable) {
+    if (enable === undefined) {
+      enable = true;
+    }
+    this.mods.set(KeyState.shiftKey(), enable);
+    return this;
   }
   isEqual(key) {
     let retVal = true;
