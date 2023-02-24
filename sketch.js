@@ -2,8 +2,6 @@ let klP;
 
 function setup() {
   //createCanvas(window.innerWidth, window.innerHeight);
-  const test = new Test();
-
   const consoleP = createP();
   consoleP.position(0, 20);
   let txt = "";
