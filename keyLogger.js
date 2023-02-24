@@ -10,7 +10,7 @@ class KeyLogger extends Subject {
   getState() {
     return this.keyState;
   }
-  filterModifierKey(eventKey) {
+  static filterModifierKey(eventKey) {
     switch (eventKey) {
       case "Meta":
         return "";
@@ -28,7 +28,7 @@ class KeyLogger extends Subject {
 
 kl = new KeyLogger();
 window.addEventListener("keydown", (event) => {
-  const kf = kl.filterModifierKey(event.key);
+  const kf = KeyLogger.filterModifierKey(event.key);
   const ks = new KeyState(kf)
     .addMeta(event.metaKey)
     .addAlt(event.altKey)

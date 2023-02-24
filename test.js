@@ -1,5 +1,7 @@
 const assert = chai.assert;
 
+describe("KeyLogger", keyLoggerTest);
+
 describe("KeyState", function () {
   it("Check KeyState isEqual method", checkKeyStateIsEqualMethod);
 });
