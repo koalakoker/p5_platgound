@@ -11,7 +11,15 @@ function keyLoggerTest() {
     assert.isTrue(kl.getState().isEqual(ks2));
   });
   it("filterModifierKey", () => {
-    const fk = KeyLogger.filterModifierKey(ks1.getKey());
+    let fk = KeyLogger.filterModifierKey(ks1.getKey());
     assert.equal(fk, "z");
+    fk = KeyLogger.filterModifierKey("Meta");
+    assert.equal(fk, "");
+    fk = KeyLogger.filterModifierKey("Alt");
+    assert.equal(fk, "");
+    fk = KeyLogger.filterModifierKey("Control");
+    assert.equal(fk, "");
+    fk = KeyLogger.filterModifierKey("Shift");
+    assert.equal(fk, "");
   });
 }

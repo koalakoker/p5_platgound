@@ -25,7 +25,7 @@ function keyEventGen(type, ks) {
   window.dispatchEvent(e);
 }
 
-function CheckKeyLoggerAndShortCutOpeartions() {
+function checkKeyLoggerAndShortCutOpeartions() {
   it("Check KeyLogger and ShortCut opeartions", () => {
     return new Promise((resolve, reject) => {
       let activations = 0;
