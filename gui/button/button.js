@@ -1,6 +1,6 @@
 class Button extends GElem {
-  constructor(parent, fileName, shortCut) {
-    super(parent, shortCut);
+  constructor(parent, fileName) {
+    super(parent);
     this.fileName = fileName;
     this.clickDebounce = 0;
   }

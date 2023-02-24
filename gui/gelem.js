@@ -1,11 +1,10 @@
 class GElem {
-  constructor(parent, shortCut, x, y, w, h) {
+  constructor(parent, x, y, w, h) {
     this.parent = parent;
     this.x = x || 0;
     this.y = y || 0;
     this.w = w || GElem.side();
     this.h = h || GElem.side();
-    this.shortCut = shortCut;
   }
   static side() {
     return 24;
@@ -35,6 +34,4 @@ class GElem {
   mousePressed() {}
   mouseReleased() {}
   mouseDragged() {}
-  keyPressed() {}
-  keyReleased() {}
 }
