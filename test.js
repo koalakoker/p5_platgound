@@ -3,3 +3,4 @@ describe("KeyLogger", keyLoggerTest);
 describe("KeyState", checkKeyStateIsEqualMethod);
 describe("Observer", observerTest);
 describe("ShortCut", checkKeyLoggerAndShortCutOpeartions);
+describe("Subject", subjectTests);
