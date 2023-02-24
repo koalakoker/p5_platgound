@@ -6,6 +6,11 @@ class GElem {
     this.w = w || GElem.side();
     this.h = h || GElem.side();
   }
+  addShortCut(shortCut) {
+    shortCut.message = this;
+    this.shortCut = shortCut;
+    return this;
+  }
   static side() {
     return 24;
   }

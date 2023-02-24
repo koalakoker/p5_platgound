@@ -31,12 +31,20 @@ class Gui {
     lseBar.append(
       new PushButton(lseBar, "png/icons8-annulla-26.png", () => {
         store.moveToPreviousState();
-      })
+      }).addShortCut(
+        new ShortCut(new KeyState("z").addMeta(), (button) => {
+          button.activate();
+        })
+      )
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-right-2-50.png", () => {
         store.moveToNextState();
-      })
+      }).addShortCut(
+        new ShortCut(new KeyState("z").addMeta().addShift(), (button) => {
+          button.activate();
+        })
+      )
     );
     this.mainBar.append(lseBar);
 
