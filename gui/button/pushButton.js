@@ -1,6 +1,6 @@
 class PushButton extends Button {
-  constructor(parent, fileName, pushedCallBack, shortCut) {
-    super(parent, fileName, shortCut);
+  constructor(parent, fileName, pushedCallBack) {
+    super(parent, fileName);
     this.pushedCallBack = pushedCallBack;
   }
   activate() {
@@ -14,19 +14,6 @@ class PushButton extends Button {
     if (this.inside()) {
       this.activate();
       return true;
-    }
-  }
-  keyPressed() {
-    if (this.shortCut) {
-      if (this.shortCut.keyPressed()) {
-        this.activate();
-        return true;
-      }
-    }
-  }
-  keyReleased() {
-    if (this.shortCut) {
-      this.shortCut.keyReleased();
     }
   }
 }

@@ -66,20 +66,6 @@ class Drawing {
       this.state.mouseDragged();
     }
   }
-  keyPressed() {
-    if (keyCode === BACKSPACE) {
-      for (let i = this.drawElement.length - 1; i >= 0; i--) {
-        const element = this.drawElement[i];
-        if (element.selected) {
-          this.drawElement.splice(i, 1);
-        }
-      }
-      this.updateSelectedElements();
-    }
-    if (keyCode === ESCAPE) {
-      this.deSelectAll();
-    }
-  }
 
   updateSelectedElements() {
     this.selectedElements = [];

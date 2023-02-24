@@ -29,24 +29,14 @@ class Gui {
       })
     );
     lseBar.append(
-      new PushButton(
-        lseBar,
-        "png/icons8-annulla-26.png",
-        () => {
-          store.moveToPreviousState();
-        },
-        new ShortCut("z", "Meta")
-      )
+      new PushButton(lseBar, "png/icons8-annulla-26.png", () => {
+        store.moveToPreviousState();
+      })
     );
     lseBar.append(
-      new PushButton(
-        lseBar,
-        "png/icons8-right-2-50.png",
-        () => {
-          store.moveToNextState();
-        },
-        new ShortCut("z", "Meta", "Shift")
-      )
+      new PushButton(lseBar, "png/icons8-right-2-50.png", () => {
+        store.moveToNextState();
+      })
     );
     this.mainBar.append(lseBar);
 
@@ -158,11 +148,5 @@ class Gui {
   }
   mouseDragged() {
     this.mainBar.mouseDragged();
-  }
-  keyPressed() {
-    return !this.mainBar.keyPressed();
-  }
-  keyReleased() {
-    this.mainBar.keyReleased();
   }
 }

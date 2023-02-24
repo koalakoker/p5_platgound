@@ -24,18 +24,6 @@ class DropDownBar extends Bar {
       .startTween();
     this.visible = false;
   }
-  keyPressed() {
-    if (keyCode === CONTROL) {
-      if (this.visible) {
-        this.hide();
-        this.lock = false;
-      } else {
-        this.show();
-        this.lock = true;
-      }
-    }
-    return super.keyPressed();
-  }
   mouseMoved() {
     if (mouseY < 5 && !this.visible) {
       this.show();

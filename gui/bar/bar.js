@@ -60,17 +60,4 @@ class Bar extends GElem {
       element.mouseReleased();
     });
   }
-  keyPressed() {
-    let retVal = false;
-    for (let i = 0; i < this.elements.length; i++) {
-      const element = this.elements[i];
-      retVal = retVal || element.keyPressed();
-    }
-    return retVal;
-  }
-  keyReleased() {
-    this.elements.forEach((element) => {
-      element.keyReleased();
-    });
-  }
 }

@@ -40,7 +40,6 @@ class Button extends GElem {
   mouseReleased() {
     this.mouseMoved();
   }
-  keyPressed() {}
   normalColor() {
     return this.unSelectedColor();
   }
