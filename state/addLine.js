@@ -5,7 +5,9 @@ class StateAddLine extends StateAdd {
   mousePressed() {
     super.mousePressed();
     let point = drawing.grid.snap(mouseX, mouseY);
-    this.newElement = new Line(point.x, point.y, point.x, point.y);
+    this.newElement = new Line(point.x, point.y, point.x, point.y).addStyle(
+      new Style(drawing.newElementStyle)
+    );
   }
   draw() {
     if (this.newElement) {

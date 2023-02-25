@@ -6,6 +6,7 @@ function preload() {
 }
 
 function setup() {
+  console.log("Setup...");
   drawing = new Drawing(window.innerWidth, window.innerHeight);
   drawing.setup();
   gui.setup();

@@ -1,9 +1,13 @@
 class Element {
   constructor() {
     this.id = 0;
-    this.style = new Style(drawing.newElementStyle);
+    this.style = new Style();
     this.selected = false;
     this.controls = [];
+  }
+  addStyle(style) {
+    this.style = style;
+    return this;
   }
   draw() {
     this.setStyle();
