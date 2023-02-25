@@ -32,6 +32,7 @@ class Style {
       r: red(color),
       g: green(color),
       b: blue(color),
+      a: alpha(color),
     });
   }
   serialize() {
@@ -49,13 +50,15 @@ class Style {
     this.fillColor = color(
       element.fillColor.r,
       element.fillColor.g,
-      element.fillColor.b
+      element.fillColor.b,
+      element.fillColor.a
     );
     this.stroke = element.stroke;
     this.strokeColor = color(
       element.strokeColor.r,
       element.strokeColor.g,
-      element.strokeColor.b
+      element.strokeColor.b,
+      element.strokeColor.a
     );
     this.strokeWeight = element.strokeWeight;
   }

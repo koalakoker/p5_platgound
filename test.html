@@ -4,32 +4,45 @@
     <meta charset="utf-8" />
     <title>Mocha Tests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../libraries/mocha.css" />
+    <link rel="stylesheet" href="libraries/mocha.css" />
   </head>
   <body>
     <div id="mocha"></div>
 
     <script src="libraries/chai.js"></script>
     <script src="libraries/mocha.js"></script>
+    <script src="libraries/utils.js"></script>
 
     <script src="key/subject.js"></script>
+    <script src="key/subject.test.js"></script>
     <script src="key/observer.js"></script>
+    <script src="key/observer.test.js"></script>
     <script src="key/keyState.js"></script>
+    <script src="key/keyState.test.js"></script>
     <script src="key/keyLogger.js"></script>
+    <script src="key/keyLogger.test.js"></script>
     <script src="key/shortCut.js"></script>
+    <script src="key/shortCut.test.js"></script>
+
+    <script src="elements/style.js"></script>
+    <script src="elements/style.test.js"></script>
+    <script src="elements/element.js"></script>
+    <script src="elements/control.js"></script>
+    <script src="elements/circle.js"></script>
+    <script src="elements/circle.test.js"></script>
+    <script src="elements/line.js"></script>
+    <script src="elements/line.test.js"></script>
+    <script src="elements/rectangle.js"></script>
+    <script src="elements/rectangle.test.js"></script>
 
     <script class="mocha-init">
       mocha.setup('bdd');
       mocha.checkLeaks();
-    </script>
-    <script src="key/keyLogger.test.js"></script>
-    <script src="key/keyState.test.js"></script>
-    <script src="key/observer.test.js"></script>
-    <script src="key/shortCut.test.js"></script>
-    <script src="key/subject.test.js"></script>
+    </script> -->
     <script src="test.js"></script>
     <script class="mocha-exec">
       mocha.run();
     </script>
+    
   </body>
 </html>
