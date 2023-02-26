@@ -2,8 +2,8 @@ const url = "http://localhost:3000";
 
 class Drawing {
   constructor(w, h) {
-    this.w = w;
-    this.h = h;
+    this.w = w || 0;
+    this.h = h || 0;
     this.drawElement = [];
     this.selectedElements = [];
   }
