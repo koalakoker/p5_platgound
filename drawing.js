@@ -13,10 +13,13 @@ class Drawing {
     this.grid.active = true;
     this.newElementStyle = new Style();
     this.state = new StateSelect();
-    this.load().catch(() => {
-      gui.showBackendNotAvailableError();
-    });
-    store.addState();
+    this.load()
+      .then(() => {
+        store.addState();
+      })
+      .catch(() => {
+        gui.showBackendNotAvailableError();
+      });
   }
   display() {
     background(0);
@@ -29,15 +32,16 @@ class Drawing {
       this.state.draw();
     }
   }
+  addNewElement(newElement) {
+    this.drawElement.push(newElement);
+  }
   clear() {
     this.drawElement = [];
     this.selectedElements = [];
     this.w = window.innerWidth;
     this.h = window.innerHeight;
   }
-  changeState(state) {
-    this.state = state;
-  }
+
   inside() {
     return Rect.inside(mouseX, mouseY, 0, 0, this.w, this.h);
   }
@@ -50,6 +54,10 @@ class Drawing {
       }
     }
     return elements;
+  }
+
+  changeState(state) {
+    this.state = state;
   }
   mousePressed() {
     if (this.state) {
@@ -97,8 +105,19 @@ class Drawing {
     });
     this.selectedElements = [];
   }
+
   save() {
-    httpPost(url, "json", JSON.parse(this.serialize()), function (result) {});
+    return httpPost(
+      url,
+      "json",
+      JSON.parse(this.serialize()),
+      function (result) {}
+    );
+  }
+  load() {
+    return httpGet(url, "text", false, (jsonTxt) => {
+      this.deserialize(jsonTxt);
+    });
   }
   serialize() {
     let serialList = [];
@@ -106,11 +125,6 @@ class Drawing {
       serialList.push(JSON.parse(this.drawElement[i].serialize()));
     }
     return JSON.stringify({ w: this.w, h: this.h, elements: serialList });
-  }
-  load() {
-    return httpGet(url, "text", false, (jsonText) => {
-      this.deserialize(jsonText);
-    });
   }
   deserialize(jsonString) {
     this.clear();

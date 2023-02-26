@@ -15,7 +15,7 @@ class StateAdd extends State {
           addBar.changeSelection(null, false);
           drawing.state.mousePressed();
         } else {
-          drawing.drawElement.push(this.newElement);
+          drawing.addNewElement(this.newElement);
           store.addState();
         }
         this.newElement = null;

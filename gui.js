@@ -128,14 +128,14 @@ class Gui {
   inside() {
     return this.mainBar.inside();
   }
-  showDialog(text, color, duration) {
+  showDialog(text, textColor, duration) {
     duration ||= 3000;
-    color ||= color(255);
+    textColor ||= color(255);
     this.dialogs.push(
       new Message(
         text,
         duration,
-        color,
+        textColor,
         (dialog) => {
           this.removeDialog(dialog);
         },
