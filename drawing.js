@@ -1,19 +1,21 @@
 const url = "http://localhost:3000";
-let store = new Store();
+
 class Drawing {
   constructor(w, h) {
     this.w = w;
     this.h = h;
     this.drawElement = [];
     this.selectedElements = [];
-    this.state = new StateSelect();
   }
   setup() {
     createCanvas(this.w, this.h);
     this.grid = new Grid(20);
     this.grid.active = true;
     this.newElementStyle = new Style();
-    this.load();
+    this.state = new StateSelect();
+    this.load().catch(() => {
+      gui.showBackendNotAvailableError();
+    });
     store.addState();
   }
   display() {
@@ -106,8 +108,8 @@ class Drawing {
     return JSON.stringify({ w: this.w, h: this.h, elements: serialList });
   }
   load() {
-    httpGet(url, "json", false, (json) => {
-      this.deserialize(JSON.stringify(json));
+    return httpGet(url, "text", false, (jsonText) => {
+      this.deserialize(jsonText);
     });
   }
   deserialize(jsonString) {

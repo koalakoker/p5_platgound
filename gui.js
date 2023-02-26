@@ -19,7 +19,7 @@ class Gui {
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-file-download-48.png", () => {
-        drawing.load();
+        drawing.load().catch(() => this.showBackendNotAvailableError());
       })
     );
     lseBar.append(
@@ -128,11 +128,14 @@ class Gui {
   inside() {
     return this.mainBar.inside();
   }
-  showDialog(text) {
+  showDialog(text, color, duration) {
+    duration ||= 3000;
+    color ||= color(255);
     this.dialogs.push(
       new Message(
         text,
-        3000,
+        duration,
+        color,
         (dialog) => {
           this.removeDialog(dialog);
         },
@@ -140,6 +143,9 @@ class Gui {
         200
       )
     );
+  }
+  showBackendNotAvailableError() {
+    gui.showDialog("Backend not available at: " + url, color(255, 0, 0), 5000);
   }
   removeDialog(dialog) {
     const i = this.dialogs.indexOf(dialog);

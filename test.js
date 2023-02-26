@@ -9,3 +9,5 @@ describe("Style", styleTests);
 describe("Circle", circleTests);
 describe("Rectangle", rectangleTests);
 describe("Line", lineTests);
+
+describe("Drawing", drawingTest);

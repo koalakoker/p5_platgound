@@ -1,10 +1,11 @@
 class Message extends Dialog {
-  constructor(text, duration, cbEnd, fadeIn, fadeOut) {
+  constructor(text, duration, color, cbEnd, fadeIn, fadeOut) {
     super();
     this.text = text;
     this.endLife = millis() + duration;
     this.cbEnd = cbEnd;
     this.margin = 20;
+    this.color = color;
     this.alpha = 0;
 
     p5.tween.manager
@@ -27,8 +28,15 @@ class Message extends Dialog {
     rectMode(CORNER);
     textSize(16);
     textAlign(CENTER, CENTER);
-    stroke(255, this.alpha);
-    fill(255, this.alpha);
+
+    const textFillColor = color(
+      red(this.color),
+      green(this.color),
+      blue(this.color),
+      this.alpha
+    );
+    stroke(textFillColor);
+    fill(textFillColor);
     text(this.text, this.x, this.y);
   }
 }

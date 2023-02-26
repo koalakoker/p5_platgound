@@ -21,3 +21,5 @@ class Store {
     drawing.deserialize(this.history[this.currentIndex]);
   }
 }
+
+let store = new Store();

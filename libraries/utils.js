@@ -51,3 +51,24 @@ function getStroke() {
 function strokeWeight(w) {
   strokeStyle.strokeWeight = w;
 }
+
+function httpGet(theUrl, dataType, data, cbSuccess) {
+  return new Promise((resolve, reject) => {
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function () {
+      if (http.readyState == 4) {
+        if (http.status == 200) {
+          if (cbSuccess) {
+            cbSuccess(http.responseText);
+            resolve(http.responseText);
+          }
+        }
+      }
+    };
+    http.onerror = () => {
+      reject("Backend not available at: " + url);
+    };
+    http.open("GET", theUrl, true);
+    http.send(null);
+  });
+}
