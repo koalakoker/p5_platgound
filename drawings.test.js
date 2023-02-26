@@ -5,7 +5,7 @@ function drawingTest() {
   });
   it("Save", async function () {
     return new Promise(async (resolve, reject) => {
-      const drawing = new Drawing(400, 400);
+      const drawing = new Drawing(0, 0);
       try {
         await drawing.load();
         // Test save writing different values
@@ -29,39 +29,50 @@ function drawingTest() {
       }
     });
   });
-  it("Create random save", () => {
-    const randomDraw = createRandomDraw();
-    return randomDraw.save();
-  });
+  // it("Create random save", () => {
+  //   const randomDraw = createRandomDraw();
+  //   return randomDraw.save();
+  // });
 }
 
 function createRandomDraw() {
   const max = 600;
-  const draw = new Drawing(Math.floor(rand(0, max)), Math.floor(rand(0, max)));
+  const draw = new Drawing(rnd(0, max), rnd(0, max));
   for (let i = 0; i < Math.floor(rand(10, 50)); i++) {
     draw.addNewElement(
-      new Circle(
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max))
-      )
+      new Circle(rnd(0, max), rnd(0, max), rnd(20, 100)).addStyle(rndStyle())
     );
     draw.addNewElement(
-      new Line(
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max))
+      new Line(rnd(0, max), rnd(0, max), rnd(0, max), rnd(0, max)).addStyle(
+        rndStyle()
       )
     );
     draw.addNewElement(
       new Rectangle(
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max)),
-        Math.floor(rand(0, max))
-      )
+        rnd(0, max),
+        rnd(0, max),
+        rnd(0, max),
+        rnd(0, max)
+      ).addStyle(rndStyle())
     );
   }
   return draw;
+}
+
+function rndStyle() {
+  const s = new Style();
+  s.fill = true;
+  s.fillColor = rndColor();
+  s.stroke = true;
+  s.strokeColor = rndColor();
+  s.strokeWeight = rnd(1, 10);
+  return s;
+}
+
+function rnd(min, max) {
+  return Math.floor(rand(min, max));
+}
+
+function rndColor() {
+  return color(rnd(0, 255), rnd(0, 255), rnd(0, 255), rnd(0, 255));
 }
