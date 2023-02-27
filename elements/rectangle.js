@@ -48,7 +48,8 @@ class Rectangle extends Element {
   }
   inside(x, y) {
     const r = Rect.rect({ x: this.x1, y: this.y1 }, { x: this.x2, y: this.y2 });
-    return Rect.inside(x || mouseX, y || mouseY, r.x, r.y, r.w, r.h);
+    const retVal = Rect.inside(x, y, r.x, r.y, r.w, r.h);
+    return retVal;
   }
   isEmpty() {
     return this.x1 === this.x2 && this.y1 === this.y2;

@@ -95,3 +95,15 @@ function httpPost(url, dataType, data, cbSuccess) {
     http.send(JSON.stringify(data));
   });
 }
+
+function createVector(x, y, z) {
+  return test_p5.createVector(x, y, z);
+}
+
+function cos(x) {
+  return test_p5.cos(x);
+}
+
+function sin(x) {
+  return test_p5.cos(x);
+}

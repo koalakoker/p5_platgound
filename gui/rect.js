@@ -1,6 +1,6 @@
 class Rect {
   static inside(x, y, xr, yr, w, h) {
-    return x > xr && x < xr + w && y > yr && y < yr + h;
+    return x >= xr && x <= xr + w && y >= yr && y <= yr + h;
   }
   static rect(p1, p2) {
     let x;

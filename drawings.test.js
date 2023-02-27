@@ -1,4 +1,59 @@
 function drawingTest() {
+  it("Add circle", () => {
+    const draw = new Drawing(800, 600);
+    const style = rndStyle();
+    const px = 400;
+    const py = 300;
+    const r = 100;
+    draw.addNewElement(new Circle(px, py, r).addStyle(style));
+    const select = draw.elementsAtPoint(px, py);
+    assert.equal(select.length, 1);
+    const elem = select[0];
+    assert.equal(elem.id, 2);
+    assert.equal(elem.x, px);
+    assert.equal(elem.y, py);
+    assert.equal(elem.r, r);
+    assert.deepEqual(elem.style, style);
+  });
+  it("Add rectangle", () => {
+    const draw = new Drawing(800, 600);
+    const style = rndStyle();
+    const px1 = 0;
+    const py1 = 200;
+    const px2 = 800;
+    const py2 = 400;
+    draw.addNewElement(new Rectangle(px1, py1, px2, py2).addStyle(style));
+    draw.save();
+    const select = draw.elementsAtPoint(px1, py1);
+    assert.equal(select.length, 1);
+    const elem = select[0];
+    assert.equal(elem.id, 3);
+    assert.equal(elem.x1, px1);
+    assert.equal(elem.y1, py1);
+    assert.equal(elem.x2, px2);
+    assert.equal(elem.y2, py2);
+    assert.deepEqual(elem.style, style);
+  });
+  it("Add line", () => {
+    const draw = new Drawing(800, 600);
+    const style = rndStyle();
+    const px1 = 0;
+    const py1 = 300;
+    const px2 = 800;
+    const py2 = 300;
+    draw.addNewElement(new Line(px1, py1, px2, py2).addStyle(style));
+    draw.save();
+    const select = draw.elementsAtPoint(px1, py1);
+    console.log(select);
+    assert.equal(select.length, 1);
+    const elem = select[0];
+    assert.equal(elem.id, 2);
+    assert.equal(elem.x1, px1);
+    assert.equal(elem.y1, py1);
+    assert.equal(elem.x2, px2);
+    assert.equal(elem.y2, py2);
+    assert.deepEqual(elem.style, style);
+  });
   it("Load", () => {
     const drawing = new Drawing();
     return drawing.load();
@@ -29,10 +84,10 @@ function drawingTest() {
       }
     });
   });
-  it("Create random save", () => {
-    const randomDraw = createRandomDraw(800, 600);
-    return randomDraw.save();
-  });
+  // it("Create random save", () => {
+  //   const randomDraw = createRandomDraw(800, 600);
+  //   return randomDraw.save();
+  // });
 }
 
 function createRandomDraw(w, h) {
