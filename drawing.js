@@ -4,7 +4,7 @@ class Drawing {
   constructor(w, h) {
     this.w = w || 0;
     this.h = h || 0;
-    this.drawElement = [];
+    this.drawElements = [];
     this.selectedElements = [];
   }
   setup() {
@@ -24,8 +24,8 @@ class Drawing {
   display() {
     background(0);
     this.grid.display();
-    for (let i = 0; i < this.drawElement.length; i++) {
-      const element = this.drawElement[i];
+    for (let i = 0; i < this.drawElements.length; i++) {
+      const element = this.drawElements[i];
       element.draw();
     }
     if (this.state) {
@@ -33,10 +33,10 @@ class Drawing {
     }
   }
   addNewElement(newElement) {
-    this.drawElement.push(newElement);
+    this.drawElements.push(newElement);
   }
   clear() {
-    this.drawElement = [];
+    this.drawElements = [];
     this.selectedElements = [];
     this.w = window.innerWidth;
     this.h = window.innerHeight;
@@ -48,9 +48,9 @@ class Drawing {
   elementsAtPoint(x, y) {
     // Select which elements are present at point x,y
     const elements = [];
-    for (let i = 0; i < this.drawElement.length; i++) {
-      if (this.drawElement[i].inside(x, y)) {
-        elements.push(this.drawElement[i]);
+    for (let i = 0; i < this.drawElements.length; i++) {
+      if (this.drawElements[i].inside(x, y)) {
+        elements.push(this.drawElements[i]);
       }
     }
     return elements;
@@ -79,16 +79,16 @@ class Drawing {
 
   updateSelectedElements() {
     this.selectedElements = [];
-    for (let i = 0; i < this.drawElement.length; i++) {
-      const element = this.drawElement[i];
+    for (let i = 0; i < this.drawElements.length; i++) {
+      const element = this.drawElements[i];
       if (element.selected) {
         this.selectedElements.push(element);
       }
     }
   }
   selectArea(selectionArea) {
-    for (let i = 0; i < this.drawElement.length; i++) {
-      const element = this.drawElement[i];
+    for (let i = 0; i < this.drawElements.length; i++) {
+      const element = this.drawElements[i];
       if (element.isInsideArea(selectionArea)) {
         this.selectElement(element, true);
       }
@@ -100,7 +100,7 @@ class Drawing {
     // cb
   }
   deSelectAll() {
-    this.drawElement.forEach((element) => {
+    this.drawElements.forEach((element) => {
       element.selected = false;
     });
     this.selectedElements = [];
@@ -121,8 +121,8 @@ class Drawing {
   }
   serialize() {
     let serialList = [];
-    for (let i = 0; i < this.drawElement.length; i++) {
-      serialList.push(JSON.parse(this.drawElement[i].serialize()));
+    for (let i = 0; i < this.drawElements.length; i++) {
+      serialList.push(JSON.parse(this.drawElements[i].serialize()));
     }
     return JSON.stringify({ w: this.w, h: this.h, elements: serialList });
   }
@@ -134,7 +134,9 @@ class Drawing {
     const elements = json.elements;
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
-      this.drawElement.push(new Element().deserialize(JSON.stringify(element)));
+      this.drawElements.push(
+        new Element().deserialize(JSON.stringify(element))
+      );
     }
   }
 }

@@ -1,5 +1,5 @@
 function drawingTest() {
-  it("Add circle", () => {
+  it("Add circle and clear", () => {
     const draw = new Drawing(800, 600);
     const style = rndStyle();
     const px = 400;
@@ -14,6 +14,8 @@ function drawingTest() {
     assert.equal(elem.y, py);
     assert.equal(elem.r, r);
     assert.deepEqual(elem.style, style);
+    draw.clear();
+    assert.equal(draw.drawElements.length, 0);
   });
   it("Add rectangle", () => {
     const draw = new Drawing(800, 600);
@@ -104,7 +106,6 @@ function createRandomDraw(w, h) {
   }
   return draw;
 }
-
 function rndStyle() {
   const s = new Style();
   s.fill = true;
@@ -114,11 +115,9 @@ function rndStyle() {
   s.strokeWeight = rnd(1, 10);
   return s;
 }
-
 function rnd(min, max) {
   return Math.floor(rand(min, max));
 }
-
 function rndColor() {
   return color(rnd(0, 255), rnd(0, 255), rnd(0, 255), rnd(0, 255));
 }
