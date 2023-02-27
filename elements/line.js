@@ -50,18 +50,12 @@ class Line extends Element {
   inside(x, y) {
     let p1 = createVector(this.x1, this.y1);
     let p2 = createVector(this.x2, this.y2);
-    let s = p5.Vector.sub(p2, p1);
-    let m = p5.Vector.add(p1, p2).div(2);
-    let th = s.heading();
-    let l = s.mag();
-    let margin = 5;
-    let r11 = createVector(-l / 2 - margin, -margin);
-    let h = 2 * margin;
-    let w = l + h;
-    let ms = createVector(x, y);
-    ms.sub(m);
-    ms = this.rotCCW(ms, th);
-    return Rect.inside(ms.x, ms.y, r11.x, r11.y, w, h);
+    let p = createVector(x, y);
+    let d12 = p5.Vector.sub(p2, p1).mag();
+    let d1 = p5.Vector.sub(p, p1).mag();
+    let d2 = p5.Vector.sub(p, p2).mag();
+    let diff = d1 + d2 - d12;
+    return diff <= 5;
   }
   isEmpty() {
     return this.x1 === this.x2 && this.y1 === this.y2;

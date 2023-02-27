@@ -23,7 +23,6 @@ function drawingTest() {
     const px2 = 800;
     const py2 = 400;
     draw.addNewElement(new Rectangle(px1, py1, px2, py2).addStyle(style));
-    draw.save();
     const select = draw.elementsAtPoint(px1, py1);
     assert.equal(select.length, 1);
     const elem = select[0];
@@ -42,12 +41,10 @@ function drawingTest() {
     const px2 = 800;
     const py2 = 300;
     draw.addNewElement(new Line(px1, py1, px2, py2).addStyle(style));
-    draw.save();
-    const select = draw.elementsAtPoint(px1, py1);
-    console.log(select);
+    const select = draw.elementsAtPoint(px1, py1 + 4);
     assert.equal(select.length, 1);
     const elem = select[0];
-    assert.equal(elem.id, 2);
+    assert.equal(elem.id, 1);
     assert.equal(elem.x1, px1);
     assert.equal(elem.y1, py1);
     assert.equal(elem.x2, px2);
