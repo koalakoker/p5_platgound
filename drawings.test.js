@@ -1,4 +1,14 @@
 function drawingTest() {
+  it("Setup", () => {
+    const draw = new Drawing(800, 600);
+    assert.isUndefined(draw.grid);
+    assert.isUndefined(draw.newElementStyle);
+    assert.isUndefined(draw.state);
+    draw.setup();
+    assert.isTrue(Grid.prototype.isPrototypeOf(draw.grid));
+    assert.isTrue(Style.prototype.isPrototypeOf(draw.newElementStyle));
+    assert.isTrue(StateSelect.prototype.isPrototypeOf(draw.state));
+  });
   it("Add circle and clear", () => {
     const draw = new Drawing(800, 600);
     const style = rndStyle();

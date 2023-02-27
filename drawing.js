@@ -18,6 +18,7 @@ class Drawing {
         store.addState();
       })
       .catch(() => {
+        const gui = Gui.getInstance();
         gui.showBackendNotAvailableError();
       });
   }

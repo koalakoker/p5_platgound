@@ -1,3 +1,6 @@
+const width = 800;
+const height = 600;
+
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -106,4 +109,10 @@ function cos(x) {
 
 function sin(x) {
   return test_p5.cos(x);
+}
+
+function createCanvas() {}
+
+function millis() {
+  return test_p5.millis();
 }

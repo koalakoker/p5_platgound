@@ -13,6 +13,7 @@ class Picker extends GElem {
     if (super.inside()) {
       this.selected = !this.selected;
       // If picker is selected lock main bar else unlock
+      const gui = Gui.getInstance();
       if (this.selected) {
         gui.mainBar.lock = true;
       } else {

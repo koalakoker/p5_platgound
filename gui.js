@@ -2,11 +2,21 @@ let addBar;
 const KEY_CTRL = 91;
 const KEY_Z = 90;
 class Gui {
-  constructor() {}
-  init() {
-    // Dialogs
+  constructor() {
     this.dialogs = [];
-
+  }
+  static getInstance() {
+    if (!Gui.instance) {
+      Object.defineProperty(Gui, "instance", {
+        value: new Gui(),
+        writable: false,
+        enumerable: true,
+        configurable: false,
+      });
+    }
+    return Gui.instance;
+  }
+  init() {
     // Bar
     this.mainBar = new DropDownBar(null, 1, 0);
 
@@ -145,7 +155,7 @@ class Gui {
     );
   }
   showBackendNotAvailableError() {
-    gui.showDialog("Backend not available at: " + url, color(255, 0, 0), 5000);
+    this.showDialog("Backend not available at: " + url, color(255, 0, 0), 5000);
   }
   removeDialog(dialog) {
     const i = this.dialogs.indexOf(dialog);
