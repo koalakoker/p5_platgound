@@ -1,6 +1,6 @@
 function drawingTest() {
-  it("Setup", () => {
-    const draw = new Drawing(800, 600);
+  it("Setup and mouse interaction", () => {
+    const draw = Drawing.getInstance();
     assert.isUndefined(draw.grid);
     assert.isUndefined(draw.newElementStyle);
     assert.isUndefined(draw.state);
@@ -8,6 +8,19 @@ function drawingTest() {
     assert.isTrue(Grid.prototype.isPrototypeOf(draw.grid));
     assert.isTrue(Style.prototype.isPrototypeOf(draw.newElementStyle));
     assert.isTrue(StateSelect.prototype.isPrototypeOf(draw.state));
+
+    // After setup is possible to set a different state and simulate mouse interaction
+
+    draw.changeState(new StateAddCircle());
+    mouseX = 400;
+    mouseY = 300;
+    draw.mousePressed();
+    console.log("Mouse pressed");
+    mouseX = 450;
+    draw.mouseDragged();
+    draw.mouseReleased();
+
+    console.log(draw.drawElements);
   });
   it("Add circle and clear", () => {
     const draw = new Drawing(800, 600);
@@ -64,12 +77,12 @@ function drawingTest() {
     assert.deepEqual(elem.style, style);
   });
   it("Load", () => {
-    const drawing = new Drawing();
+    const drawing = Drawing.getInstance();
     return drawing.load();
   });
   it("Save", async function () {
     return new Promise(async (resolve, reject) => {
-      const drawing = new Drawing();
+      const drawing = Drawing.getInstance();
       try {
         await drawing.load();
         // Test save writing different values

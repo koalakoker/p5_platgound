@@ -17,6 +17,7 @@ class Grid {
     if (this.active) {
       stroke(255);
       strokeWeight(1);
+      const drawing = Drawing.getInstance();
       for (let row = 0; row < drawing.h / this.space; row++) {
         for (let col = 0; col < drawing.w / this.space; col++) {
           point(col * this.space, row * this.space);

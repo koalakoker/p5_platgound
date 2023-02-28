@@ -4,7 +4,7 @@ class Store {
     this.currentIndex = -1;
   }
   addState() {
-    const state = drawing.serialize();
+    const state = Drawing.getInstance().serialize();
     this.history.push(state);
     this.currentIndex++;
   }
@@ -12,13 +12,13 @@ class Store {
     if (this.currentIndex > 0) {
       this.currentIndex--;
     }
-    drawing.deserialize(this.history[this.currentIndex]);
+    Drawing.getInstance().deserialize(this.history[this.currentIndex]);
   }
   moveToNextState() {
     if (this.currentIndex < this.history.length - 1) {
       this.currentIndex++;
     }
-    drawing.deserialize(this.history[this.currentIndex]);
+    Drawing.getInstance().deserialize(this.history[this.currentIndex]);
   }
 }
 

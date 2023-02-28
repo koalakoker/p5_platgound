@@ -11,11 +11,11 @@ class StateAdd extends State {
       this.dragging = false;
       if (this.newElement) {
         if (this.newElement.isEmpty()) {
-          drawing.changeState(new StateSelect());
+          Drawing.getInstance().changeState(new StateSelect());
           addBar.changeSelection(null, false);
-          drawing.state.mousePressed();
+          Drawing.getInstance().state.mousePressed();
         } else {
-          drawing.addNewElement(this.newElement);
+          Drawing.getInstance().addNewElement(this.newElement);
           store.addState();
         }
         this.newElement = null;
@@ -24,7 +24,7 @@ class StateAdd extends State {
   }
   mouseDragged() {
     if (this.dragging) {
-      let point = drawing.grid.snap(mouseX, mouseY);
+      let point = Drawing.getInstance().grid.snap(mouseX, mouseY);
       this.newElement.addPoint(point);
     }
   }

@@ -23,7 +23,7 @@ class SelectionArea {
   }
   mouseReleased() {
     if (this.visible) {
-      drawing.selectArea(this);
+      Drawing.getInstance().selectArea(this);
       this.visible = false;
     }
   }

@@ -7,6 +7,17 @@ class Drawing {
     this.drawElements = [];
     this.selectedElements = [];
   }
+  static getInstance() {
+    if (!Drawing.instance) {
+      Object.defineProperty(Drawing, "instance", {
+        value: new Drawing(window.innerWidth, window.innerHeight),
+        writable: false,
+        enumerable: true,
+        configurable: false,
+      });
+    }
+    return Drawing.instance;
+  }
   setup() {
     createCanvas(this.w, this.h);
     this.grid = new Grid(20);
@@ -43,9 +54,6 @@ class Drawing {
     this.h = window.innerHeight;
   }
 
-  inside() {
-    return Rect.inside(mouseX, mouseY, 0, 0, this.w, this.h);
-  }
   elementsAtPoint(x, y) {
     // Select which elements are present at point x,y
     const elements = [];
@@ -66,6 +74,9 @@ class Drawing {
         this.state.mousePressed();
       }
     }
+  }
+  inside() {
+    return Rect.inside(mouseX, mouseY, 0, 0, this.w, this.h);
   }
   mouseReleased() {
     if (this.state) {

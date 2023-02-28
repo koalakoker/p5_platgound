@@ -1,19 +1,16 @@
-let drawing;
-
 function preload() {
   const gui = Gui.getInstance();
   gui.preload();
 }
 
 function setup() {
-  drawing = new Drawing(window.innerWidth, window.innerHeight);
-  drawing.setup();
+  Drawing.getInstance().setup();
   const gui = Gui.getInstance();
   gui.setup();
 }
 
 function draw() {
-  drawing.display();
+  Drawing.getInstance().display();
   const gui = Gui.getInstance();
   gui.display();
 }
@@ -26,18 +23,18 @@ function mouseMoved() {
 function mousePressed() {
   const gui = Gui.getInstance();
   if (gui.mousePressed() === false) {
-    drawing.mousePressed();
+    Drawing.getInstance().mousePressed();
   }
 }
 
 function mouseReleased() {
   const gui = Gui.getInstance();
   gui.mouseReleased();
-  drawing.mouseReleased();
+  Drawing.getInstance().mouseReleased();
 }
 
 function mouseDragged() {
   const gui = Gui.getInstance();
   gui.mouseDragged();
-  drawing.mouseDragged();
+  Drawing.getInstance().mouseDragged();
 }

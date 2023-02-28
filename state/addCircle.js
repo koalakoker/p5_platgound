@@ -4,9 +4,9 @@ class StateAddCircle extends StateAdd {
   }
   mousePressed() {
     super.mousePressed();
-    this.center = drawing.grid.snap(mouseX, mouseY);
+    this.center = Drawing.getInstance().grid.snap(mouseX, mouseY);
     this.newElement = new Circle(this.center.x, this.center.y, 0).addStyle(
-      new Style(drawing.newElementStyle)
+      new Style(Drawing.getInstance().newElementStyle)
     );
   }
   draw() {

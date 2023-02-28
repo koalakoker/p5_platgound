@@ -13,4 +13,8 @@ describe("Circle", circleTests);
 describe("Rectangle", rectangleTests);
 describe("Line", lineTests);
 
+describe("State Add", addTests);
+describe("State Add Circle", addCircleTests);
+
+describe("Grid", gridTests);
 describe("Drawing", drawingTest);

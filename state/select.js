@@ -6,12 +6,12 @@ class StateSelect extends State {
   }
   draw() {
     this.selectionArea.draw();
-    drawing.selectedElements.forEach((element) => {
+    Drawing.getInstance().selectedElements.forEach((element) => {
       element.showControls();
     });
   }
   mousePressed() {
-    const point = drawing.grid.snap(mouseX, mouseY);
+    const point = Drawing.getInstance().grid.snap(mouseX, mouseY);
     this.clickPoint = createVector(point.x, point.y);
     if (
       this.actionOnControls((control) => {
@@ -21,7 +21,7 @@ class StateSelect extends State {
       return;
     }
 
-    let pointedElements = drawing.elementsAtPoint(mouseX, mouseY);
+    let pointedElements = Drawing.getInstance().elementsAtPoint(mouseX, mouseY);
     reverse(pointedElements);
     const selNum = pointedElements.length;
     if (selNum > 0) {
@@ -32,13 +32,13 @@ class StateSelect extends State {
       this.index++;
       if (!selected.selected) {
         if (!keyIsDown(SHIFT)) {
-          drawing.deSelectAll();
+          Drawing.getInstance().deSelectAll();
         }
-        drawing.selectElement(selected, true);
+        Drawing.getInstance().selectElement(selected, true);
       }
     } else {
       if (!keyIsDown(SHIFT)) {
-        drawing.deSelectAll();
+        Drawing.getInstance().deSelectAll();
       }
       this.selectionArea.mousePressed();
     }
@@ -56,10 +56,10 @@ class StateSelect extends State {
       return;
     }
 
-    let selectedElements = drawing.selectedElements;
+    let selectedElements = Drawing.getInstance().selectedElements;
     if (selectedElements.length > 0 && !keyIsDown(SHIFT)) {
       // Drag selected elemnts
-      const point = drawing.grid.snap(mouseX, mouseY);
+      const point = Drawing.getInstance().grid.snap(mouseX, mouseY);
       const d = p5.Vector.sub(point, this.clickPoint);
       this.clickPoint = point;
       selectedElements.forEach((element) => {
@@ -71,8 +71,8 @@ class StateSelect extends State {
   }
   actionOnControls(action) {
     let found = 0;
-    for (let i = 0; i < drawing.selectedElements.length; i++) {
-      const element = drawing.selectedElements[i];
+    for (let i = 0; i < Drawing.getInstance().selectedElements.length; i++) {
+      const element = Drawing.getInstance().selectedElements[i];
       for (let j = 0; j < element.controls.length; j++) {
         const control = element.controls[j];
         if (action(control)) {

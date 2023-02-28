@@ -24,17 +24,19 @@ class Gui {
     const lseBar = new Bar(this.mainBar);
     lseBar.append(
       new PushButton(lseBar, "png/icons8-clear-58.png", () => {
-        drawing.clear();
+        Drawing.getInstance().clear();
       })
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-file-download-48.png", () => {
-        drawing.load().catch(() => this.showBackendNotAvailableError());
+        Drawing.getInstance()
+          .load()
+          .catch(() => this.showBackendNotAvailableError());
       })
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-salva-30.png", () => {
-        drawing.save();
+        Drawing.getInstance().save();
         this.showDialog("Sketch has been saved");
       })
     );
@@ -60,24 +62,24 @@ class Gui {
 
     // Add group
     addBar = new Group(this.mainBar, () => {
-      drawing.deSelectAll();
+      Drawing.getInstance().deSelectAll();
     });
     addBar.append(
       new CheckButton(addBar, "png/addLine.png", (sel) => {
         const state = sel ? new StateAddLine() : new StateSelect();
-        drawing.changeState(state);
+        Drawing.getInstance().changeState(state);
       })
     );
     addBar.append(
       new CheckButton(addBar, "png/addRect.png", (sel) => {
         const state = sel ? new StateAddRect() : new StateSelect();
-        drawing.changeState(state);
+        Drawing.getInstance().changeState(state);
       })
     );
     addBar.append(
       new CheckButton(addBar, "png/addCircle.png", (sel) => {
         const state = sel ? new StateAddCircle() : new StateSelect();
-        drawing.changeState(state);
+        Drawing.getInstance().changeState(state);
       })
     );
     this.mainBar.append(addBar);
@@ -85,7 +87,7 @@ class Gui {
     // Grid
     const gridGroup = new Group(this.mainBar);
     const gridButton = new CheckButton(gridGroup, "png/grid.png", (sel) => {
-      drawing.grid.active = sel;
+      Drawing.getInstance().grid.active = sel;
     });
     gridButton.selected = true;
     gridGroup.append(gridButton);
@@ -97,26 +99,26 @@ class Gui {
       pickBar,
       255,
       (color) => {
-        drawing.newElementStyle.strokeColor = color;
+        Drawing.getInstance().newElementStyle.strokeColor = color;
       },
       (transparent) => {
-        drawing.newElementStyle.stroke = !transparent;
+        Drawing.getInstance().newElementStyle.stroke = !transparent;
       }
     );
     pickBar.append(strokeColorPicker);
     pickBar.append(
       new LinePicker(pickBar, 1, (weight) => {
-        drawing.newElementStyle.strokeWeight = weight;
+        Drawing.getInstance().newElementStyle.strokeWeight = weight;
       })
     );
     const fillColorPicker = new ColorPicker(
       pickBar,
       0,
       (color) => {
-        drawing.newElementStyle.fillColor = color;
+        Drawing.getInstance().newElementStyle.fillColor = color;
       },
       (transparent) => {
-        drawing.newElementStyle.fill = !transparent;
+        Drawing.getInstance().newElementStyle.fill = !transparent;
       }
     );
     pickBar.append(fillColorPicker);
