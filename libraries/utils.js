@@ -116,3 +116,7 @@ function millis() {
 function collideRectCircle(ax1, ay1, ax2, ay2, cx, cy, cr) {
   return test_p5.collideRectCircle(ax1, ay1, ax2, ay2, cx, cy, cr);
 }
+
+function collideRectRect(x1, y1, w1, h1, x2, y2, w2, h2) {
+  return test_p5.collideRectRect(x1, y1, w1, h1, x2, y2, w2, h2);
+}

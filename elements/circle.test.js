@@ -6,12 +6,12 @@ function circleTests() {
     assert.equal(c.x, posX);
     assert.equal(c.y, posY);
     assert.equal(c.r, 0);
-    assertControl(c);
+    assertControlCircle(c);
     assert.isTrue(c.isEmpty());
 
     c.addPoint({ x: posX + 50, y: posY });
     assert.equal(c.r, 50);
-    assertControl(c);
+    assertControlCircle(c);
     assert.isFalse(c.isEmpty());
 
     const dx = iRand(0, 500);
@@ -19,7 +19,7 @@ function circleTests() {
     c.move(dx, dy);
     assert.equal(c.x, posX + dx);
     assert.equal(c.y, posY + dy);
-    assertControl(c);
+    assertControlCircle(c);
 
     let area = {
       p1: { x: posX, y: posY },
@@ -49,7 +49,7 @@ function circleTests() {
   });
 }
 
-function assertControl(c) {
+function assertControlCircle(c) {
   assert.equal(c.controls[0].x, c.x);
   assert.equal(c.controls[0].y, c.y);
   assert.equal(c.controls[1].x, c.x + c.r);
