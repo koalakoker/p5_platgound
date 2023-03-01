@@ -29,7 +29,7 @@ function rectangleTests() {
 
     let area = {
       p1: { x: x1, y: y1 },
-      p2: { x: x2 + dx, y: y1 + dy },
+      p2: { x: x2 + dx, y: y2 + dy },
     };
     assert.isTrue(r.isInsideArea(area));
     area = {
