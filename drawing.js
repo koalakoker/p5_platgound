@@ -6,6 +6,11 @@ class Drawing {
     this.h = h || 0;
     this.drawElements = [];
     this.selectedElements = [];
+
+    this.grid = new Grid(20);
+    this.grid.active = true;
+    this.newElementStyle = new Style();
+    this.state = new StateSelect();
   }
   static getInstance() {
     if (!Drawing.instance) {
@@ -20,10 +25,6 @@ class Drawing {
   }
   setup() {
     createCanvas(this.w, this.h);
-    this.grid = new Grid(20);
-    this.grid.active = true;
-    this.newElementStyle = new Style();
-    this.state = new StateSelect();
     this.load()
       .then(() => {
         Store.getInstance().addState();

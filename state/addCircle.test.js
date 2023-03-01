@@ -1,7 +1,6 @@
 function addCircleTests() {
   it("Add circle state tests", () => {
     const tDrw = Drawing.getInstance();
-    tDrw.setup(); // TBR calling drawing setup
     const sAddCircle = new StateAddCircle();
     const firstPoint = { x: 400, y: 300 };
     const secondPoint = { x: 455, y: 300 };
