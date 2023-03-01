@@ -6,6 +6,9 @@ let mouseY = 300;
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
+function iRand(min, max) {
+  return Math.floor(rand(min, max));
+}
 function round(x) {
   return Math.round(x);
 }
@@ -108,4 +111,8 @@ function sin(x) {
 function createCanvas() {}
 function millis() {
   return test_p5.millis();
+}
+
+function collideRectCircle(ax1, ay1, ax2, ay2, cx, cy, cr) {
+  return test_p5.collideRectCircle(ax1, ay1, ax2, ay2, cx, cy, cr);
 }

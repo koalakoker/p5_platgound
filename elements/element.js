@@ -33,7 +33,7 @@ class Element {
       style: JSON.parse(this.style.serialize()),
     };
   }
-  deserialize(jsonString) {
+  static deserialize(jsonString) {
     const element = JSON.parse(jsonString);
     let obj;
     if (element.id === 1) {

@@ -154,9 +154,7 @@ class Drawing {
     const elements = json.elements;
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
-      this.drawElements.push(
-        new Element().deserialize(JSON.stringify(element))
-      );
+      this.drawElements.push(Element.deserialize(JSON.stringify(element)));
     }
   }
 }
