@@ -24,15 +24,19 @@ class Drawing {
     return Drawing.instance;
   }
   setup() {
-    createCanvas(this.w, this.h);
-    this.load()
-      .then(() => {
-        Store.getInstance().addState();
-      })
-      .catch(() => {
-        const gui = Gui.getInstance();
-        gui.showBackendNotAvailableError();
-      });
+    return new Promise((resolve, reject) => {
+      createCanvas(this.w, this.h);
+      this.load()
+        .then(() => {
+          Store.getInstance().addState();
+          resolve();
+        })
+        .catch(() => {
+          const gui = Gui.getInstance();
+          gui.showBackendNotAvailableError();
+          reject();
+        });
+    });
   }
   display() {
     background(0);

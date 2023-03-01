@@ -5,8 +5,7 @@ function preload() {
 
 function setup() {
   Drawing.getInstance().setup();
-  const gui = Gui.getInstance();
-  gui.setup();
+  Gui.getInstance().setup();
 }
 
 function draw() {
