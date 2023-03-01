@@ -42,7 +42,7 @@ class Gui {
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-annulla-26.png", () => {
-        store.moveToPreviousState();
+        Store.getInstance().moveToPreviousState();
       }).addShortCut(
         new ShortCut(new KeyState("z").addMeta(), (button) => {
           button.activate();
@@ -51,7 +51,7 @@ class Gui {
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-right-2-50.png", () => {
-        store.moveToNextState();
+        Store.getInstance().moveToNextState();
       }).addShortCut(
         new ShortCut(new KeyState("z").addMeta().addShift(), (button) => {
           button.activate();

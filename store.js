@@ -3,6 +3,17 @@ class Store {
     this.history = [];
     this.currentIndex = -1;
   }
+  static getInstance() {
+    if (!Store.instance) {
+      Object.defineProperty(Store, "instance", {
+        value: new Store(),
+        writable: false,
+        enumerable: true,
+        configurable: false,
+      });
+    }
+    return Store.instance;
+  }
   addState() {
     const state = Drawing.getInstance().serialize();
     this.history.push(state);
@@ -21,5 +32,3 @@ class Store {
     Drawing.getInstance().deserialize(this.history[this.currentIndex]);
   }
 }
-
-let store = new Store();

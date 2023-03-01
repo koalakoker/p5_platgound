@@ -1,5 +1,7 @@
 const width = 800;
 const height = 600;
+let mouseX = 400;
+let mouseY = 300;
 
 function rand(min, max) {
   return Math.random() * (max - min) + min;

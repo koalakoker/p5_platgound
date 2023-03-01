@@ -26,7 +26,7 @@ class Drawing {
     this.state = new StateSelect();
     this.load()
       .then(() => {
-        store.addState();
+        Store.getInstance().addState();
       })
       .catch(() => {
         const gui = Gui.getInstance();
@@ -46,6 +46,9 @@ class Drawing {
   }
   addNewElement(newElement) {
     this.drawElements.push(newElement);
+  }
+  getElements() {
+    return this.drawElements;
   }
   clear() {
     this.drawElements = [];
