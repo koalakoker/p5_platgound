@@ -5,7 +5,7 @@ function drawingTest() {
     assert.isTrue(Style.prototype.isPrototypeOf(draw.newElementStyle));
     assert.isTrue(StateSelect.prototype.isPrototypeOf(draw.state));
     await draw.setup();
-    assert.equal(Store.getInstance().currentIndex, 1);
+    assert.equal(Store.getInstance().currentIndex, 0);
   });
   it("Add circle and clear", () => {
     const draw = new Drawing(800, 600);

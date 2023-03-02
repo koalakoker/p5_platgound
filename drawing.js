@@ -26,6 +26,7 @@ class Drawing {
   setup() {
     return new Promise((resolve, reject) => {
       createCanvas(this.w, this.h);
+      Store.getInstance().clear();
       this.load()
         .then(() => {
           Store.getInstance().addState();

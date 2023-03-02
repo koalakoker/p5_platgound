@@ -1,7 +1,6 @@
 class Store {
   constructor() {
-    this.history = [];
-    this.currentIndex = -1;
+    this.clear();
   }
   static getInstance() {
     if (!Store.instance) {
@@ -13,6 +12,10 @@ class Store {
       });
     }
     return Store.instance;
+  }
+  clear() {
+    this.history = [];
+    this.currentIndex = -1;
   }
   addState() {
     const state = Drawing.getInstance().serialize();
