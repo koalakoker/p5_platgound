@@ -2,6 +2,7 @@ function addCircleTests() {
   it("Add circle state tests", () => {
     const tDrw = Drawing.getInstance();
     tDrw.clear();
+    tDrw.grid.deActivate();
     const sAddCircle = new StateAddCircle();
     const firstPoint = { x: 400, y: 300 };
     const secondPoint = { x: 455, y: 300 };
@@ -17,6 +18,6 @@ function addCircleTests() {
     assert.isTrue(Circle.prototype.isPrototypeOf(newElem));
     assert.equal(newElem.x, firstPoint.x);
     assert.equal(newElem.y, firstPoint.y);
-    assert.equal(newElem.r, 60);
+    assert.equal(newElem.r, 55);
   });
 }

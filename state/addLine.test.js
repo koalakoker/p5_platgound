@@ -2,6 +2,7 @@ function addLineTests() {
   it("Add line state tests", () => {
     const tDrw = Drawing.getInstance();
     tDrw.clear();
+    tDrw.grid.deActivate();
     const sAddLine = new StateAddLine();
     const firstPoint = { x: 400, y: 300 };
     const secondPoint = { x: 455, y: 300 };
@@ -17,7 +18,7 @@ function addLineTests() {
     assert.isTrue(Line.prototype.isPrototypeOf(newElem));
     assert.equal(newElem.x1, firstPoint.x);
     assert.equal(newElem.y1, firstPoint.y);
-    assert.equal(newElem.x2, 460);
+    assert.equal(newElem.x2, secondPoint.x);
     assert.equal(newElem.y2, secondPoint.y);
   });
 }
