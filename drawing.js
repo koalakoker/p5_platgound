@@ -8,7 +8,6 @@ class Drawing {
     this.selectedElements = [];
 
     this.grid = new Grid(20);
-    this.grid.active = true;
     this.newElementStyle = new Style();
     this.state = new StateSelect();
   }

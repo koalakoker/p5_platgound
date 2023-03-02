@@ -1,6 +1,12 @@
 class Grid {
   constructor(space) {
     this.space = space;
+    this.active = true;
+  }
+  activate() {
+    this.active = true;
+  }
+  deActivate() {
     this.active = false;
   }
   snap(x, y) {
