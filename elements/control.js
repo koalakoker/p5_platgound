@@ -26,6 +26,7 @@ class Control {
       this.dragged = true;
       return true;
     }
+    return false;
   }
   mouseReleased() {
     this.dragged = false;
