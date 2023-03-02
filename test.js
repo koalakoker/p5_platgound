@@ -19,5 +19,7 @@ describe("State Add Circle", addCircleTests);
 describe("State Add Line", addLineTests);
 describe("State Add Rect", addRectTests);
 
+describe("Gui", guiTests);
 describe("Grid", gridTests);
+describe("Store", storeTests);
 describe("Drawing", drawingTest);
