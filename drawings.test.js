@@ -1,9 +1,9 @@
 function drawingTest() {
   it("Setup", async () => {
     const draw = Drawing.getInstance();
-    assert.isTrue(Grid.prototype.isPrototypeOf(draw.grid));
-    assert.isTrue(Style.prototype.isPrototypeOf(draw.newElementStyle));
-    assert.isTrue(StateSelect.prototype.isPrototypeOf(draw.state));
+    assert.isTrue(isTypeOf(draw.grid, Grid));
+    assert.isTrue(isTypeOf(draw.newElementStyle, Style));
+    assert.isTrue(isTypeOf(draw.state, StateSelect));
     await draw.setup();
     assert.equal(Store.getInstance().currentIndex, 0);
   });
@@ -60,6 +60,13 @@ function drawingTest() {
     assert.equal(elem.x2, px2);
     assert.equal(elem.y2, py2);
     assert.deepEqual(elem.style, style);
+  });
+  it("Force state select", () => {
+    const drawing = Drawing.getInstance();
+    drawing.changeState(new StateAddLine());
+    assert.isTrue(isTypeOf(drawing.state, StateAddLine));
+    drawing.forceStateSelect();
+    assert.isTrue(isTypeOf(drawing.state, StateSelect));
   });
   it("Load", () => {
     const drawing = Drawing.getInstance();

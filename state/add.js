@@ -10,12 +10,11 @@ class StateAdd extends State {
     if (this.dragging) {
       this.dragging = false;
       if (this.newElement) {
+        const drw = Drawing.getInstance();
         if (this.newElement.isEmpty()) {
-          Drawing.getInstance().changeState(new StateSelect());
-          addBar.changeSelection(null, false);
-          Drawing.getInstance().state.mousePressed();
+          drw.forceStateSelect();
         } else {
-          Drawing.getInstance().addNewElement(this.newElement);
+          drw.addNewElement(this.newElement);
           Store.getInstance().addState();
         }
         this.newElement = null;

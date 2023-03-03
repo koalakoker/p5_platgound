@@ -15,7 +15,7 @@ function addRectTests() {
     sAddRect.mouseReleased();
     assert.equal(tDrw.getElements().length, 1);
     const newElem = tDrw.getElements()[0];
-    assert.isTrue(Rectangle.prototype.isPrototypeOf(newElem));
+    assert.isTrue(isTypeOf(newElem, Rectangle));
     assert.equal(newElem.x1, firstPoint.x);
     assert.equal(newElem.y1, firstPoint.y);
     assert.equal(newElem.x2, secondPoint.x);

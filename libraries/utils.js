@@ -3,6 +3,10 @@ const height = 600;
 let mouseX = 400;
 let mouseY = 300;
 
+function isTypeOf(object, type) {
+  return type.prototype.isPrototypeOf(object);
+}
+
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -30,6 +34,9 @@ function blue(color) {
 }
 function alpha(color) {
   return color.a;
+}
+function brightness(color) {
+  return test_p5.brightness(color);
 }
 
 let fillColor;
@@ -116,7 +123,15 @@ function millis() {
 function collideRectCircle(ax1, ay1, ax2, ay2, cx, cy, cr) {
   return test_p5.collideRectCircle(ax1, ay1, ax2, ay2, cx, cy, cr);
 }
-
 function collideRectRect(x1, y1, w1, h1, x2, y2, w2, h2) {
   return test_p5.collideRectRect(x1, y1, w1, h1, x2, y2, w2, h2);
+}
+
+function reverse(a) {
+  return test_p5.reverse(a);
+}
+
+let SHIFT = 16;
+function keyIsDown(k) {
+  return test_p5.keyIsDown(k);
 }

@@ -126,6 +126,12 @@ class Drawing {
     this.selectedElements = [];
   }
 
+  forceStateSelect() {
+    this.changeState(new StateSelect());
+    Gui.getInstance().resetAddBar();
+    this.state.mousePressed();
+  }
+
   save() {
     return httpPost(
       url,

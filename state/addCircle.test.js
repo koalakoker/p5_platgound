@@ -15,7 +15,7 @@ function addCircleTests() {
     sAddCircle.mouseReleased();
     assert.equal(tDrw.getElements().length, 1);
     const newElem = tDrw.getElements()[0];
-    assert.isTrue(Circle.prototype.isPrototypeOf(newElem));
+    assert.isTrue(isTypeOf(newElem, Circle));
     assert.equal(newElem.x, firstPoint.x);
     assert.equal(newElem.y, firstPoint.y);
     assert.equal(newElem.r, 55);

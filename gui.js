@@ -1,4 +1,3 @@
-let addBar;
 const KEY_CTRL = 91;
 const KEY_Z = 90;
 class Gui {
@@ -61,28 +60,28 @@ class Gui {
     this.mainBar.append(lseBar);
 
     // Add group
-    addBar = new Group(this.mainBar, () => {
+    this.addBar = new Group(this.mainBar, () => {
       Drawing.getInstance().deSelectAll();
     });
-    addBar.append(
-      new CheckButton(addBar, "png/addLine.png", (sel) => {
+    this.addBar.append(
+      new CheckButton(this.addBar, "png/addLine.png", (sel) => {
         const state = sel ? new StateAddLine() : new StateSelect();
         Drawing.getInstance().changeState(state);
       })
     );
-    addBar.append(
-      new CheckButton(addBar, "png/addRect.png", (sel) => {
+    this.addBar.append(
+      new CheckButton(this.addBar, "png/addRect.png", (sel) => {
         const state = sel ? new StateAddRect() : new StateSelect();
         Drawing.getInstance().changeState(state);
       })
     );
-    addBar.append(
-      new CheckButton(addBar, "png/addCircle.png", (sel) => {
+    this.addBar.append(
+      new CheckButton(this.addBar, "png/addCircle.png", (sel) => {
         const state = sel ? new StateAddCircle() : new StateSelect();
         Drawing.getInstance().changeState(state);
       })
     );
-    this.mainBar.append(addBar);
+    this.mainBar.append(this.addBar);
 
     // Grid
     const gridGroup = new Group(this.mainBar);
@@ -163,6 +162,11 @@ class Gui {
     const i = this.dialogs.indexOf(dialog);
     this.dialogs.splice(i, 1);
   }
+
+  resetAddBar() {
+    this.addBar.changeSelection(null, false);
+  }
+
   mouseMoved() {
     this.mainBar.mouseMoved();
   }
