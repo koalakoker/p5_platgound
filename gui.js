@@ -1,8 +1,6 @@
-const KEY_CTRL = 91;
-const KEY_Z = 90;
 class Gui {
   constructor() {
-    this.dialogs = [];
+    this.diagMngr = new DiagManager();
   }
   static getInstance() {
     if (!Gui.instance) {
@@ -36,7 +34,7 @@ class Gui {
     lseBar.append(
       new PushButton(lseBar, "png/icons8-salva-30.png", () => {
         Drawing.getInstance().save();
-        this.showDialog("Sketch has been saved");
+        this.diagMngr.addMessage("Sketch has been saved");
       })
     );
     lseBar.append(
@@ -132,35 +130,14 @@ class Gui {
   }
   display() {
     this.mainBar.display();
-    this.dialogs.forEach((dialog) => {
-      dialog.draw();
-    });
+    this.diagMngr.display();
   }
-  inside() {
-    return this.mainBar.inside();
-  }
-  showDialog(text, textColor, duration) {
-    duration ||= 3000;
-    textColor ||= color(255);
-    this.dialogs.push(
-      new Message(
-        text,
-        duration,
-        textColor,
-        (dialog) => {
-          this.removeDialog(dialog);
-        },
-        200,
-        200
-      )
-    );
+
+  addMessage(msg) {
+    this.diagMngr.addMessage(msg);
   }
   showBackendNotAvailableError() {
-    this.showDialog("Backend not available at: " + url, color(255, 0, 0), 5000);
-  }
-  removeDialog(dialog) {
-    const i = this.dialogs.indexOf(dialog);
-    this.dialogs.splice(i, 1);
+    this.diagMngr.addError("Backend not available at: " + url);
   }
 
   resetAddBar() {

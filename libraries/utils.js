@@ -16,6 +16,12 @@ function iRand(min, max) {
 function round(x) {
   return Math.round(x);
 }
+function floor(x) {
+  return Math.floor();
+}
+function random(n) {
+  return test_p5.random(n);
+}
 function dist(x1, y1, x2, y2) {
   return test_p5.dist(x1, y1, x2, y2);
 }
@@ -61,6 +67,10 @@ function getStroke() {
 }
 function strokeWeight(w) {
   strokeStyle.strokeWeight = w;
+}
+
+function loadImage(p) {
+  test_p5.loadImage(p);
 }
 
 function httpGet(url, dataType, data, cbSuccess) {
@@ -134,4 +144,15 @@ function reverse(a) {
 let SHIFT = 16;
 function keyIsDown(k) {
   return test_p5.keyIsDown(k);
+}
+
+const CENTER = 0;
+function rectMode(mode) {
+  test_p5.rectMode(mode);
+}
+function rect(x, y, w, h) {
+  test_p5.rect(x, y, w, h);
+}
+function text(txt, x, y) {
+  test_p5.text(txt, x, y);
 }

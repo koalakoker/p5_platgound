@@ -26,10 +26,10 @@ class Bar extends GElem {
       h: GElem.side(),
     };
   }
-  inside() {
+  inside(x, y) {
     return Rect.inside(
-      mouseX,
-      mouseY,
+      x,
+      y,
       this.getX(),
       this.getY(),
       this.size().w,

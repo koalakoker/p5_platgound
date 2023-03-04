@@ -2,13 +2,13 @@ class Message extends Dialog {
   constructor(text, duration, color, cbEnd, fadeIn, fadeOut) {
     super();
     this.text = text;
-    this.endLife = millis() + duration;
     this.cbEnd = cbEnd;
     this.margin = 20;
     this.color = color;
     this.alpha = 0;
+    this.started = false;
 
-    p5.tween.manager
+    this.tween = p5.tween.manager
       .addTween(this)
       .addMotion("alpha", 255, fadeIn, "easeInQuad")
       .addMotion("alpha", 255, duration)
@@ -17,8 +17,14 @@ class Message extends Dialog {
         if (this.cbEnd) {
           this.cbEnd(this);
         }
-      })
-      .startTween();
+      });
+  }
+  show() {
+    this.tween.startTween();
+    this.started = true;
+  }
+  notStarted() {
+    return !this.started;
   }
   draw() {
     stroke(0, this.alpha);
