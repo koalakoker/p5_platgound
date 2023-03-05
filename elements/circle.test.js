@@ -14,6 +14,8 @@ function circleTests() {
     assertControlCircle(c);
     assert.isFalse(c.isEmpty());
 
+    c.draw();
+
     const dx = iRand(0, 500);
     const dy = iRand(0, 500);
     c.move(dx, dy);

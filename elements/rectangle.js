@@ -44,7 +44,7 @@ class Rectangle extends Element {
   isInsideArea(area) {
     const r = Rect.rect({ x: this.x1, y: this.y1 }, { x: this.x2, y: this.y2 });
     const a = Rect.rect(area.p1, area.p2);
-    return collideRectRect(r.x, r.y, r.w, r.h, a.x, a.y, a.w, a.h);
+    return p5js.collideRectRect(r.x, r.y, r.w, r.h, a.x, a.y, a.w, a.h);
   }
   inside(x, y) {
     const r = Rect.rect({ x: this.x1, y: this.y1 }, { x: this.x2, y: this.y2 });

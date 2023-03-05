@@ -42,9 +42,18 @@ class Line extends Element {
   isInsideArea(area) {
     const a = Rect.rect(area.p1, area.p2);
     return (
-      collidePointRect(this.x1, this.y1, a.x, a.y, a.w, a.h) ||
-      collidePointRect(this.x2, this.y2, a.x, a.y, a.w, a.h) ||
-      collideLineRect(this.x1, this.y1, this.x2, this.y2, a.x, a.y, a.w, a.h)
+      p5js.collidePointRect(this.x1, this.y1, a.x, a.y, a.w, a.h) ||
+      p5js.collidePointRect(this.x2, this.y2, a.x, a.y, a.w, a.h) ||
+      p5js.collideLineRect(
+        this.x1,
+        this.y1,
+        this.x2,
+        this.y2,
+        a.x,
+        a.y,
+        a.w,
+        a.h
+      )
     );
   }
   inside(x, y) {

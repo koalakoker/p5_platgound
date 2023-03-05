@@ -18,6 +18,8 @@ function lineTests() {
     assertControlLine(l);
     assert.isFalse(l.isEmpty());
 
+    l.draw();
+
     const dx = iRand(0, 500);
     const dy = iRand(0, 500);
     l.move(dx, dy);

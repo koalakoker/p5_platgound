@@ -18,6 +18,8 @@ function rectangleTests() {
     assertControlRect(r);
     assert.isFalse(r.isEmpty());
 
+    r.draw();
+
     const dx = iRand(0, 500);
     const dy = iRand(0, 500);
     r.move(dx, dy);
