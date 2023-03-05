@@ -27,22 +27,27 @@ class Message extends Dialog {
     return !this.started;
   }
   draw() {
-    stroke(0, this.alpha);
-    fill(0, this.alpha);
-    rectMode(CENTER);
-    rect(this.x, this.y, textWidth(this.text) + this.margin, 16 + this.margin);
-    rectMode(CORNER);
-    textSize(16);
-    textAlign(CENTER, CENTER);
+    p5js.stroke(0, this.alpha);
+    p5js.fill(0, this.alpha);
+    p5js.rectMode(p5js.CENTER);
+    p5js.rect(
+      this.x,
+      this.y,
+      p5js.textWidth(this.text) + this.margin,
+      16 + this.margin
+    );
+    p5js.rectMode(p5js.CORNER);
+    p5js.textSize(16);
+    p5js.textAlign(p5js.CENTER, p5js.CENTER);
 
-    const textFillColor = color(
-      red(this.color),
-      green(this.color),
-      blue(this.color),
+    const textFillColor = p5js.color(
+      p5js.red(this.color),
+      p5js.green(this.color),
+      p5js.blue(this.color),
       this.alpha
     );
-    stroke(textFillColor);
-    fill(textFillColor);
-    text(this.text, this.x, this.y);
+    p5js.stroke(textFillColor);
+    p5js.fill(textFillColor);
+    p5js.text(this.text, this.x, this.y);
   }
 }

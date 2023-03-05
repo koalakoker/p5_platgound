@@ -1,39 +1,43 @@
-function preload() {
-  const gui = Gui.getInstance();
-  gui.preload();
-}
+let sketch = function (p) {
+  p.setup = function () {
+    Drawing.getInstance().setup();
+    Gui.getInstance().setup();
+  };
 
-function setup() {
-  Drawing.getInstance().setup();
-  Gui.getInstance().setup();
-}
+  p.draw = function () {
+    Drawing.getInstance().display();
+    const gui = Gui.getInstance();
+    gui.display();
+  };
 
-function draw() {
-  Drawing.getInstance().display();
-  const gui = Gui.getInstance();
-  gui.display();
-}
+  p.preload = function () {
+    const gui = Gui.getInstance();
+    gui.preload();
+  };
 
-function mouseMoved() {
-  const gui = Gui.getInstance();
-  gui.mouseMoved();
-}
+  p.mouseMoved = function () {
+    const gui = Gui.getInstance();
+    gui.mouseMoved();
+  };
 
-function mousePressed() {
-  const gui = Gui.getInstance();
-  if (gui.mousePressed() === false) {
-    Drawing.getInstance().mousePressed();
-  }
-}
+  p.mousePressed = function () {
+    const gui = Gui.getInstance();
+    if (gui.mousePressed() === false) {
+      Drawing.getInstance().mousePressed();
+    }
+  };
 
-function mouseReleased() {
-  const gui = Gui.getInstance();
-  gui.mouseReleased();
-  Drawing.getInstance().mouseReleased();
-}
+  p.mouseReleased = function () {
+    const gui = Gui.getInstance();
+    gui.mouseReleased();
+    Drawing.getInstance().mouseReleased();
+  };
 
-function mouseDragged() {
-  const gui = Gui.getInstance();
-  gui.mouseDragged();
-  Drawing.getInstance().mouseDragged();
-}
+  p.mouseDragged = function () {
+    const gui = Gui.getInstance();
+    gui.mouseDragged();
+    Drawing.getInstance().mouseDragged();
+  };
+};
+
+const p5js = new p5(sketch);

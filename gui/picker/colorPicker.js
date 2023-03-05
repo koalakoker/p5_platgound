@@ -4,7 +4,7 @@ class ColorPicker extends Picker {
     this.color = color;
     this.transparent = false;
     this.bSlider = new Slider(
-      brightness(color),
+      p5js.brightness(color),
       this.size().w,
       this.side,
       (val) => {
@@ -22,18 +22,18 @@ class ColorPicker extends Picker {
     this.cbTransparentChange = cbTransparentChange;
   }
   display() {
-    stroke(255);
-    strokeWeight(1);
+    p5js.stroke(255);
+    p5js.strokeWeight(1);
     if (this.transparent) {
-      fill(0);
+      p5js.fill(0);
     } else {
-      fill(this.color);
+      p5js.fill(this.color);
     }
-    rect(this.getX(), this.getY(), this.size().w, this.size().h);
+    p5js.rect(this.getX(), this.getY(), this.size().w, this.size().h);
     if (this.transparent) {
-      stroke(255, 0, 0);
-      strokeWeight(2);
-      line(
+      p5js.stroke(255, 0, 0);
+      p5js.strokeWeight(2);
+      p5js.line(
         this.getX() + 2,
         this.getY() + 2,
         this.getX() + this.size().w - 2,
@@ -44,19 +44,19 @@ class ColorPicker extends Picker {
     if (this.selected) {
       this.bSlider.display(this.basePoint().x + this.side, this.basePoint().y);
 
-      colorMode(HSB, this.side);
+      p5js.colorMode(p5js.HSB, this.side);
       for (let h = 0; h < this.side; h++) {
         for (let s = 0; s < this.side; s++) {
-          stroke(h, s, this.bValue);
-          strokeWeight(2);
-          point(this.basePoint().x + h, this.basePoint().y + s);
+          p5js.stroke(h, s, this.bValue);
+          p5js.strokeWeight(2);
+          p5js.point(this.basePoint().x + h, this.basePoint().y + s);
         }
       }
-      colorMode(RGB);
-      stroke(255);
-      strokeWeight(1);
-      noFill();
-      rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
+      p5js.colorMode(p5js.RGB);
+      p5js.stroke(255);
+      p5js.strokeWeight(1);
+      p5js.noFill();
+      p5js.rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
 
       this.cTransparent.display(
         this.basePoint().x - this.size().w,
@@ -115,8 +115,8 @@ class ColorPicker extends Picker {
   }
   insidePicker() {
     return Rect.inside(
-      mouseX,
-      mouseY,
+      p5js.mouseX,
+      p5js.mouseY,
       this.basePoint().x,
       this.basePoint().y,
       this.side,

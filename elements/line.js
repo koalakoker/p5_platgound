@@ -21,7 +21,7 @@ class Line extends Element {
   }
   draw() {
     super.draw();
-    line(this.x1, this.y1, this.x2, this.y2);
+    p5js.line(this.x1, this.y1, this.x2, this.y2);
   }
   move(mx, my) {
     this.x1 += mx;
@@ -48,9 +48,9 @@ class Line extends Element {
     );
   }
   inside(x, y) {
-    let p1 = createVector(this.x1, this.y1);
-    let p2 = createVector(this.x2, this.y2);
-    let p = createVector(x, y);
+    let p1 = p5js.createVector(this.x1, this.y1);
+    let p2 = p5js.createVector(this.x2, this.y2);
+    let p = p5js.createVector(x, y);
     let d12 = p5.Vector.sub(p2, p1).mag();
     let d1 = p5.Vector.sub(p, p1).mag();
     let d2 = p5.Vector.sub(p, p2).mag();

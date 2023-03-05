@@ -20,7 +20,7 @@ class Circle extends Element {
   }
   draw() {
     super.draw();
-    circle(this.x, this.y, this.r * 2);
+    p5js.circle(this.x, this.y, this.r * 2);
   }
   move(mx, my) {
     this.x += mx;
@@ -31,7 +31,7 @@ class Circle extends Element {
     this.controls[1].y = this.y;
   }
   addPoint(point) {
-    this.r = dist(this.x, this.y, point.x, point.y);
+    this.r = p5js.dist(this.x, this.y, point.x, point.y);
     this.controls[1].x = this.x + this.r;
     this.controls[1].y = this.y;
   }

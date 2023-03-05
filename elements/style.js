@@ -2,9 +2,9 @@ class Style {
   constructor(style) {
     if (!style) {
       this.fill = true;
-      this.fillColor = color(0, 0, 0, 255);
+      this.fillColor = p5js.color(0, 0, 0, 255);
       this.stroke = true;
-      this.strokeColor = color(255, 255, 255, 255);
+      this.strokeColor = p5js.color(255, 255, 255, 255);
       this.strokeWeight = 1;
     } else {
       this.fill = style.fill;
@@ -16,23 +16,23 @@ class Style {
   }
   set() {
     if (this.fill) {
-      fill(this.fillColor);
+      p5js.fill(this.fillColor);
     } else {
-      noFill();
+      p5js.noFill();
     }
     if (this.stroke) {
-      stroke(this.strokeColor);
-      strokeWeight(this.strokeWeight);
+      p5js.stroke(this.strokeColor);
+      p5js.strokeWeight(this.strokeWeight);
     } else {
-      noStroke();
+      p5js.noStroke();
     }
   }
   static serializeColor(color) {
     return JSON.stringify({
-      r: red(color),
-      g: green(color),
-      b: blue(color),
-      a: alpha(color),
+      r: p5js.red(color),
+      g: p5js.green(color),
+      b: p5js.blue(color),
+      a: p5js.alpha(color),
     });
   }
   serialize() {
@@ -47,14 +47,14 @@ class Style {
   deserialize(jsonStr) {
     const element = JSON.parse(jsonStr);
     this.fill = element.fill;
-    this.fillColor = color(
+    this.fillColor = p5js.color(
       element.fillColor.r,
       element.fillColor.g,
       element.fillColor.b,
       element.fillColor.a
     );
     this.stroke = element.stroke;
-    this.strokeColor = color(
+    this.strokeColor = p5js.color(
       element.strokeColor.r,
       element.strokeColor.g,
       element.strokeColor.b,

@@ -4,7 +4,7 @@ class StateAddCircle extends StateAdd {
   }
   mousePressed() {
     super.mousePressed();
-    this.center = Drawing.getInstance().grid.snap(mouseX, mouseY);
+    this.center = Drawing.getInstance().grid.snap(p5js.mouseX, p5js.mouseY);
     this.newElement = new Circle(this.center.x, this.center.y, 0).addStyle(
       new Style(Drawing.getInstance().newElementStyle)
     );

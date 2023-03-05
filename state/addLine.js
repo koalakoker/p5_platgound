@@ -4,7 +4,7 @@ class StateAddLine extends StateAdd {
   }
   mousePressed() {
     super.mousePressed();
-    let point = Drawing.getInstance().grid.snap(mouseX, mouseY);
+    let point = Drawing.getInstance().grid.snap(p5js.mouseX, p5js.mouseY);
     this.newElement = new Line(point.x, point.y, point.x, point.y).addStyle(
       new Style(Drawing.getInstance().newElementStyle)
     );

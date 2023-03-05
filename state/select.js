@@ -11,8 +11,8 @@ class StateSelect extends State {
     });
   }
   mousePressed() {
-    const point = Drawing.getInstance().grid.snap(mouseX, mouseY);
-    this.clickPoint = createVector(point.x, point.y);
+    const point = Drawing.getInstance().grid.snap(p5js.mouseX, p5js.mouseY);
+    this.clickPoint = p5js.createVector(point.x, point.y);
     if (
       this.actionOnControls((control) => {
         return control.mousePressed();
@@ -21,8 +21,11 @@ class StateSelect extends State {
       return;
     }
 
-    let pointedElements = Drawing.getInstance().elementsAtPoint(mouseX, mouseY);
-    reverse(pointedElements);
+    let pointedElements = Drawing.getInstance().elementsAtPoint(
+      p5js.mouseX,
+      p5js.mouseY
+    );
+    p5js.reverse(pointedElements);
     const selNum = pointedElements.length;
     if (selNum > 0) {
       if (this.index > selNum - 1) {
@@ -31,13 +34,13 @@ class StateSelect extends State {
       let selected = pointedElements[this.index];
       this.index++;
       if (!selected.selected) {
-        if (!keyIsDown(SHIFT)) {
+        if (!p5js.keyIsDown(p5js.SHIFT)) {
           Drawing.getInstance().deSelectAll();
         }
         Drawing.getInstance().selectElement(selected, true);
       }
     } else {
-      if (!keyIsDown(SHIFT)) {
+      if (!p5js.keyIsDown(p5js.SHIFT)) {
         Drawing.getInstance().deSelectAll();
       }
       this.selectionArea.mousePressed();

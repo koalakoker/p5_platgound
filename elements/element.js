@@ -12,8 +12,8 @@ class Element {
   draw() {
     this.setStyle();
     if (this.selected) {
-      strokeWeight(this.style.strokeWeight + 1);
-      stroke(255, 255, 0);
+      p5js.strokeWeight(this.style.strokeWeight + 1);
+      p5js.stroke(255, 255, 0);
     }
   }
   showControls() {

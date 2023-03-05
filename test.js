@@ -1,5 +1,5 @@
 let sketch = function () {};
-const test_p5 = new p5(sketch);
+const p5js = new p5(sketch);
 
 const assert = chai.assert;
 describe("KeyLogger", keyLoggerTest);

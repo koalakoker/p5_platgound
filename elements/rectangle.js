@@ -21,9 +21,9 @@ class Rectangle extends Element {
   }
   draw() {
     super.draw();
-    rectMode(CORNERS);
-    rect(this.x1, this.y1, this.x2, this.y2);
-    rectMode(CORNER);
+    p5js.rectMode(p5js.CORNERS);
+    p5js.rect(this.x1, this.y1, this.x2, this.y2);
+    p5js.rectMode(p5js.CORNER);
   }
   move(mx, my) {
     this.x1 += mx;

@@ -25,8 +25,8 @@ class GElem {
   }
   inside() {
     return Rect.inside(
-      mouseX,
-      mouseY,
+      p5js.mouseX,
+      p5js.mouseY,
       this.getX(),
       this.getY(),
       this.size().w,

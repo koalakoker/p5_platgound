@@ -13,7 +13,7 @@ class DiagManager {
   }
   addMessage(text) {
     const duration = 3000;
-    const textColor = color(255);
+    const textColor = p5js.color(255);
     const fadeIn = 200;
     const fadeOut = 200;
     this.dialogs.push(
@@ -32,7 +32,7 @@ class DiagManager {
   }
   addError(text) {
     const duration = 5000;
-    const textColor = color(255, 0, 0);
+    const textColor = p5js.color(255, 0, 0);
     const fadeIn = 200;
     const fadeOut = 200;
     this.dialogs.push(

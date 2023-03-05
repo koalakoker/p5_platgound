@@ -9,20 +9,27 @@ class TransparentCheck {
     this.w = w;
     this.h = h;
     if (this.selected) {
-      strokeWeight(2);
-      stroke(255, 255, 0);
+      p5js.strokeWeight(2);
+      p5js.stroke(255, 255, 0);
     } else {
-      strokeWeight(1);
-      stroke(255);
+      p5js.strokeWeight(1);
+      p5js.stroke(255);
     }
-    fill(0);
-    rect(x, y, w, h);
-    stroke(255, 0, 0);
-    strokeWeight(2);
-    line(x + 2, y + 2, x + w - 2, y + h - 2);
+    p5js.fill(0);
+    p5js.rect(x, y, w, h);
+    p5js.stroke(255, 0, 0);
+    p5js.strokeWeight(2);
+    p5js.line(x + 2, y + 2, x + w - 2, y + h - 2);
   }
   inside() {
-    return Rect.inside(mouseX, mouseY, this.x, this.y, this.w, this.h);
+    return Rect.inside(
+      p5js.mouseX,
+      p5js.mouseY,
+      this.x,
+      this.y,
+      this.w,
+      this.h
+    );
   }
   mousePressed() {
     this.selected = !this.selected;

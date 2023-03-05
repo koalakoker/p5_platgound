@@ -5,16 +5,22 @@ class Button extends GElem {
     this.clickDebounce = 0;
   }
   preload() {
-    this.img = loadImage(this.fileName);
+    this.img = p5js.loadImage(this.fileName);
     this.fillColor = this.normalColor();
   }
   display() {
-    stroke(255);
-    strokeWeight(1);
-    fill(this.fillColor);
+    p5js.stroke(255);
+    p5js.strokeWeight(1);
+    p5js.fill(this.fillColor);
 
-    rect(this.getX(), this.getY(), this.size().w, this.size().h);
-    image(this.img, this.getX(), this.getY(), this.size().w, this.size().h);
+    p5js.rect(this.getX(), this.getY(), this.size().w, this.size().h);
+    p5js.image(
+      this.img,
+      this.getX(),
+      this.getY(),
+      this.size().w,
+      this.size().h
+    );
     if (this.clickDebounce > 0) {
       this.clickDebounce--;
       this.mouseMoved();
@@ -47,18 +53,18 @@ class Button extends GElem {
     return this.unSelectedOverColor();
   }
   clickColor() {
-    return color(255, 255, 255);
+    return p5js.color(255, 255, 255);
   }
   selectedColor() {
-    return color(130, 200, 130);
+    return p5js.color(130, 200, 130);
   }
   unSelectedColor() {
-    return color(180, 180, 180);
+    return p5js.color(180, 180, 180);
   }
   selectedOverColor() {
-    return color(160, 230, 160);
+    return p5js.color(160, 230, 160);
   }
   unSelectedOverColor() {
-    return color(230, 230, 230);
+    return p5js.color(230, 230, 230);
   }
 }

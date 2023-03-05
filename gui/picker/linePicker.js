@@ -19,33 +19,33 @@ class LinePicker extends Picker {
     this.cbWeightChaged = cbWeightChaged;
   }
   display() {
-    stroke(255);
-    strokeWeight(1);
-    fill(0);
-    rect(this.getX(), this.getY(), this.size().w, this.size().h);
-    strokeWeight(this.weight);
+    p5js.stroke(255);
+    p5js.strokeWeight(1);
+    p5js.fill(0);
+    p5js.rect(this.getX(), this.getY(), this.size().w, this.size().h);
+    p5js.strokeWeight(this.weight);
     const m = 4;
-    line(
+    p5js.line(
       this.getX() + m,
       this.getY() + m,
       this.getX() + this.size().w - m,
       this.getY() + this.size().h - m
     );
     if (this.selected) {
-      strokeWeight(1);
+      p5js.strokeWeight(1);
       const l = this.weights.length;
       this.hPick = this.space * l;
-      rect(this.basePoint().x, this.basePoint().y, this.side, this.hPick);
+      p5js.rect(this.basePoint().x, this.basePoint().y, this.side, this.hPick);
       for (let i = 0; i < l; i++) {
         const y = this.space / 2 + this.basePoint().y + i * this.space;
-        strokeWeight(this.weights[i]);
+        p5js.strokeWeight(this.weights[i]);
         if (this.weight === this.weights[i]) {
-          stroke(255, 255, 0);
-          strokeWeight(this.weights[i] + 1);
+          p5js.stroke(255, 255, 0);
+          p5js.strokeWeight(this.weights[i] + 1);
         } else {
-          stroke(255, 255, 255);
+          p5js.stroke(255, 255, 255);
         }
-        line(
+        p5js.line(
           this.basePoint().x + 10,
           y,
           this.basePoint().x + this.side - 10,
@@ -59,8 +59,8 @@ class LinePicker extends Picker {
   }
   insidePicker() {
     return Rect.inside(
-      mouseX,
-      mouseY,
+      p5js.mouseX,
+      p5js.mouseY,
       this.basePoint().x,
       this.basePoint().y,
       this.side,

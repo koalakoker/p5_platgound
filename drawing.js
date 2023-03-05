@@ -24,22 +24,23 @@ class Drawing {
   }
   setup() {
     return new Promise((resolve, reject) => {
-      createCanvas(this.w, this.h);
+      p5js.createCanvas(this.w, this.h);
       Store.getInstance().clear();
       this.load()
         .then(() => {
           Store.getInstance().addState();
           resolve();
         })
-        .catch(() => {
+        .catch((err) => {
           const gui = Gui.getInstance();
           gui.showBackendNotAvailableError();
+          console.log(err);
           reject();
         });
     });
   }
   display() {
-    background(0);
+    p5js.background(0);
     this.grid.display();
     for (let i = 0; i < this.drawElements.length; i++) {
       const element = this.drawElements[i];
@@ -84,7 +85,7 @@ class Drawing {
     }
   }
   inside() {
-    return Rect.inside(mouseX, mouseY, 0, 0, this.w, this.h);
+    return Rect.inside(p5js.mouseX, p5js.mouseY, 0, 0, this.w, this.h);
   }
   mouseReleased() {
     if (this.state) {
@@ -133,7 +134,7 @@ class Drawing {
   }
 
   save() {
-    return httpPost(
+    return p5js.httpPost(
       url,
       "json",
       JSON.parse(this.serialize()),
@@ -141,7 +142,7 @@ class Drawing {
     );
   }
   load() {
-    return httpGet(url, "text", false, (jsonTxt) => {
+    return p5js.httpGet(url, "text", false, (jsonTxt) => {
       this.deserialize(jsonTxt);
     });
   }

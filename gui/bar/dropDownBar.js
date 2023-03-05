@@ -25,9 +25,9 @@ class DropDownBar extends Bar {
     this.visible = false;
   }
   mouseMoved() {
-    if (mouseY < 5 && !this.visible) {
+    if (p5js.mouseY < 5 && !this.visible) {
       this.show();
-    } else if (mouseY > this.size().h + 20 && this.visible && !this.lock) {
+    } else if (p5js.mouseY > this.size().h + 20 && this.visible && !this.lock) {
       this.hide();
     }
   }

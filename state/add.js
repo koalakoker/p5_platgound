@@ -23,7 +23,7 @@ class StateAdd extends State {
   }
   mouseDragged() {
     if (this.dragging) {
-      let point = Drawing.getInstance().grid.snap(mouseX, mouseY);
+      let point = Drawing.getInstance().grid.snap(p5js.mouseX, p5js.mouseY);
       this.newElement.addPoint(point);
     }
   }
