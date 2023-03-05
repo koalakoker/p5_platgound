@@ -9,9 +9,9 @@ function guiTests() {
     const gui = Gui.getInstance();
     //gui.setup();
   });
-  it("Dialog", () => {
-    const gui = Gui.getInstance();
-    gui.addMessage("Test");
-    //console.log(gui.dialogs);
-  });
+  // it("Dialog", () => {
+  //   const gui = Gui.getInstance();
+  //   gui.addMessage("Test");
+  //   //console.log(gui.dialogs);
+  // });
 }

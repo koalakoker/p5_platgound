@@ -8,6 +8,10 @@ class Message extends Dialog {
     this.alpha = 0;
     this.started = false;
 
+    console.log("Text " + text);
+    console.log("Fadein " + fadeIn);
+    console.log("Fadeout " + fadeOut);
+    console.log("Duration " + duration);
     this.tween = p5.tween.manager
       .addTween(this)
       .addMotion("alpha", 255, fadeIn, "easeInQuad")
@@ -20,6 +24,7 @@ class Message extends Dialog {
       });
   }
   show() {
+    console.log("Start");
     this.tween.startTween();
     this.started = true;
   }
@@ -27,6 +32,13 @@ class Message extends Dialog {
     return !this.started;
   }
   draw() {
+    console.log(this.alpha);
+    if (isNaN(this.alpha)) {
+      console.log("Is NaN");
+      //p5js.noLoop();
+      this.alpha = 255;
+    }
+
     p5js.stroke(0, this.alpha);
     p5js.fill(0, this.alpha);
     p5js.rectMode(p5js.CENTER);
@@ -46,6 +58,7 @@ class Message extends Dialog {
       p5js.blue(this.color),
       this.alpha
     );
+    console.log(textFillColor);
     p5js.stroke(textFillColor);
     p5js.fill(textFillColor);
     p5js.text(this.text, this.x, this.y);

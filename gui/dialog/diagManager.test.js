@@ -7,5 +7,8 @@ function diagManagerTests() {
     const diagMngr = new DiagManager();
     diagMngr.addMessage("Test");
     diagMngr.display();
+    setTimeout(() => {
+      diagMngr.display();
+    }, 3000);
   });
 }
