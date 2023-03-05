@@ -6,13 +6,13 @@ function addLineTests() {
     const sAddLine = new StateAddLine();
     const firstPoint = { x: 400, y: 300 };
     const secondPoint = { x: 455, y: 300 };
-    mouseX = firstPoint.x;
-    mouseY = firstPoint.y;
-    sAddLine.mousePressed();
+    let mouseX = firstPoint.x;
+    let mouseY = firstPoint.y;
+    sAddLine.mousePressed(mouseX, mouseY);
     mouseX = secondPoint.x;
     mouseY = secondPoint.y;
-    sAddLine.mouseDragged();
-    sAddLine.mouseReleased();
+    sAddLine.mouseDragged(mouseX, mouseY);
+    sAddLine.mouseReleased(mouseX, mouseY);
     assert.equal(tDrw.getElements().length, 1);
     const newElem = tDrw.getElements()[0];
     assert.isTrue(isTypeOf(newElem, Line));

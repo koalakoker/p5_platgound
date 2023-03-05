@@ -10,8 +10,8 @@ class StateSelect extends State {
       element.showControls();
     });
   }
-  mousePressed() {
-    const point = Drawing.getInstance().grid.snap(p5js.mouseX, p5js.mouseY);
+  mousePressed(x, y) {
+    const point = Drawing.getInstance().grid.snap(x, y);
     this.clickPoint = p5js.createVector(point.x, point.y);
     if (
       this.actionOnControls((control) => {
@@ -46,14 +46,14 @@ class StateSelect extends State {
       this.selectionArea.mousePressed();
     }
   }
-  mouseReleased() {
-    this.actionOnControls((control) => control.mouseReleased());
-    this.selectionArea.mouseReleased();
+  mouseReleased(x, y) {
+    this.actionOnControls((control) => control.mouseReleased(x, y));
+    this.selectionArea.mouseReleased(x, y);
   }
-  mouseDragged() {
+  mouseDragged(x, y) {
     if (
       this.actionOnControls((control) => {
-        return control.mouseDragged();
+        return control.mouseDragged(x, y);
       })
     ) {
       return;
@@ -62,14 +62,14 @@ class StateSelect extends State {
     let selectedElements = Drawing.getInstance().selectedElements;
     if (selectedElements.length > 0 && !keyIsDown(SHIFT)) {
       // Drag selected elemnts
-      const point = Drawing.getInstance().grid.snap(mouseX, mouseY);
+      const point = Drawing.getInstance().grid.snap(x, y);
       const d = p5.Vector.sub(point, this.clickPoint);
       this.clickPoint = point;
       selectedElements.forEach((element) => {
         element.move(d.x, d.y);
       });
     } else {
-      this.selectionArea.mouseDragged();
+      this.selectionArea.mouseDragged(x, y);
     }
   }
   actionOnControls(action) {

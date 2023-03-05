@@ -77,24 +77,24 @@ class Drawing {
   changeState(state) {
     this.state = state;
   }
-  mousePressed() {
+  mousePressed(x, y) {
     if (this.state) {
-      if (this.inside()) {
-        this.state.mousePressed();
+      if (this.inside(x, y)) {
+        this.state.mousePressed(x, y);
       }
     }
   }
-  inside() {
-    return Rect.inside(p5js.mouseX, p5js.mouseY, 0, 0, this.w, this.h);
+  inside(x, y) {
+    return Rect.inside(x, y, 0, 0, this.w, this.h);
   }
-  mouseReleased() {
+  mouseReleased(x, y) {
     if (this.state) {
-      this.state.mouseReleased();
+      this.state.mouseReleased(x, y);
     }
   }
-  mouseDragged() {
+  mouseDragged(x, y) {
     if (this.state) {
-      this.state.mouseDragged();
+      this.state.mouseDragged(x, y);
     }
   }
 

@@ -2,9 +2,9 @@ class StateAddRect extends StateAdd {
   constructor() {
     super();
   }
-  mousePressed() {
+  mousePressed(x, y) {
     super.mousePressed();
-    let point = Drawing.getInstance().grid.snap(p5js.mouseX, p5js.mouseY);
+    let point = Drawing.getInstance().grid.snap(x, y);
     this.newElement = new Rectangle(
       point.x,
       point.y,

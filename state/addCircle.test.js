@@ -6,13 +6,13 @@ function addCircleTests() {
     const sAddCircle = new StateAddCircle();
     const firstPoint = { x: 400, y: 300 };
     const secondPoint = { x: 455, y: 300 };
-    mouseX = firstPoint.x;
-    mouseY = firstPoint.y;
-    sAddCircle.mousePressed();
+    let mouseX = firstPoint.x;
+    let mouseY = firstPoint.y;
+    sAddCircle.mousePressed(mouseX, mouseY);
     mouseX = secondPoint.x;
     mouseY = secondPoint.y;
-    sAddCircle.mouseDragged();
-    sAddCircle.mouseReleased();
+    sAddCircle.mouseDragged(mouseX, mouseY);
+    sAddCircle.mouseReleased(mouseX, mouseY);
     assert.equal(tDrw.getElements().length, 1);
     const newElem = tDrw.getElements()[0];
     assert.isTrue(isTypeOf(newElem, Circle));

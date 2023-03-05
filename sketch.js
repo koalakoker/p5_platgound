@@ -23,20 +23,20 @@ let sketch = function (p) {
   p.mousePressed = function () {
     const gui = Gui.getInstance();
     if (gui.mousePressed() === false) {
-      Drawing.getInstance().mousePressed();
+      Drawing.getInstance().mousePressed(p5js.mouseX, p5js.mouseY);
     }
   };
 
   p.mouseReleased = function () {
     const gui = Gui.getInstance();
     gui.mouseReleased();
-    Drawing.getInstance().mouseReleased();
+    Drawing.getInstance().mouseReleased(p5js.mouseX, p5js.mouseY);
   };
 
   p.mouseDragged = function () {
     const gui = Gui.getInstance();
     gui.mouseDragged();
-    Drawing.getInstance().mouseDragged();
+    Drawing.getInstance().mouseDragged(p5js.mouseX, p5js.mouseY);
   };
 };
 

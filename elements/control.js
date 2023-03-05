@@ -8,12 +8,12 @@ class Control {
   }
   draw() {
     if (this.dragged) {
-      stroke(255, 255, 0);
+      p5js.stroke(255, 255, 0);
     } else {
-      stroke(255);
+      p5js.stroke(255);
     }
-    strokeWeight(this.r);
-    point(this.x, this.y);
+    p5js.strokeWeight(this.r);
+    p5js.point(this.x, this.y);
   }
   inside(x, y) {
     return (
@@ -21,19 +21,19 @@ class Control {
       this.r * this.r
     );
   }
-  mousePressed() {
-    if (this.inside(mouseX, mouseY)) {
+  mousePressed(x, y) {
+    if (this.inside(x, y)) {
       this.dragged = true;
       return true;
     }
     return false;
   }
-  mouseReleased() {
+  mouseReleased(x, y) {
     this.dragged = false;
   }
-  mouseDragged() {
+  mouseDragged(x, y) {
     if (this.dragged) {
-      let point = Drawing.getInstance().grid.snap(mouseX, mouseY);
+      let point = Drawing.getInstance().grid.snap(x, y);
       this.x = point.x;
       this.y = point.y;
       if (this.cbUpdated) {

@@ -3,10 +3,10 @@ class StateAdd extends State {
     super();
     this.dragging = false;
   }
-  mousePressed() {
+  mousePressed(x, y) {
     this.dragging = true;
   }
-  mouseReleased() {
+  mouseReleased(x, y) {
     if (this.dragging) {
       this.dragging = false;
       if (this.newElement) {
@@ -21,9 +21,9 @@ class StateAdd extends State {
       }
     }
   }
-  mouseDragged() {
+  mouseDragged(x, y) {
     if (this.dragging) {
-      let point = Drawing.getInstance().grid.snap(p5js.mouseX, p5js.mouseY);
+      let point = Drawing.getInstance().grid.snap(x, y);
       this.newElement.addPoint(point);
     }
   }

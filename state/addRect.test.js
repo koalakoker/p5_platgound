@@ -6,13 +6,13 @@ function addRectTests() {
     const sAddRect = new StateAddRect();
     const firstPoint = { x: 400, y: 300 };
     const secondPoint = { x: 455, y: 300 };
-    mouseX = firstPoint.x;
-    mouseY = firstPoint.y;
-    sAddRect.mousePressed();
+    let mouseX = firstPoint.x;
+    let mouseY = firstPoint.y;
+    sAddRect.mousePressed(mouseX, mouseY);
     mouseX = secondPoint.x;
     mouseY = secondPoint.y;
-    sAddRect.mouseDragged();
-    sAddRect.mouseReleased();
+    sAddRect.mouseDragged(mouseX, mouseY);
+    sAddRect.mouseReleased(mouseX, mouseY);
     assert.equal(tDrw.getElements().length, 1);
     const newElem = tDrw.getElements()[0];
     assert.isTrue(isTypeOf(newElem, Rectangle));

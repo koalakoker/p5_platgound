@@ -14,21 +14,21 @@ class SelectionArea {
       p5js.rect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
     }
   }
-  mousePressed() {
-    this.p1.x = p5js.mouseX;
-    this.p1.y = p5js.mouseY;
-    this.p2.x = p5js.mouseX;
-    this.p2.y = p5js.mouseY;
+  mousePressed(x, y) {
+    this.p1.x = x;
+    this.p1.y = y;
+    this.p2.x = x;
+    this.p2.y = y;
     this.visible = true;
   }
-  mouseReleased() {
+  mouseReleased(x, y) {
     if (this.visible) {
       Drawing.getInstance().selectArea(this);
       this.visible = false;
     }
   }
-  mouseDragged() {
-    this.p2.x = p5js.mouseX;
-    this.p2.y = p5js.mouseY;
+  mouseDragged(x, y) {
+    this.p2.x = x;
+    this.p2.y = y;
   }
 }

@@ -12,26 +12,28 @@ function controlTests() {
       assert.equal(ctr.y, y);
       assert.isFalse(ctr.dragged);
 
+      ctr.draw();
+
       let ri = Math.floor(ctr.r / Math.sqrt(2));
       let ro = Math.ceil(ctr.r / Math.sqrt(2));
       assert.isTrue(ctr.inside(x + iRand(-ri, ri), y + iRand(-ri, ri)));
       assert.isFalse(ctr.inside(x + ro, y + ro));
 
-      mouseX = x + ro;
-      mouseY = y + ro;
-      assert.isFalse(ctr.mousePressed());
+      let mouseX = x + ro;
+      let mouseY = y + ro;
+      assert.isFalse(ctr.mousePressed(mouseX, mouseY));
       assert.isFalse(ctr.dragged);
 
       const grid = Drawing.getInstance().grid;
       grid.deActivate();
       mouseX = x + iRand(-ri, ri);
       mouseY = y + iRand(-ri, ri);
-      assert.isTrue(ctr.mousePressed());
+      assert.isTrue(ctr.mousePressed(mouseX, mouseY));
       assert.isTrue(ctr.dragged);
       mouseX = x + ro;
       mouseY = y + ro;
-      ctr.mouseDragged();
-      ctr.mouseReleased();
+      ctr.mouseDragged(mouseX, mouseY);
+      ctr.mouseReleased(mouseX, mouseY);
       reject();
     });
   });
