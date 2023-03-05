@@ -130,9 +130,9 @@ function rndStyle() {
   s.strokeWeight = rnd(1, 10);
   return s;
 }
+function rndColor() {
+  return p5js.color(rnd(0, 255), rnd(0, 255), rnd(0, 255), rnd(0, 255));
+}
 function rnd(min, max) {
   return Math.floor(rand(min, max));
-}
-function rndColor() {
-  return color(rnd(0, 255), rnd(0, 255), rnd(0, 255), rnd(0, 255));
 }
