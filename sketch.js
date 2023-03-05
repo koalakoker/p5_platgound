@@ -5,6 +5,7 @@ let sketch = function (p) {
   };
 
   p.draw = function () {
+    window.deltaTime = p.deltaTime;
     Drawing.getInstance().display();
     const gui = Gui.getInstance();
     gui.display();
@@ -41,3 +42,4 @@ let sketch = function (p) {
 };
 
 const p5js = new p5(sketch);
+window.deltaTime = p5js.deltaTime;
