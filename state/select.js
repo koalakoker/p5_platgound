@@ -21,10 +21,7 @@ class StateSelect extends State {
       return;
     }
 
-    let pointedElements = Drawing.getInstance().elementsAtPoint(
-      p5js.mouseX,
-      p5js.mouseY
-    );
+    let pointedElements = Drawing.getInstance().elementsAtPoint(x, y);
     p5js.reverse(pointedElements);
     const selNum = pointedElements.length;
     if (selNum > 0) {
@@ -60,7 +57,7 @@ class StateSelect extends State {
     }
 
     let selectedElements = Drawing.getInstance().selectedElements;
-    if (selectedElements.length > 0 && !keyIsDown(SHIFT)) {
+    if (selectedElements.length > 0 && !p5js.keyIsDown(p5js.SHIFT)) {
       // Drag selected elemnts
       const point = Drawing.getInstance().grid.snap(x, y);
       const d = p5.Vector.sub(point, this.clickPoint);

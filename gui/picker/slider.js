@@ -42,7 +42,7 @@ class Slider {
     this.setValue(p5js.mouseY - this.y);
   }
   mousePressed() {
-    this.cursorFill = color(255, 255, 0);
+    this.cursorFill = p5js.color(255, 255, 0);
     this.dragged = true;
     this.setValue(p5js.mouseY - this.y);
   }
