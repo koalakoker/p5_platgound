@@ -6,7 +6,7 @@ function messageTests() {
     msg = new Message(
       testText,
       2000,
-      color(1, 2, 3),
+      p5js.color(1, 2, 3),
       () => {
         console.log("End");
       },
