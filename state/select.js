@@ -15,7 +15,7 @@ class StateSelect extends State {
     this.clickPoint = p5js.createVector(point.x, point.y);
     if (
       this.actionOnControls((control) => {
-        return control.mousePressed();
+        return control.mousePressed(x, y);
       })
     ) {
       return;
@@ -40,7 +40,7 @@ class StateSelect extends State {
       if (!p5js.keyIsDown(p5js.SHIFT)) {
         Drawing.getInstance().deSelectAll();
       }
-      this.selectionArea.mousePressed();
+      this.selectionArea.mousePressed(x, y);
     }
   }
   mouseReleased(x, y) {
