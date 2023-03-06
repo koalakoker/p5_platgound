@@ -3,19 +3,22 @@ class DiagManager {
     this.dialogs = [];
   }
   display() {
-    if (this.dialogs.length != 0) {
-      const diag = this.dialogs[0];
+    const diag = this.activeDiag();
+    if (diag) {
       if (diag.notStarted()) {
-        diag.show();
+        diag.start();
       }
       diag.draw();
     }
   }
-  addMessage(text) {
-    const duration = 3000;
+  activeDiag() {
+    return this.dialogs[0];
+  }
+  addMessage(text, duration, fade) {
+    duration ||= 3000;
     const textColor = p5js.color(255);
-    const fadeIn = 200;
-    const fadeOut = 200;
+    const fadeIn = fade || 200;
+    const fadeOut = fade || 200;
     this.dialogs.push(
       new Message(
         text,
@@ -23,18 +26,17 @@ class DiagManager {
         textColor,
         (dialog) => {
           this.remove(dialog);
-          console.log("End");
         },
         fadeIn,
         fadeOut
       )
     );
   }
-  addError(text) {
-    const duration = 5000;
+  addError(text, duration, fade) {
+    duration ||= 5000;
     const textColor = p5js.color(255, 0, 0);
-    const fadeIn = 200;
-    const fadeOut = 200;
+    const fadeIn = fade || 200;
+    const fadeOut = fade || 200;
     this.dialogs.push(
       new Message(
         text,

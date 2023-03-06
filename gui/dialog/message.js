@@ -19,7 +19,7 @@ class Message extends Dialog {
         }
       });
   }
-  show() {
+  start() {
     this.tween.startTween();
     this.started = true;
   }
