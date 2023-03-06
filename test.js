@@ -19,8 +19,8 @@ describe("State Add Circle", addCircleTests);
 describe("State Add Line", addLineTests);
 describe("State Add Rect", addRectTests);
 
-// describe("Message", messageTests);
-// describe("Hints", hintsTests);
+describe("Message", messageTests);
+describe("Hints", hintsTests);
 describe("DiagManager", diagManagerTests);
 describe("Gui", guiTests);
 

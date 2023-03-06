@@ -7,6 +7,7 @@ class Message extends Dialog {
     this.color = color;
     this.alpha = 0;
     this.started = false;
+    this.end = false;
 
     this.tween = p5.tween.manager
       .addTween(this)
@@ -14,6 +15,7 @@ class Message extends Dialog {
       .addMotion("alpha", 255, duration)
       .addMotion("alpha", 0, fadeOut, "easeOutQuad")
       .onEnd(() => {
+        this.end = true;
         if (this.cbEnd) {
           this.cbEnd(this);
         }

@@ -32,9 +32,3 @@ function diagManagerTests() {
     assert.equal(diagMngr.dialogs.length, 0);
   });
 }
-
-function simulateWait(diag, msec) {
-  for (let i = 0; i < msec; i++) {
-    diag.tween.update(1);
-  }
-}
