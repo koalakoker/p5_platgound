@@ -8,6 +8,7 @@ class Message extends Dialog {
     this.alpha = 0;
     this.started = false;
     this.end = false;
+    this.priority = 0;
 
     this.tween = p5.tween.manager
       .addTween(this)
