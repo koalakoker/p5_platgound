@@ -7,11 +7,11 @@ function hintsTests() {
     const hints = new Hints();
     assert.isArray(hints.messages);
     const gui = Gui.getInstance();
-    gui.diagMngr.display();
-    const msg = gui.diagMngr.activeDiag();
-    simulateWait(msg, duration + fadeIn + fadeOut);
+    const diagMngr = gui.diagMngr;
+    diagMngr.display();
+    simulateWait(diagMngr, duration + fadeIn + fadeOut);
     assert.equal(gui.diagMngr.dialogs.length, 1);
-    simulateWait(msg, margin);
+    simulateWait(diagMngr, margin);
     assert.equal(gui.diagMngr.dialogs.length, 0);
   });
 }

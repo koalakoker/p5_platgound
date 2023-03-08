@@ -31,6 +31,13 @@ class Message extends Dialog {
       this.tween.resume();
     }
   }
+  pause() {
+    this.tween.pause();
+    this.started = false;
+  }
+  isPaused() {
+    return !this.started && this.tween.isPaused;
+  }
   notStarted() {
     return !this.started;
   }

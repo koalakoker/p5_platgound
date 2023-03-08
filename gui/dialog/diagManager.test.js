@@ -12,11 +12,10 @@ function diagManagerTests() {
     diagMngr.addMessage("Test", duration, fade);
     assert.equal(diagMngr.dialogs.length, 1);
     diagMngr.display();
-    const diag = diagMngr.activeDiag();
     const margin = 10;
-    simulateWait(diag, fade + duration + fade);
+    simulateWait(diagMngr, fade + duration + fade);
     assert.equal(diagMngr.dialogs.length, 1);
-    simulateWait(diag, margin);
+    simulateWait(diagMngr, margin);
     assert.equal(diagMngr.dialogs.length, 0);
   });
   it("Find first diag with priority", () => {
@@ -39,61 +38,57 @@ function diagManagerTests() {
     diagMngr.stopDisplayingTheActiveMessageAndResetTween();
     diagMngr.addMessage("m1", duration, fade);
     diagMngr.display();
-    const diag = diagMngr.activeDiag();
-    simulateWait(diag, fade + duration / 2);
-    assert.isTrue(diag.started);
-    assert.isFalse(diag.tween.isPaused);
+    simulateWait(diagMngr, fade + duration / 2);
+    assert.isFalse(diagMngr.activeDiag().isPaused());
     diagMngr.stopDisplayingTheActiveMessageAndResetTween();
-    assert.isFalse(diag.started);
-    assert.isTrue(diag.tween.isPaused);
+    assert.isTrue(diagMngr.activeDiag().isPaused());
   });
   it("Error test", () => {
     const messageText = "MessageText";
     const errorText1 = "ErrorText1";
     const errorText2 = "ErrorText2";
-    let diag;
 
     const diagMngr = new DiagManager();
     diagMngr.addMessage(messageText, duration, fade, () => {
       console.log(messageText);
     });
     assert.equal(diagMngr.dialogs.length, 1);
-    diag = diagMngr.activeDiag();
-    assert.equal(diag.text, messageText);
+
+    assert.equal(diagMngr.activeMessage(), messageText);
 
     diagMngr.display();
-    simulateWait(diag, fade + duration / 2);
+    simulateWait(diagMngr, fade + duration / 2);
 
     diagMngr.addError(errorText1, duration, fade, () => {
       console.log(errorText1);
     });
     assert.equal(diagMngr.dialogs.length, 2);
-    diag = diagMngr.activeDiag();
-    assert.equal(diag.text, errorText1);
+
+    assert.equal(diagMngr.activeMessage(), errorText1);
 
     diagMngr.display();
-    simulateWait(diag, fade + duration / 2);
+    simulateWait(diagMngr, fade + duration / 2);
 
     diagMngr.addError(errorText2, duration, fade, () => {
       console.log(errorText2);
     });
     assert.equal(diagMngr.dialogs.length, 3);
-    diag = diagMngr.activeDiag();
-    assert.equal(diag.text, errorText1);
 
-    simulateWait(diag, duration / 2 + fade + margin);
+    assert.equal(diagMngr.activeMessage(), errorText1);
+
+    simulateWait(diagMngr, duration / 2 + fade + margin);
     assert.equal(diagMngr.dialogs.length, 2);
-    diag = diagMngr.activeDiag();
-    assert.equal(diag.text, errorText2);
+
+    assert.equal(diagMngr.activeMessage(), errorText2);
 
     diagMngr.display();
-    simulateWait(diag, fade + duration + fade + margin);
+    simulateWait(diagMngr, fade + duration + fade + margin);
     assert.equal(diagMngr.dialogs.length, 1);
-    diag = diagMngr.activeDiag();
-    assert.equal(diag.text, messageText);
+
+    assert.equal(diagMngr.activeMessage(), messageText);
 
     diagMngr.display();
-    simulateWait(diag, fade + duration + fade + margin);
+    simulateWait(diagMngr, fade + duration + fade + margin);
     assert.equal(diagMngr.dialogs.length, 0);
   });
 }

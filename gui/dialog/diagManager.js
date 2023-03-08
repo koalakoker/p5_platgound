@@ -14,6 +14,9 @@ class DiagManager {
   activeDiag() {
     return this.dialogs[0];
   }
+  activeMessage() {
+    return this.activeDiag().text;
+  }
   addMessage(text, duration, fade, cbEnd) {
     duration ||= 3000;
     const textColor = p5js.color(255);
@@ -82,8 +85,7 @@ class DiagManager {
     if (diag) {
       console.log("Stop");
       console.log(diag);
-      diag.tween.pause();
-      diag.started = false;
+      diag.pause();
     }
   }
 
