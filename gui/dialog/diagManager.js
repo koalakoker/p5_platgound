@@ -14,7 +14,7 @@ class DiagManager {
   activeDiag() {
     return this.dialogs[0];
   }
-  addMessage(text, duration, fade) {
+  addMessage(text, duration, fade, cbEnd) {
     duration ||= 3000;
     const textColor = p5js.color(255);
     const fadeIn = fade || 200;
@@ -25,14 +25,18 @@ class DiagManager {
         duration,
         textColor,
         (dialog) => {
+          console.log("Remove:", dialog.text);
           this.remove(dialog);
+          if (cbEnd) {
+            cbEnd();
+          }
         },
         fadeIn,
         fadeOut
       )
     );
   }
-  addError(text, duration, fade) {
+  addError(text, duration, fade, cbEnd) {
     duration ||= 5000;
     const textColor = p5js.color(255, 0, 0);
     const fadeIn = fade || 200;
@@ -42,7 +46,11 @@ class DiagManager {
       duration,
       textColor,
       (dialog) => {
+        console.log("Remove:", dialog.text);
         this.remove(dialog);
+        if (cbEnd) {
+          cbEnd();
+        }
       },
       fadeIn,
       fadeOut
@@ -50,6 +58,11 @@ class DiagManager {
     err.priority = 1;
 
     let i = this.findFirstDiagWithPriorityLessThan(err.priority);
+
+    if (i === 0) {
+      this.stopDisplayingTheActiveMessageAndResetTween();
+    }
+
     this.dialogs.splice(i, 0, err);
   }
   findFirstDiagWithPriorityLessThan(priority) {
@@ -64,6 +77,16 @@ class DiagManager {
     }
     return this.dialogs.length;
   }
+  stopDisplayingTheActiveMessageAndResetTween() {
+    const diag = this.activeDiag();
+    if (diag) {
+      console.log("Stop");
+      console.log(diag);
+      diag.tween.pause();
+      diag.started = false;
+    }
+  }
+
   remove(dialog) {
     const i = this.dialogs.indexOf(dialog);
     this.dialogs.splice(i, 1);
