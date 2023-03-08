@@ -28,7 +28,6 @@ class DiagManager {
         duration,
         textColor,
         (dialog) => {
-          console.log("Remove:", dialog.text);
           this.remove(dialog);
           if (cbEnd) {
             cbEnd();
@@ -49,7 +48,6 @@ class DiagManager {
       duration,
       textColor,
       (dialog) => {
-        console.log("Remove:", dialog.text);
         this.remove(dialog);
         if (cbEnd) {
           cbEnd();
@@ -83,8 +81,6 @@ class DiagManager {
   stopDisplayingTheActiveMessageAndResetTween() {
     const diag = this.activeDiag();
     if (diag) {
-      console.log("Stop");
-      console.log(diag);
       diag.pause();
     }
   }

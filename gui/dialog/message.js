@@ -23,11 +23,9 @@ class Message extends Dialog {
       });
   }
   start() {
-    console.log("Start");
     this.tween.startTween();
     this.started = true;
     if (this.tween.isPaused) {
-      console.log("Resume");
       this.tween.resume();
     }
   }
