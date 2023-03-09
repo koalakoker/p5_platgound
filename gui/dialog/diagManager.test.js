@@ -44,51 +44,61 @@ function diagManagerTests() {
     assert.isTrue(diagMngr.activeDiag().isPaused());
   });
   it("Error test", () => {
-    const messageText = "MessageText";
-    const errorText1 = "ErrorText1";
-    const errorText2 = "ErrorText2";
+    return new Promise((resolve, reject) => {
+      const messageText = "MessageText";
+      const errorText1 = "ErrorText1";
+      const errorText2 = "ErrorText2";
+      const completedMessages = [];
 
-    const diagMngr = new DiagManager();
-    diagMngr.addMessage(messageText, duration, fade, () => {
-      console.log(messageText);
+      const correctOrder = [];
+      correctOrder.push(errorText1);
+      correctOrder.push(errorText2);
+      correctOrder.push(messageText);
+
+      const diagMngr = new DiagManager();
+      diagMngr.addMessage(messageText, duration, fade, () => {
+        completedMessages.push(messageText);
+        assert.deepEqual(completedMessages, correctOrder);
+        resolve();
+      });
+      assert.equal(diagMngr.dialogs.length, 1);
+
+      assert.equal(diagMngr.activeMessage(), messageText);
+
+      diagMngr.display();
+      simulateWait(diagMngr, fade + duration / 2);
+
+      diagMngr.addError(errorText1, duration, fade, () => {
+        completedMessages.push(errorText1);
+      });
+      assert.equal(diagMngr.dialogs.length, 2);
+
+      assert.equal(diagMngr.activeMessage(), errorText1);
+
+      diagMngr.display();
+      simulateWait(diagMngr, fade + duration / 2);
+
+      diagMngr.addError(errorText2, duration, fade, () => {
+        completedMessages.push(errorText2);
+      });
+      assert.equal(diagMngr.dialogs.length, 3);
+
+      assert.equal(diagMngr.activeMessage(), errorText1);
+
+      simulateWait(diagMngr, duration / 2 + fade + margin);
+      assert.equal(diagMngr.dialogs.length, 2);
+
+      assert.equal(diagMngr.activeMessage(), errorText2);
+
+      diagMngr.display();
+      simulateWait(diagMngr, fade + duration + fade + margin);
+      assert.equal(diagMngr.dialogs.length, 1);
+
+      assert.equal(diagMngr.activeMessage(), messageText);
+
+      diagMngr.display();
+      simulateWait(diagMngr, fade + duration + fade + margin);
+      assert.equal(diagMngr.dialogs.length, 0);
     });
-    assert.equal(diagMngr.dialogs.length, 1);
-
-    assert.equal(diagMngr.activeMessage(), messageText);
-
-    diagMngr.display();
-    simulateWait(diagMngr, fade + duration / 2);
-
-    diagMngr.addError(errorText1, duration, fade, () => {
-      console.log(errorText1);
-    });
-    assert.equal(diagMngr.dialogs.length, 2);
-
-    assert.equal(diagMngr.activeMessage(), errorText1);
-
-    diagMngr.display();
-    simulateWait(diagMngr, fade + duration / 2);
-
-    diagMngr.addError(errorText2, duration, fade, () => {
-      console.log(errorText2);
-    });
-    assert.equal(diagMngr.dialogs.length, 3);
-
-    assert.equal(diagMngr.activeMessage(), errorText1);
-
-    simulateWait(diagMngr, duration / 2 + fade + margin);
-    assert.equal(diagMngr.dialogs.length, 2);
-
-    assert.equal(diagMngr.activeMessage(), errorText2);
-
-    diagMngr.display();
-    simulateWait(diagMngr, fade + duration + fade + margin);
-    assert.equal(diagMngr.dialogs.length, 1);
-
-    assert.equal(diagMngr.activeMessage(), messageText);
-
-    diagMngr.display();
-    simulateWait(diagMngr, fade + duration + fade + margin);
-    assert.equal(diagMngr.dialogs.length, 0);
   });
 }
