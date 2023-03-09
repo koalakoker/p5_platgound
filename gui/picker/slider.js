@@ -50,7 +50,7 @@ class Slider {
     this.dragged = false;
   }
   setValue(value) {
-    this.value = constrain(value, 0, this.h);
+    this.value = p5js.constrain(value, 0, this.h);
     if (this.cbValueChanged) {
       this.cbValueChanged(this.value);
     }
