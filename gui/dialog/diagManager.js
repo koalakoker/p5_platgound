@@ -20,54 +20,54 @@ class DiagManager {
   activeMessage() {
     return this.activeDiag().text;
   }
-  addMessage(text, duration, fade, cbEnd) {
-    duration ||= 3000;
-    const textColor = p5js.color(255);
-    const fadeIn = fade || 200;
-    const fadeOut = fade || 200;
-    this.dialogs.push(
-      new Message(
+  addMessage(text, duration, fade) {
+    return new Promise((resolve) => {
+      duration ||= 3000;
+      const textColor = p5js.color(255);
+      const fadeIn = fade || 200;
+      const fadeOut = fade || 200;
+      this.dialogs.push(
+        new Message(
+          text,
+          duration,
+          textColor,
+          (dialog) => {
+            this.remove(dialog);
+            resolve();
+          },
+          fadeIn,
+          fadeOut
+        )
+      );
+    });
+  }
+  addError(text, duration, fade) {
+    return new Promise((resolve) => {
+      duration ||= 5000;
+      const textColor = p5js.color(255, 0, 0);
+      const fadeIn = fade || 200;
+      const fadeOut = fade || 200;
+      const err = new Message(
         text,
         duration,
         textColor,
         (dialog) => {
           this.remove(dialog);
-          if (cbEnd) {
-            cbEnd();
-          }
+          resolve();
         },
         fadeIn,
         fadeOut
-      )
-    );
-  }
-  addError(text, duration, fade, cbEnd) {
-    duration ||= 5000;
-    const textColor = p5js.color(255, 0, 0);
-    const fadeIn = fade || 200;
-    const fadeOut = fade || 200;
-    const err = new Message(
-      text,
-      duration,
-      textColor,
-      (dialog) => {
-        this.remove(dialog);
-        if (cbEnd) {
-          cbEnd();
-        }
-      },
-      fadeIn,
-      fadeOut
-    );
-    err.priority = 1;
+      );
+      err.priority = 1;
 
-    let i = this.findFirstDiagWithPriorityLessThan(err.priority);
+      let i = this.findFirstDiagWithPriorityLessThan(err.priority);
 
-    if (i === 0) {
-      this.stopDisplayingTheActiveMessageAndResetTween();
-    }
+      if (i === 0) {
+        this.stopDisplayingTheActiveMessageAndResetTween();
+      }
 
-    this.dialogs.splice(i, 0, err);
+      this.dialogs.splice(i, 0, err);
+    });
   }
   findFirstDiagWithPriorityLessThan(priority) {
     if (this.dialogs.length === 0) {

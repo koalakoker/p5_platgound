@@ -9,7 +9,7 @@ function diagManagerTests() {
   });
   it("Clear", () => {
     const diagMngr = new DiagManager();
-    diagMngr.addMessage("Test", duration, fade);
+    diagMngr.addMessage("Test", null, duration, fade);
     assert.notDeepEqual(diagMngr.dialogs, []);
     diagMngr.clear();
     assert.deepEqual(diagMngr.dialogs, []);
@@ -63,7 +63,7 @@ function diagManagerTests() {
       correctOrder.push(messageText);
 
       const diagMngr = new DiagManager();
-      diagMngr.addMessage(messageText, duration, fade, () => {
+      diagMngr.addMessage(messageText, duration, fade).then(() => {
         completedMessages.push(messageText);
         assert.deepEqual(completedMessages, correctOrder);
         resolve();
@@ -75,7 +75,7 @@ function diagManagerTests() {
       diagMngr.display();
       simulateWait(diagMngr, fade + duration / 2);
 
-      diagMngr.addError(errorText1, duration, fade, () => {
+      diagMngr.addError(errorText1, duration, fade).then(() => {
         completedMessages.push(errorText1);
       });
       assert.equal(diagMngr.dialogs.length, 2);
@@ -85,7 +85,7 @@ function diagManagerTests() {
       diagMngr.display();
       simulateWait(diagMngr, fade + duration / 2);
 
-      diagMngr.addError(errorText2, duration, fade, () => {
+      diagMngr.addError(errorText2, duration, fade).then(() => {
         completedMessages.push(errorText2);
       });
       assert.equal(diagMngr.dialogs.length, 3);
