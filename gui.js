@@ -144,16 +144,16 @@ class Gui {
     this.addBar.changeSelection(null, false);
   }
 
-  mouseMoved() {
-    this.mainBar.mouseMoved();
+  mouseMoved(x, y) {
+    this.mainBar.mouseMoved(x, y);
   }
-  mousePressed() {
-    return this.mainBar.mousePressed();
+  mousePressed(x, y) {
+    return this.mainBar.mousePressed(x, y);
   }
-  mouseReleased() {
-    this.mainBar.mouseReleased();
+  mouseReleased(x, y) {
+    this.mainBar.mouseReleased(x, y);
   }
-  mouseDragged() {
-    this.mainBar.mouseDragged();
+  mouseDragged(x, y) {
+    this.mainBar.mouseDragged(x, y);
   }
 }

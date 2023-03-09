@@ -54,25 +54,25 @@ class LinePicker extends Picker {
       }
     }
   }
-  inside() {
-    return super.inside() || this.insidePicker();
+  inside(x, y) {
+    return super.inside(x, y) || this.insidePicker(x, y);
   }
-  insidePicker() {
+  insidePicker(x, y) {
     return Rect.inside(
-      p5js.mouseX,
-      p5js.mouseY,
+      x,
+      y,
       this.basePoint().x,
       this.basePoint().y,
       this.side,
       this.hPick
     );
   }
-  mousePressed() {
-    if (super.mousePressed()) {
+  mousePressed(x, y) {
+    if (super.mousePressed(x, y)) {
       return true;
     }
-    if (this.insidePicker() && this.selected) {
-      const i = floor((mouseY - this.basePoint().y) / this.space);
+    if (this.insidePicker(x, y) && this.selected) {
+      const i = p5js.floor((x - this.basePoint().y) / this.space);
       this.weight = i + 1;
       if (this.cbWeightChaged) {
         this.cbWeightChaged(this.weight);

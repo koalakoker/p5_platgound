@@ -21,17 +21,10 @@ class TransparentCheck {
     p5js.strokeWeight(2);
     p5js.line(x + 2, y + 2, x + w - 2, y + h - 2);
   }
-  inside() {
-    return Rect.inside(
-      p5js.mouseX,
-      p5js.mouseY,
-      this.x,
-      this.y,
-      this.w,
-      this.h
-    );
+  inside(x, y) {
+    return Rect.inside(x, y, this.x, this.y, this.w, this.h);
   }
-  mousePressed() {
+  mousePressed(x, y) {
     this.selected = !this.selected;
     if (this.cbCheckChanged) {
       this.cbCheckChanged(this.selected);

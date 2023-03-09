@@ -10,8 +10,8 @@ class PushButton extends Button {
       this.pushedCallBack();
     }
   }
-  mousePressed() {
-    if (this.inside()) {
+  mousePressed(x, y) {
+    if (this.inside(x, y)) {
       this.activate();
       return true;
     }

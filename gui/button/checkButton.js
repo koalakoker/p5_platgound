@@ -14,9 +14,9 @@ class CheckButton extends Button {
       this.cbSelChange(this.selected);
     }
   }
-  mousePressed() {
+  mousePressed(x, y) {
     let retVal = false;
-    if (this.inside()) {
+    if (this.inside(x, y)) {
       this.click(!this.selected, true);
       retVal = this.selected;
     }

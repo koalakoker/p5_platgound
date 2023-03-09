@@ -4,10 +4,10 @@ class Group extends Bar {
     this.selected = null;
     this.cbSelectionChange = cbSelectionChange;
   }
-  mousePressed() {
+  mousePressed(x, y) {
     for (let i = 0; i < this.elements.length; i++) {
       const element = this.elements[i];
-      if (element.mousePressed()) {
+      if (element.mousePressed(x, y)) {
         this.changeSelection(element);
         return true;
       }

@@ -23,10 +23,10 @@ class GElem {
   getY() {
     return this.parent ? this.parent.getY() + this.y : this.y;
   }
-  inside() {
+  inside(x, y) {
     return Rect.inside(
-      p5js.mouseX,
-      p5js.mouseY,
+      x,
+      y,
       this.getX(),
       this.getY(),
       this.size().w,
@@ -35,8 +35,8 @@ class GElem {
   }
   preload() {}
   display() {}
-  mouseMoved() {}
-  mousePressed() {}
-  mouseReleased() {}
-  mouseDragged() {}
+  mouseMoved(x, y) {}
+  mousePressed(x, y) {}
+  mouseReleased(x, y) {}
+  mouseDragged(x, y) {}
 }

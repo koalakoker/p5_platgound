@@ -23,30 +23,23 @@ class Slider {
     this.cY = this.y + this.value - this.cH / 2;
     p5js.rect(this.x, this.cY, this.w, this.cH);
   }
-  inside() {
+  inside(x, y) {
     return this.dragged
       ? true
-      : Rect.inside(p5js.mouseX, p5js.mouseY, this.x, this.y, this.w, this.h);
+      : Rect.inside(x, y, this.x, this.y, this.w, this.h);
   }
-  onCursor() {
-    return Rect.inside(
-      p5js.mouseX,
-      p5js.mouseY,
-      this.x,
-      this.cY,
-      this.x,
-      this.cH
-    );
+  onCursor(x, y) {
+    return Rect.inside(x, y, this.x, this.cY, this.x, this.cH);
   }
-  mouseDragged() {
-    this.setValue(p5js.mouseY - this.y);
+  mouseDragged(x, y) {
+    this.setValue(y - this.y);
   }
-  mousePressed() {
+  mousePressed(x, y) {
     this.cursorFill = p5js.color(255, 255, 0);
     this.dragged = true;
-    this.setValue(p5js.mouseY - this.y);
+    this.setValue(y - this.y);
   }
-  mouseReleased() {
+  mouseReleased(x, y) {
     this.dragged = false;
   }
   setValue(value) {

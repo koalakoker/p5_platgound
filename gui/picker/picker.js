@@ -9,8 +9,8 @@ class Picker extends GElem {
     this.fadeOutTimeMs = 1000;
   }
   display() {}
-  mousePressed() {
-    if (super.inside()) {
+  mousePressed(x, y) {
+    if (super.inside(x, y)) {
       this.selected = !this.selected;
       // If picker is selected lock main bar else unlock
       const gui = Gui.getInstance();
@@ -23,9 +23,9 @@ class Picker extends GElem {
     }
     return false;
   }
-  mouseMoved() {
+  mouseMoved(x, y) {
     if (this.selected) {
-      if (!this.inside()) {
+      if (!this.inside(x, y)) {
         // Ouside the sensitive area -> hide picker
         if (!this.debounceTimer) {
           this.debounceTimer = setTimeout(() => {

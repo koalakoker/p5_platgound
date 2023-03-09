@@ -66,28 +66,28 @@ class ColorPicker extends Picker {
       );
     }
   }
-  mousePressed() {
-    if (super.mousePressed()) {
+  mousePressed(x, y) {
+    if (super.mousePressed(x, y)) {
       return true;
     }
-    if (this.insideSlider()) {
-      this.bSlider.mousePressed();
+    if (this.insideSlider(x, y)) {
+      this.bSlider.mousePressed(x, y);
       return true;
     }
-    if (this.insideCheck()) {
-      this.cTransparent.mousePressed();
+    if (this.insideCheck(x, y)) {
+      this.cTransparent.mousePressed(x, y);
       return true;
     }
-    if (this.insidePicker() && this.selected) {
-      const h = mouseX - this.basePoint().x;
-      const s = mouseY - this.basePoint().y;
+    if (this.insidePicker(x, y) && this.selected) {
+      const h = x - this.basePoint().x;
+      const s = y - this.basePoint().y;
       const b = this.bSlider.value;
-      colorMode(HSB, this.side);
-      this.color = color(h, s, b);
+      p5js.colorMode(p5js.HSB, this.side);
+      this.color = p5js.color(h, s, b);
       if (this.cbColorPicked) {
         this.cbColorPicked(this.color);
       }
-      colorMode(RGB);
+      p5js.colorMode(p5js.RGB);
       this.transparent = false;
       this.cTransparent.selected = false;
       if (this.cbTransparentChange) {
@@ -97,36 +97,36 @@ class ColorPicker extends Picker {
     }
     return false;
   }
-  mouseReleased() {
-    this.bSlider.mouseReleased();
+  mouseReleased(x, y) {
+    this.bSlider.mouseReleased(x, y);
   }
-  mouseDragged() {
-    if (this.insideSlider()) {
-      this.bSlider.mouseDragged();
+  mouseDragged(x, y) {
+    if (this.insideSlider(x, y)) {
+      this.bSlider.mouseDragged(x, y);
     }
   }
-  inside() {
+  inside(x, y) {
     return (
-      super.inside() ||
-      this.insidePicker() ||
-      this.insideSlider() ||
-      this.insideCheck()
+      super.inside(x, y) ||
+      this.insidePicker(x, y) ||
+      this.insideSlider(x, y) ||
+      this.insideCheck(x, y)
     );
   }
-  insidePicker() {
+  insidePicker(x, y) {
     return Rect.inside(
-      p5js.mouseX,
-      p5js.mouseY,
+      x,
+      y,
       this.basePoint().x,
       this.basePoint().y,
       this.side,
       this.side
     );
   }
-  insideSlider() {
-    return this.bSlider.inside();
+  insideSlider(x, y) {
+    return this.bSlider.inside(x, y);
   }
-  insideCheck() {
-    return this.cTransparent.inside();
+  insideCheck(x, y) {
+    return this.cTransparent.inside(x, y);
   }
 }

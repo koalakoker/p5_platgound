@@ -6,7 +6,8 @@ let sketch = function (p) {
 
   p.draw = function () {
     window.deltaTime = p.deltaTime;
-    Drawing.getInstance().display();
+    const drawing = Drawing.getInstance();
+    drawing.display();
     const gui = Gui.getInstance();
     gui.display();
   };
@@ -18,12 +19,12 @@ let sketch = function (p) {
 
   p.mouseMoved = function () {
     const gui = Gui.getInstance();
-    gui.mouseMoved();
+    gui.mouseMoved(p5js.mouseX, p5js.mouseY);
   };
 
   p.mousePressed = function () {
     const gui = Gui.getInstance();
-    if (gui.mousePressed() === false) {
+    if (gui.mousePressed(p5js.mouseX, p5js.mouseY) === false) {
       const drawing = Drawing.getInstance();
       drawing.mousePressed(p5js.mouseX, p5js.mouseY);
     }
@@ -31,7 +32,7 @@ let sketch = function (p) {
 
   p.mouseReleased = function () {
     const gui = Gui.getInstance();
-    gui.mouseReleased();
+    gui.mouseReleased(p5js.mouseX, p5js.mouseY);
 
     const drawing = Drawing.getInstance();
     drawing.mouseReleased(p5js.mouseX, p5js.mouseY);
@@ -39,7 +40,7 @@ let sketch = function (p) {
 
   p.mouseDragged = function () {
     const gui = Gui.getInstance();
-    gui.mouseDragged();
+    gui.mouseDragged(p5js.mouseX, p5js.mouseY);
 
     const drawing = Drawing.getInstance();
     drawing.mouseDragged(p5js.mouseX, p5js.mouseY);

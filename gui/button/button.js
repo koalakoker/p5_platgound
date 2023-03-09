@@ -26,25 +26,25 @@ class Button extends GElem {
       this.mouseMoved();
     }
   }
-  mouseMoved() {
+  mouseMoved(x, y) {
     if (this.clickDebounce > 0) {
       return;
     }
-    if (this.inside()) {
+    if (this.inside(x, y)) {
       this.fillColor = this.overColor();
     } else {
       this.fillColor = this.normalColor();
     }
   }
-  mousePressed() {
-    if (this.inside()) {
+  mousePressed(x, y) {
+    if (this.inside(x, y)) {
       this.fillColor = this.clickColor();
       this.clickDebounce = 5;
     }
     return false;
   }
-  mouseReleased() {
-    this.mouseMoved();
+  mouseReleased(x, y) {
+    this.mouseMoved(x, y);
   }
   normalColor() {
     return this.unSelectedColor();

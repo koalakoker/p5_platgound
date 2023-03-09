@@ -36,28 +36,28 @@ class Bar extends GElem {
       this.size().h
     );
   }
-  mouseMoved() {
+  mouseMoved(x, y) {
     this.elements.forEach((element) => {
-      element.mouseMoved();
+      element.mouseMoved(x, y);
     });
   }
-  mouseDragged() {
+  mouseDragged(x, y) {
     this.elements.forEach((element) => {
-      element.mouseDragged();
+      element.mouseDragged(x, y);
     });
   }
-  mousePressed() {
+  mousePressed(x, y) {
     for (let i = 0; i < this.elements.length; i++) {
       const element = this.elements[i];
-      if (element.mousePressed() === true) {
+      if (element.mousePressed(x, y) === true) {
         return true;
       }
     }
     return false;
   }
-  mouseReleased() {
+  mouseReleased(x, y) {
     this.elements.forEach((element) => {
-      element.mouseReleased();
+      element.mouseReleased(x, y);
     });
   }
 }
