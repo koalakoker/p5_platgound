@@ -134,10 +134,10 @@ class Gui {
   }
 
   addMessage(msg) {
-    this.diagMngr.addMessage(msg);
+    return this.diagMngr.addMessage(msg);
   }
   showBackendNotAvailableError() {
-    this.diagMngr.addError("Backend not available at: " + url);
+    return this.diagMngr.addError("Backend not available at: " + url);
   }
 
   resetAddBar() {
