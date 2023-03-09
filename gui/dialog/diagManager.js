@@ -1,5 +1,8 @@
 class DiagManager {
   constructor() {
+    this.clear();
+  }
+  clear() {
     this.dialogs = [];
   }
   display() {
