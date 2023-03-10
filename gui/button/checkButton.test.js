@@ -1,5 +1,5 @@
 function checkButtonTests() {
-  it("Check button tests", () => {
+  it("Click", () => {
     let selChanged = false;
     return new Promise((resolve, reject) => {
       const checkButton = new CheckButton(null, "", () => {
@@ -26,5 +26,17 @@ function checkButtonTests() {
       assert.deepEqual(checkButton.fillColor, checkButton.clickColor());
       assert.isTrue(checkButton.isDebounce());
     });
+  });
+  it("MousePressed", () => {
+    const checkButton = new CheckButton(null, "");
+    let isInside = checkButton.mousePressed(
+      checkButton.x + 5,
+      checkButton.y + 5
+    );
+    assert.isTrue(isInside);
+    isInside = checkButton.mousePressed(checkButton.x - 5, checkButton.y - 5);
+    assert.isFalse(isInside);
+    isInside = checkButton.mousePressed(checkButton.x + 5, checkButton.y + 5);
+    assert.isFalse(isInside);
   });
 }
