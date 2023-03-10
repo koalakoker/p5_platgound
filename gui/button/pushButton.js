@@ -3,16 +3,16 @@ class PushButton extends Button {
     super(parent, fileName);
     this.pushedCallBack = pushedCallBack;
   }
-  activate() {
+  click() {
     this.fillColor = this.clickColor();
-    this.clickDebounce = 5;
     if (this.pushedCallBack) {
       this.pushedCallBack();
     }
+    return super.click();
   }
   mousePressed(x, y) {
     if (this.inside(x, y)) {
-      this.activate();
+      this.click();
       return true;
     }
   }

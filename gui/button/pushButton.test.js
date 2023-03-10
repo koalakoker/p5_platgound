@@ -9,7 +9,7 @@ function pushButtonTest() {
         }
       });
       assert.isTrue(isTypeOf(pushButton, PushButton));
-      pushButton.activate();
+      pushButton.click();
       pushButton.mousePressed(pushButton.x + 5, pushButton.y + 5);
       reject("Push check failed");
     });

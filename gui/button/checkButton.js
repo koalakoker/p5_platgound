@@ -4,20 +4,20 @@ class CheckButton extends Button {
     this.cbSelChange = cbSelChange;
     this.selected = false;
   }
-  click(sel, cbExec) {
-    if (sel) {
+  click(newCheckState) {
+    if (newCheckState) {
       this.fillColor = this.clickColor();
     }
-    this.clickDebounce = 5;
-    this.selected = sel;
-    if (this.cbSelChange && cbExec) {
+    this.selected = newCheckState;
+    if (this.cbSelChange) {
       this.cbSelChange(this.selected);
     }
+    return super.click();
   }
   mousePressed(x, y) {
     let retVal = false;
     if (this.inside(x, y)) {
-      this.click(!this.selected, true);
+      this.click(!this.selected);
       retVal = this.selected;
     }
     return retVal;

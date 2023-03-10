@@ -20,6 +20,7 @@ describe("State Add Line", addLineTests);
 describe("State Add Rect", addRectTests);
 
 describe("PushButton", pushButtonTest);
+describe("CheckButton", checkButtonTests);
 describe("Message", messageTests);
 describe("Hints", hintsTests);
 describe("DiagManager", diagManagerTests);

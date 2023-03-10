@@ -2,7 +2,7 @@ class Button extends GElem {
   constructor(parent, fileName) {
     super(parent);
     this.fileName = fileName;
-    this.clickDebounce = 0;
+    this.clickDebounce = false;
   }
   preload() {
     this.img = p5js.loadImage(this.fileName);
@@ -21,13 +21,24 @@ class Button extends GElem {
       this.size().w,
       this.size().h
     );
-    if (this.clickDebounce > 0) {
-      this.clickDebounce--;
-      this.mouseMoved();
-    }
+  }
+  click() {
+    return new Promise((resolve) => {
+      this.clickDebounce = true;
+      setTimeout(() => {
+        this.clickDebounce = false;
+        this.mouseMoved(this.lastX, this.lastY);
+        resolve();
+      }, 200);
+    });
+  }
+  isDebounce() {
+    return this.clickDebounce;
   }
   mouseMoved(x, y) {
-    if (this.clickDebounce > 0) {
+    this.lastX = x;
+    this.lastY = y;
+    if (this.clickDebounce) {
       return;
     }
     if (this.inside(x, y)) {
