@@ -51,4 +51,11 @@ function barTest() {
       assert.equal(el, tElems[i]);
     }
   });
+  it("Preload, display", () => {
+    const bar = new Bar(null, 0, 0);
+    bar.append(new GElem(bar, 0, 0, 10, 10));
+    bar.append(new PushButton(bar, "png/icons8-right-2-50.png"));
+    bar.preload();
+    bar.display();
+  });
 }
