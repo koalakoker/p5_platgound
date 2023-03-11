@@ -9,25 +9,27 @@ class DropDownBar extends Bar {
     this.fadeOut = 600;
   }
   show() {
-    p5.tween.manager
+    this.tween = p5.tween.manager
       .addTween(this)
       .addMotion("y", this.showY, this.fadeIn, "easeInOutQuad")
-      .onEnd(() => {})
-      .startTween();
-    this.visible = true;
+      .onEnd(() => {
+        this.visible = true;
+      });
+    this.tween.startTween();
   }
   hide() {
-    p5.tween.manager
+    this.tween = p5.tween.manager
       .addTween(this)
       .addMotion("y", this.hideY, this.fadeOut, "easeInOutQuad")
-      .onEnd(() => {})
-      .startTween();
-    this.visible = false;
+      .onEnd(() => {
+        this.visible = false;
+      });
+    this.tween.startTween();
   }
   mouseMoved(x, y) {
-    if (y < 5 && !this.visible) {
+    if (y < this.y + 5 && !this.visible) {
       this.show();
-    } else if (y > this.size().h + 20 && this.visible && !this.lock) {
+    } else if (y > this.y + this.size().h + 20 && this.visible && !this.lock) {
       this.hide();
     }
     super.mouseMoved(x, y);

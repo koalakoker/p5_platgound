@@ -13,13 +13,12 @@ function round(x) {
 }
 
 function simulateWait(obj, msec) {
-  let diag;
   if (isTypeOf(obj, DiagManager)) {
-    diag = obj.activeDiag();
+    obj = obj.activeDiag();
   } else if (isTypeOf(obj, Message)) {
-    diag = obj;
+  } else if (isTypeOf(obj, DropDownBar)) {
   } else return;
   for (let i = 0; i < msec; i++) {
-    diag.tween.update(1);
+    obj.tween.update(1);
   }
 }
