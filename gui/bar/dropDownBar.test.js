@@ -24,7 +24,7 @@ function dropDownBarTest() {
     const pB = new PushButton(ddB, "");
     ddB.append(pB);
     assert.isTrue(ddB.visible);
-    assert.isTrue(ddB.lock);
+    assert.isTrue(ddB.isLock());
 
     ddB.hide();
     assert.isTrue(ddB.visible);
@@ -36,7 +36,7 @@ function dropDownBarTest() {
     simulateWait(ddB, ddB.fadeIn + 10);
     assert.isTrue(ddB.visible);
 
-    ddB.lock = false;
+    ddB.unlock();
     ddB.mouseMoved(0, ddB.y + ddB.size().h + 30);
     assert.isTrue(ddB.visible);
     simulateWait(ddB, ddB.fadeOut + 10);
