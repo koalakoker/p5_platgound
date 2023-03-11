@@ -1,30 +1,3 @@
-function keyLogSimulatePress_z() {
-  this.keyEventGen("keydown", new KeyState("z"));
-  this.keyEventGen("keyup", new KeyState("z"));
-}
-function keyLogSimulatePress_ctrl_a() {
-  this.keyEventGen("keydown", new KeyState("a").addCtrl());
-  this.keyEventGen("keyup", new KeyState("a").addCtrl());
-}
-function keyLogSimulatePress_ctrl_z() {
-  this.keyEventGen("keydown", new KeyState("z").addCtrl());
-  this.keyEventGen("keyup", new KeyState("z").addCtrl());
-}
-function keyLogSimulatePress_shift_ctrl_z() {
-  this.keyEventGen("keydown", new KeyState("Z").addCtrl().addShift());
-  this.keyEventGen("keyup", new KeyState("Z").addCtrl().addShift());
-}
-function keyEventGen(type, ks) {
-  var e = new KeyboardEvent(type, {
-    key: ks.getKey(),
-    ctrlKey: ks.isActive(KeyState.controlKey()),
-    metaKey: ks.isActive(KeyState.metaKey()),
-    altKey: ks.isActive(KeyState.altKey()),
-    shiftKey: ks.isActive(KeyState.shiftKey()),
-  });
-  window.dispatchEvent(e);
-}
-
 function checkKeyLoggerAndShortCutOpeartions() {
   it("Check KeyLogger and ShortCut opeartions", () => {
     return new Promise((resolve, reject) => {
@@ -67,4 +40,31 @@ function checkKeyLoggerAndShortCutOpeartions() {
       }
     });
   });
+}
+
+function keyLogSimulatePress_z() {
+  this.keyEventGen("keydown", new KeyState("z"));
+  this.keyEventGen("keyup", new KeyState("z"));
+}
+function keyLogSimulatePress_ctrl_a() {
+  this.keyEventGen("keydown", new KeyState("a").addCtrl());
+  this.keyEventGen("keyup", new KeyState("a").addCtrl());
+}
+function keyLogSimulatePress_ctrl_z() {
+  this.keyEventGen("keydown", new KeyState("z").addCtrl());
+  this.keyEventGen("keyup", new KeyState("z").addCtrl());
+}
+function keyLogSimulatePress_shift_ctrl_z() {
+  this.keyEventGen("keydown", new KeyState("Z").addCtrl().addShift());
+  this.keyEventGen("keyup", new KeyState("Z").addCtrl().addShift());
+}
+function keyEventGen(type, ks) {
+  var e = new KeyboardEvent(type, {
+    key: ks.getKey(),
+    ctrlKey: ks.isActive(KeyState.controlKey()),
+    metaKey: ks.isActive(KeyState.metaKey()),
+    altKey: ks.isActive(KeyState.altKey()),
+    shiftKey: ks.isActive(KeyState.shiftKey()),
+  });
+  window.dispatchEvent(e);
 }
