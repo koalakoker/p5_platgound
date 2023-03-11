@@ -3,10 +3,10 @@ class Button extends GElem {
     super(parent);
     this.fileName = fileName;
     this.clickDebounce = false;
+    this.fillColor = this.normalColor();
   }
   preload() {
     this.img = p5js.loadImage(this.fileName);
-    this.fillColor = this.normalColor();
   }
   display() {
     p5js.stroke(255);

@@ -20,6 +20,12 @@ class Bar extends GElem {
       element.display();
     });
   }
+  element(index) {
+    if (index < 0 || index >= this.elements.length) {
+      return;
+    }
+    return this.elements[index];
+  }
   size() {
     return {
       w: this.width,

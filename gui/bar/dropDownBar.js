@@ -30,5 +30,6 @@ class DropDownBar extends Bar {
     } else if (y > this.size().h + 20 && this.visible && !this.lock) {
       this.hide();
     }
+    super.mouseMoved(x, y);
   }
 }

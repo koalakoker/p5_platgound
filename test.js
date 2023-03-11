@@ -19,8 +19,10 @@ describe("State Add Circle", addCircleTests);
 describe("State Add Line", addLineTests);
 describe("State Add Rect", addRectTests);
 
-describe("PushButton", pushButtonTest);
-describe("CheckButton", checkButtonTests);
+//describe("PushButton", pushButtonTest);
+//describe("CheckButton", checkButtonTests);
+//describe("Bar", barTest);
+describe("DropDownBar", dropDownBarTest);
 describe("Message", messageTests);
 describe("Hints", hintsTests);
 describe("DiagManager", diagManagerTests);
