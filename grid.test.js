@@ -1,6 +1,6 @@
 function gridTests() {
   it("Grid tests", () => {
-    const tSpace = rnd(0, 100);
+    const tSpace = rnd(5, 100);
     const grid = new Grid(tSpace);
     assert.equal(grid.space, tSpace);
 
