@@ -22,14 +22,14 @@ class Button extends GElem {
       this.size().h
     );
   }
-  click() {
+  click(debounceMilliseconds) {
     return new Promise((resolve) => {
       this.clickDebounce = true;
       setTimeout(() => {
         this.clickDebounce = false;
         this.mouseMoved(this.lastX, this.lastY);
         resolve();
-      }, 200);
+      }, debounceMilliseconds);
     });
   }
   isDebounce() {

@@ -4,7 +4,7 @@ class CheckButton extends Button {
     this.cbSelChange = cbSelChange;
     this.selected = false;
   }
-  click(newCheckState) {
+  click(newCheckState, debounceMilliseconds) {
     if (newCheckState) {
       this.fillColor = this.clickColor();
     }
@@ -12,7 +12,7 @@ class CheckButton extends Button {
     if (this.cbSelChange) {
       this.cbSelChange(this.selected);
     }
-    return super.click();
+    return super.click(debounceMilliseconds);
   }
   mousePressed(x, y) {
     let retVal = false;

@@ -3,17 +3,18 @@ class PushButton extends Button {
     super(parent, fileName);
     this.pushedCallBack = pushedCallBack;
   }
-  click() {
+  click(debounceMilliseconds) {
     this.fillColor = this.clickColor();
     if (this.pushedCallBack) {
       this.pushedCallBack();
     }
-    return super.click();
+    return super.click(debounceMilliseconds);
   }
   mousePressed(x, y) {
     if (this.inside(x, y)) {
       this.click();
       return true;
     }
+    return false;
   }
 }

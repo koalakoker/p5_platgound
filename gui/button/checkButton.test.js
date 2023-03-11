@@ -8,12 +8,12 @@ function checkButtonTests() {
       assert.isTrue(isTypeOf(cB, CheckButton));
       assert.deepEqual(cB.fillColor, cB.normalColor());
       assert.isFalse(cB.selected);
-      cB.click(true)
+      cB.click(true, 5)
         .then(() => {
           assert.notDeepEqual(cB.fillColor, cB.clickColor());
 
           assert.isTrue(cB.selected);
-          cB.click(false)
+          cB.click(false, 5)
             .then(() => {
               assert.isTrue(selChanged);
               resolve();
@@ -39,36 +39,8 @@ function checkButtonTests() {
   });
   it("Mouse moved", () => {
     const cB = new CheckButton(null, "");
-    cBTestMouseMoveOutside(cB);
-    cBTestMouseMoveInside(cB);
-    cBTestMouseMoveAfterCheck(cB);
+    bTestMouseMoveOutside(cB);
+    bTestMouseMoveInside(cB);
+    bTestMouseMoveAfterCheck(cB);
   });
-}
-
-function cBTestMouseMoveOutside(cB) {
-  const mx = cB.x - 5;
-  const my = cB.y - 5;
-  cB.mouseMoved(mx, my);
-  assert.equal(cB.lastX, mx);
-  assert.equal(cB.lastY, my);
-  assert.deepEqual(cB.fillColor, cB.normalColor());
-}
-
-function cBTestMouseMoveInside(cB) {
-  const mx = cB.x + 5;
-  const my = cB.y + 5;
-  cB.mouseMoved(mx, my);
-  assert.equal(cB.lastX, mx);
-  assert.equal(cB.lastY, my);
-  assert.deepEqual(cB.fillColor, cB.overColor());
-}
-
-function cBTestMouseMoveAfterCheck(cB) {
-  const mx = cB.x + 5;
-  const my = cB.y + 5;
-  cB.mousePressed(mx, my);
-  cB.mouseMoved(mx, my);
-  assert.equal(cB.lastX, mx);
-  assert.equal(cB.lastY, my);
-  assert.deepEqual(cB.fillColor, cB.clickColor());
 }
