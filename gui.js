@@ -42,7 +42,7 @@ class Gui {
         Store.getInstance().moveToPreviousState();
       }).addShortCut(
         new ShortCut(new KeyState("z").addMeta(), (button) => {
-          button.activate();
+          button.click();
         })
       )
     );
@@ -51,7 +51,7 @@ class Gui {
         Store.getInstance().moveToNextState();
       }).addShortCut(
         new ShortCut(new KeyState("z").addMeta().addShift(), (button) => {
-          button.activate();
+          button.click();
         })
       )
     );
