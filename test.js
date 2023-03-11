@@ -22,6 +22,7 @@ describe("State Add Rect", addRectTests);
 describe("PushButton", pushButtonTest);
 describe("CheckButton", checkButtonTests);
 describe("Bar", barTest);
+describe("Group", groupTest);
 describe("DropDownBar", dropDownBarTest);
 describe("Message", messageTests);
 describe("Hints", hintsTests);
