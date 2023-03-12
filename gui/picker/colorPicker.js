@@ -82,6 +82,7 @@ class ColorPicker extends Picker {
       const h = x - this.basePoint().x;
       const s = y - this.basePoint().y;
       const b = this.bSlider.value;
+      console.log(h, s, b);
       p5js.colorMode(p5js.HSB, this.side);
       this.color = p5js.color(h, s, b);
       if (this.cbColorPicked) {
