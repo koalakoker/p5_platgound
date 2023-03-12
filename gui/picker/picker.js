@@ -12,26 +12,28 @@ class Picker extends GElem {
   mousePressed(x, y) {
     if (super.inside(x, y)) {
       this.selected = !this.selected;
-      // If picker is selected lock main bar else unlock
+
+      // If picker is selected lock main bar
       const gui = Gui.getInstance();
       if (this.selected) {
-        gui.mainBar.lock = true;
-      } else {
-        gui.mainBar.lock = false;
+        gui.mainBar.lock();
       }
       return true;
     }
     return false;
   }
-  mouseMoved(x, y) {
+  mouseMoved(x, y, test_ms) {
     if (this.selected) {
       if (!this.inside(x, y)) {
         // Ouside the sensitive area -> hide picker
         if (!this.debounceTimer) {
-          this.debounceTimer = setTimeout(() => {
-            this.selected = false;
-            this.debounceTimer = null;
-          }, this.fadeOutTimeMs);
+          return new Promise((resolve) => {
+            this.debounceTimer = setTimeout(() => {
+              this.selected = false;
+              this.debounceTimer = null;
+              resolve();
+            }, test_ms || this.fadeOutTimeMs);
+          });
         }
       } else {
         // Inside one of the sensitive area
