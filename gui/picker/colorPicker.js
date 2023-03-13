@@ -17,7 +17,7 @@ class ColorPicker extends Picker {
         this.cbTransparentChange(state);
       }
     });
-    this.bValue = this.bSlider.value;
+    this.bValue = this.bSlider.value_;
     this.cbColorPicked = cbColorPicked;
     this.cbTransparentChange = cbTransparentChange;
   }
@@ -81,7 +81,7 @@ class ColorPicker extends Picker {
     if (this.insidePicker(x, y) && this.selected) {
       const h = x - this.basePoint().x;
       const s = y - this.basePoint().y;
-      const b = this.bSlider.value;
+      const b = this.bSlider.value_;
       console.log(h, s, b);
       p5js.colorMode(p5js.HSB, this.side);
       this.color = p5js.color(h, s, b);
