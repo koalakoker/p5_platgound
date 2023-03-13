@@ -9,6 +9,15 @@ class Slider {
     this.cbValueChanged = cbValueChanged;
     this.dragged = false;
   }
+  setValue(value) {
+    this.value_ = p5js.constrain(value, 0, this.maxValue);
+    if (this.cbValueChanged) {
+      this.cbValueChanged(this.value_);
+    }
+  }
+  value() {
+    return this.value_;
+  }
   display(x, y) {
     this.x = x;
     this.y = y;
@@ -41,14 +50,5 @@ class Slider {
   }
   mouseReleased(x, y) {
     this.dragged = false;
-  }
-  setValue(value) {
-    this.value_ = p5js.constrain(value, 0, this.maxValue);
-    if (this.cbValueChanged) {
-      this.cbValueChanged(this.value_);
-    }
-  }
-  value() {
-    return this.value_;
   }
 }
