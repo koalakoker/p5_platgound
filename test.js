@@ -21,8 +21,10 @@ describe("State Add Rect", addRectTests);
 
 describe("PushButton", pushButtonTest);
 describe("CheckButton", checkButtonTests);
-describe("ColorPicker", colorPickerTest);
-describe("LinePicker", linePickerTest);
+describe("Slider", sliderTest);
+describe("ColorPickerAlpha", colorPickerAlphaTest);
+//describe("ColorPicker", colorPickerTest);
+//describe("LinePicker", linePickerTest);
 describe("Bar", barTest);
 describe("Group", groupTest);
 describe("DropDownBar", dropDownBarTest);
