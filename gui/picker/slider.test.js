@@ -5,8 +5,8 @@ function sliderTest() {
     const val = iRand(0, maxVal);
     const slider = new Slider(val, w, maxVal);
     assert.equal(slider.w, w);
-    assert.equal(slider.maxValue, maxVal);
-    assert.equal(slider.value(), val);
+    assert.equal(slider.h, maxVal);
+    assert.equal(slider.percentage(), val);
   });
   it("Modify", () => {
     const maxVal = 100;
@@ -19,18 +19,18 @@ function sliderTest() {
     let newVal;
 
     newVal = 75;
-    slider.setValue(newVal);
-    assert.equal(slider.value(), newVal);
+    slider.setPercentage(newVal);
+    assert.equal(slider.percentage(), newVal);
     assert.equal(changed, 1);
 
     newVal = -10;
-    slider.setValue(newVal);
-    assert.equal(slider.value(), 0);
+    slider.setPercentage(newVal);
+    assert.equal(slider.percentage(), 0);
     assert.equal(changed, 2);
 
     newVal = 200;
-    slider.setValue(newVal);
-    assert.equal(slider.value(), 100);
+    slider.setPercentage(newVal);
+    assert.equal(slider.percentage(), 100);
     assert.equal(changed, 3);
   });
 }

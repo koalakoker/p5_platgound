@@ -1,22 +1,22 @@
 class Slider {
-  constructor(value, w, maxValue, cbValueChanged) {
+  constructor(percentage, w, h, cbValueChanged) {
     this.x = 0;
     this.y = 0;
     this.w = w;
-    this.maxValue = maxValue;
-    this.setValue(value);
+    this.h = h;
+    this.setPercentage(percentage);
     this.cursorFill = 255;
     this.cbValueChanged = cbValueChanged;
     this.dragged = false;
   }
-  setValue(value) {
-    this.value_ = p5js.constrain(value, 0, this.maxValue);
+  setPercentage(percentage) {
+    this.percentage_ = p5js.constrain(percentage, 0, 100);
     if (this.cbValueChanged) {
-      this.cbValueChanged(this.value_);
+      this.cbValueChanged(this.percentage_);
     }
   }
-  value() {
-    return this.value_;
+  percentage() {
+    return this.percentage_;
   }
   display(x, y) {
     this.x = x;
@@ -24,29 +24,30 @@ class Slider {
     p5js.fill(0);
     p5js.stroke(255);
     p5js.strokeWeight(1);
-    p5js.rect(x, y, this.w, this.maxValue);
+    p5js.rect(x, y, this.w, this.h);
     p5js.noStroke();
     p5js.fill(this.cursorFill);
     const dividers = 10;
-    this.cH = this.maxValue / dividers;
-    this.cY = this.y + this.value_ - this.cH / 2;
+    this.cH = this.h / dividers;
+    const value = (this.percentage_ * this.h) / 100;
+    this.cY = this.y + value - this.cH / 2;
     p5js.rect(this.x, this.cY, this.w, this.cH);
   }
   inside(x, y) {
     return this.dragged
       ? true
-      : Rect.inside(x, y, this.x, this.y, this.w, this.maxValue);
+      : Rect.inside(x, y, this.x, this.y, this.w, this.h);
   }
   onCursor(x, y) {
     return Rect.inside(x, y, this.x, this.cY, this.x, this.cH);
   }
   mouseDragged(x, y) {
-    this.setValue(y - this.y);
+    this.setPercentage(y - this.y);
   }
   mousePressed(x, y) {
     this.cursorFill = p5js.color(255, 255, 0);
     this.dragged = true;
-    this.setValue(y - this.y);
+    this.setPercentage(y - this.y);
   }
   mouseReleased(x, y) {
     this.dragged = false;
