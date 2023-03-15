@@ -75,4 +75,81 @@ class ColorPickerAlpha extends Picker {
   color2Percentage(color) {
     return (color * 100) / 255;
   }
+  display() {
+    this.displayCheckBox();
+
+    if (this.selected) {
+      this.displayColor();
+      this.displaySliders();
+    }
+  }
+  displayCheckBox() {
+    p5js.stroke(255);
+    p5js.strokeWeight(1);
+    p5js.fill(this.color());
+    p5js.rect(this.getX(), this.getY(), this.size().w, this.size().h);
+  }
+  displayColor() {
+    p5js.stroke(255);
+    p5js.strokeWeight(1);
+    p5js.fill(this.color());
+    p5js.rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
+  }
+  displaySliders() {
+    this.bSlider.display(this.basePoint().x + this.side, this.basePoint().y);
+  }
+  mousePressed(x, y) {
+    if (super.mousePressed(x, y)) {
+      return true;
+    }
+    if (this.insideSlider(x, y)) {
+      this.bSlider.mousePressed(x, y);
+      return true;
+    }
+    if (this.insidePicker(x, y) && this.selected) {
+      const h = x - this.basePoint().x;
+      const s = y - this.basePoint().y;
+      const b = this.bSlider.percentage_;
+      console.log(h, s, b);
+      p5js.colorMode(p5js.HSB, this.side);
+      this.color = p5js.color(h, s, b);
+      if (this.cbColorPicked) {
+        this.cbColorPicked(this.color);
+      }
+      p5js.colorMode(p5js.RGB);
+      this.transparent = false;
+      this.cTransparent.selected = false;
+      if (this.cbTransparentChange) {
+        this.cbTransparentChange(false);
+      }
+      return true;
+    }
+    return false;
+  }
+  mouseReleased(x, y) {
+    this.bSlider.mouseReleased(x, y);
+  }
+  mouseDragged(x, y) {
+    if (this.insideSlider(x, y)) {
+      this.bSlider.mouseDragged(x, y);
+    }
+  }
+  inside(x, y) {
+    return (
+      super.inside(x, y) || this.insidePicker(x, y) || this.insideSlider(x, y)
+    );
+  }
+  insidePicker(x, y) {
+    return Rect.inside(
+      x,
+      y,
+      this.basePoint().x,
+      this.basePoint().y,
+      this.side,
+      this.side
+    );
+  }
+  insideSlider(x, y) {
+    return this.bSlider.inside(x, y);
+  }
 }

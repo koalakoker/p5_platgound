@@ -108,9 +108,9 @@ class Gui {
         Drawing.getInstance().newElementStyle.strokeWeight = weight;
       })
     );
-    const fillColorPicker = new ColorPicker(
+    const fillColorPicker = new ColorPickerAlpha(
       pickBar,
-      0,
+      p5js.color(0, 0, 0, 255),
       (color) => {
         Drawing.getInstance().newElementStyle.fillColor = color;
       },
