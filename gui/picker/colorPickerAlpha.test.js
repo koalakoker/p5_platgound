@@ -36,9 +36,6 @@ function colorPickerAlphaTest() {
     assert.equal(cPA.percentage2Color(cPA.bSlider.percentage()), b);
     assert.equal(cPA.percentage2Color(cPA.aSlider.percentage()), a);
 
-    let getColor = cPA.slidersColor();
-    assert.deepEqual(setColor, getColor);
-
     r = iRand(0, 255);
     g = iRand(0, 255);
     b = iRand(0, 255);
@@ -49,18 +46,14 @@ function colorPickerAlphaTest() {
     assert.equal(cPA.percentage2Color(cPA.gSlider.percentage()), g);
     assert.equal(cPA.percentage2Color(cPA.bSlider.percentage()), b);
     assert.equal(cPA.percentage2Color(cPA.aSlider.percentage()), a);
-    getColor = cPA.slidersColor();
-    assert.deepEqual(setColor, getColor);
   });
   it("SetColor", () => {
     const firstColor = p5js.color(1, 2, 3, 4);
     const secondColor = p5js.color(11, 22, 33, 34);
     const cPA = new ColorPickerAlpha(null, firstColor);
     assert.deepEqual(toRGBA(cPA.color()), toRGBA(firstColor));
-    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(firstColor));
     cPA.setColor(secondColor);
     assert.deepEqual(toRGBA(cPA.color()), toRGBA(secondColor));
-    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(secondColor));
   });
   it("Callback", () => {
     let change = 0;
@@ -94,10 +87,8 @@ function colorPickerAlphaTest() {
 
     cPA.setColor(secondColor, false);
     assert.deepEqual(toRGBA(cPA.color()), toRGBA(secondColor));
-    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(secondColor));
     cPA.setColor(tirdColor);
     assert.deepEqual(toRGBA(cPA.color()), toRGBA(tirdColor));
-    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(tirdColor));
 
     cPA.rSlider.setColor(100);
     cPA.gSlider.setColor(200);

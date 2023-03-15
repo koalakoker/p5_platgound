@@ -27,7 +27,7 @@ class ColorPickerAlpha extends Picker {
       this.size().w,
       this.side,
       (percentage) => {
-        const color = this.slidersColor();
+        const color = this.color();
         color.setRed(this.percentage2Color(percentage));
         this.setColor(color);
       }
@@ -36,9 +36,9 @@ class ColorPickerAlpha extends Picker {
       this.color2Percentage(p5js.green(color)),
       this.size().w,
       this.side,
-      (val) => {
-        const color = this.slidersColor();
-        color.setGreen(this.percentage2Color(val));
+      (percentage) => {
+        const color = this.color();
+        color.setGreen(this.percentage2Color(percentage));
         this.setColor(color);
       }
     );
@@ -46,9 +46,9 @@ class ColorPickerAlpha extends Picker {
       this.color2Percentage(p5js.blue(color)),
       this.size().w,
       this.side,
-      (val) => {
-        const color = this.slidersColor();
-        color.setBlue(this.percentage2Color(val));
+      (percentage) => {
+        const color = this.color();
+        color.setBlue(this.percentage2Color(percentage));
         this.setColor(color);
       }
     );
@@ -56,9 +56,9 @@ class ColorPickerAlpha extends Picker {
       this.color2Percentage(p5js.alpha(color)),
       this.size().w,
       this.side,
-      (val) => {
-        const color = this.slidersColor();
-        color.setAlpha(this.percentage2Color(val));
+      (percentage) => {
+        const color = this.color();
+        color.setAlpha(this.percentage2Color(percentage));
         this.setColor(color);
       }
     );
@@ -68,14 +68,6 @@ class ColorPickerAlpha extends Picker {
     this.gSlider.setColor(p5js.green(color), cbExec);
     this.bSlider.setColor(p5js.blue(color), cbExec);
     this.aSlider.setColor(p5js.alpha(color), cbExec);
-  }
-  slidersColor() {
-    const newColor = p5js.color(0, 0, 0, 0);
-    newColor.setRed(this.percentage2Color(this.rSlider.percentage()));
-    newColor.setGreen(this.percentage2Color(this.gSlider.percentage()));
-    newColor.setBlue(this.percentage2Color(this.bSlider.percentage()));
-    newColor.setAlpha(this.percentage2Color(this.aSlider.percentage()));
-    return newColor;
   }
   percentage2Color(percentage) {
     return (percentage * 255) / 100;
