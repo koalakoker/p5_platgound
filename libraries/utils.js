@@ -22,3 +22,12 @@ function simulateWait(obj, msec) {
     obj.tween.update(1);
   }
 }
+
+function toRGBA(color) {
+  return {
+    r: p5js.red(color),
+    g: p5js.green(color),
+    b: p5js.blue(color),
+    a: p5js.alpha(color),
+  };
+}

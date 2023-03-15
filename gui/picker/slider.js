@@ -9,11 +9,21 @@ class Slider {
     this.cbValueChanged = cbValueChanged;
     this.dragged = false;
   }
-  setPercentage(percentage) {
+  setPercentage(percentage, cbExec) {
     this.percentage_ = p5js.constrain(percentage, 0, 100);
-    if (this.cbValueChanged) {
+    if (cbExec === undefined) {
+      cbExec = true;
+    }
+    if (this.cbValueChanged && cbExec) {
       this.cbValueChanged(this.percentage_);
     }
+  }
+  setColor(color, cbExec) {
+    color = p5js.constrain(color, 0, 255);
+    this.setPercentage((color * 100) / 255, cbExec);
+  }
+  color() {
+    return (this.percentage() * 255) / 100;
   }
   percentage() {
     return this.percentage_;

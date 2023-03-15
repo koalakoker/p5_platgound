@@ -52,4 +52,57 @@ function colorPickerAlphaTest() {
     getColor = cPA.slidersColor();
     assert.deepEqual(setColor, getColor);
   });
+  it("SetColor", () => {
+    const firstColor = p5js.color(1, 2, 3, 4);
+    const secondColor = p5js.color(11, 22, 33, 34);
+    const cPA = new ColorPickerAlpha(null, firstColor);
+    assert.deepEqual(toRGBA(cPA.color()), toRGBA(firstColor));
+    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(firstColor));
+    cPA.setColor(secondColor);
+    assert.deepEqual(toRGBA(cPA.color()), toRGBA(secondColor));
+    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(secondColor));
+  });
+  it("Callback", () => {
+    let change = 0;
+    const firstColor = p5js.color(1, 2, 3, 4);
+    const secondColor = p5js.color(11, 22, 33, 34);
+    const tirdColor = p5js.color(111, 122, 133, 144);
+    const cPA = new ColorPickerAlpha(null, firstColor, (col) => {
+      switch (change) {
+        case 0: {
+          assert.deepEqual(toRGBA(col), toRGBA(tirdColor));
+        }
+        case 1: {
+          tirdColor.setRed(100);
+          assert.deepEqual(toRGBA(col), toRGBA(tirdColor));
+        }
+        case 2: {
+          tirdColor.setGreen(200);
+          assert.deepEqual(toRGBA(col), toRGBA(tirdColor));
+        }
+        case 3: {
+          tirdColor.setBlue(50);
+          assert.deepEqual(toRGBA(col), toRGBA(tirdColor));
+        }
+        case 4: {
+          tirdColor.setAlpha(1);
+          assert.deepEqual(toRGBA(col), toRGBA(tirdColor));
+        }
+      }
+      change++;
+    });
+
+    cPA.setColor(secondColor, false);
+    assert.deepEqual(toRGBA(cPA.color()), toRGBA(secondColor));
+    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(secondColor));
+    cPA.setColor(tirdColor);
+    assert.deepEqual(toRGBA(cPA.color()), toRGBA(tirdColor));
+    assert.deepEqual(toRGBA(cPA.slidersColor()), toRGBA(tirdColor));
+
+    cPA.rSlider.setColor(100);
+    cPA.gSlider.setColor(200);
+    cPA.bSlider.setColor(50);
+    cPA.aSlider.setColor(1);
+    assert.equal(change, 5);
+  });
 }

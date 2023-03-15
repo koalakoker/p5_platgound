@@ -5,11 +5,18 @@ class ColorPickerAlpha extends Picker {
     this.cbColorChanged = cbColorChanged;
     this.initSliders(color);
   }
-  setColor(color, cbStop) {
+  setColor(color, cbExec) {
     this.color_ = color;
-    if (this.cbColorChanged && !cbStop) {
+    if (cbExec === undefined) {
+      cbExec = true;
+    }
+    if (this.cbColorChanged === undefined) {
+      this.cbColorChanged = false;
+    }
+    if (this.cbColorChanged && cbExec) {
       this.cbColorChanged(this.color_);
     }
+    this.setSliders(color, false);
   }
   color() {
     return this.color_;
@@ -19,9 +26,9 @@ class ColorPickerAlpha extends Picker {
       this.color2Percentage(p5js.red(color)),
       this.size().w,
       this.side,
-      (val) => {
+      (percentage) => {
         const color = this.slidersColor();
-        color.setRed(this.percentage2Color(val));
+        color.setRed(this.percentage2Color(percentage));
         this.setColor(color);
       }
     );
@@ -56,11 +63,11 @@ class ColorPickerAlpha extends Picker {
       }
     );
   }
-  setSliders(color) {
-    this.rSlider.setPercentage(this.color2Percentage(p5js.red(color)));
-    this.gSlider.setPercentage(this.color2Percentage(p5js.green(color)));
-    this.bSlider.setPercentage(this.color2Percentage(p5js.blue(color)));
-    this.aSlider.setPercentage(this.color2Percentage(p5js.alpha(color)));
+  setSliders(color, cbExec) {
+    this.rSlider.setColor(p5js.red(color), cbExec);
+    this.gSlider.setColor(p5js.green(color), cbExec);
+    this.bSlider.setColor(p5js.blue(color), cbExec);
+    this.aSlider.setColor(p5js.alpha(color), cbExec);
   }
   slidersColor() {
     const newColor = p5js.color(0, 0, 0, 0);
