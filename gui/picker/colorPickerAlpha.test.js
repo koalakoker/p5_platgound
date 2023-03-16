@@ -25,27 +25,21 @@ function colorPickerAlphaTest() {
     cPA.setColor(p5js.color(10, 20, 30, 40));
   });
   it("Slider", () => {
-    let r = iRand(0, 255);
-    let g = iRand(0, 255);
-    let b = iRand(0, 255);
-    let a = iRand(0, 255);
+    let { r, g, b, a, colors } = createRandColor();
     let setColor = p5js.color(r, g, b, a);
     const cPA = new ColorPickerAlpha(null, setColor);
-    assert.equal(cPA.percentage2Color(cPA.rSlider.percentage()), r);
-    assert.equal(cPA.percentage2Color(cPA.gSlider.percentage()), g);
-    assert.equal(cPA.percentage2Color(cPA.bSlider.percentage()), b);
-    assert.equal(cPA.percentage2Color(cPA.aSlider.percentage()), a);
+    for (let i = 0; i < colors.length; i++) {
+      const c = colors[i];
+      assert.equal(cPA.percentage2Color(cPA.sliders[i].percentage()), c);
+    }
 
-    r = iRand(0, 255);
-    g = iRand(0, 255);
-    b = iRand(0, 255);
-    a = iRand(0, 255);
+    ({ r, g, b, a, colors } = createRandColor());
     setColor = p5js.color(r, g, b, a);
     cPA.setSliders(setColor);
-    assert.equal(cPA.percentage2Color(cPA.rSlider.percentage()), r);
-    assert.equal(cPA.percentage2Color(cPA.gSlider.percentage()), g);
-    assert.equal(cPA.percentage2Color(cPA.bSlider.percentage()), b);
-    assert.equal(cPA.percentage2Color(cPA.aSlider.percentage()), a);
+    for (let i = 0; i < colors.length; i++) {
+      const c = colors[i];
+      assert.equal(cPA.percentage2Color(cPA.sliders[i].percentage()), c);
+    }
   });
   it("SetColor", () => {
     const firstColor = p5js.color(1, 2, 3, 4);
@@ -90,10 +84,23 @@ function colorPickerAlphaTest() {
     cPA.setColor(tirdColor);
     assert.deepEqual(toRGBA(cPA.color()), toRGBA(tirdColor));
 
-    cPA.rSlider.setColor(100);
-    cPA.gSlider.setColor(200);
-    cPA.bSlider.setColor(50);
-    cPA.aSlider.setColor(1);
+    cPA.setSlider(rSlider, 100);
+    cPA.setSlider(gSlider, 200);
+    cPA.setSlider(bSlider, 50);
+    cPA.setSlider(aSlider, 1);
     assert.equal(change, 5);
   });
+}
+
+function createRandColor() {
+  const r = iRand(0, 255);
+  const g = iRand(0, 255);
+  const b = iRand(0, 255);
+  const a = iRand(0, 255);
+  const colors = [];
+  colors.push(r);
+  colors.push(g);
+  colors.push(b);
+  colors.push(a);
+  return { r: r, g: g, b: b, a: a, colors, colors };
 }

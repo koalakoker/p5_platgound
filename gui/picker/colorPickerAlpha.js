@@ -1,9 +1,41 @@
+let rSlider;
+let gSlider;
+let bSlider;
+let aSlider;
+
 class ColorPickerAlpha extends Picker {
   constructor(parent, color, cbColorChanged, x, y) {
     super(parent, x, y);
     this.color_ = color;
     this.cbColorChanged = cbColorChanged;
     this.initSliders(color);
+    this.constructSlidersHandlers();
+  }
+  constructSlidersHandlers() {
+    rSlider = {
+      i: 0,
+      get: (c) => {
+        return p5js.red(c);
+      },
+    };
+    gSlider = {
+      i: 1,
+      get: (c) => {
+        return p5js.green(c);
+      },
+    };
+    bSlider = {
+      i: 2,
+      get: (c) => {
+        return p5js.blue(c);
+      },
+    };
+    aSlider = {
+      i: 3,
+      get: (c) => {
+        return p5js.alpha(c);
+      },
+    };
   }
   setColor(color, cbExec) {
     this.color_ = color;
@@ -22,52 +54,64 @@ class ColorPickerAlpha extends Picker {
     return this.color_;
   }
   initSliders(color) {
-    this.rSlider = new Slider(
-      this.color2Percentage(p5js.red(color)),
-      this.size().w,
-      this.side,
-      (percentage) => {
-        const color = this.color();
-        color.setRed(this.percentage2Color(percentage));
-        this.setColor(color);
-      }
+    this.sliders = [];
+    this.sliders.push(
+      new Slider(
+        this.color2Percentage(p5js.red(color)),
+        this.size().w,
+        this.side,
+        (percentage) => {
+          const color = this.color();
+          color.setRed(this.percentage2Color(percentage));
+          this.setColor(color);
+        }
+      )
     );
-    this.gSlider = new Slider(
-      this.color2Percentage(p5js.green(color)),
-      this.size().w,
-      this.side,
-      (percentage) => {
-        const color = this.color();
-        color.setGreen(this.percentage2Color(percentage));
-        this.setColor(color);
-      }
+    this.sliders.push(
+      new Slider(
+        this.color2Percentage(p5js.green(color)),
+        this.size().w,
+        this.side,
+        (percentage) => {
+          const color = this.color();
+          color.setGreen(this.percentage2Color(percentage));
+          this.setColor(color);
+        }
+      )
     );
-    this.bSlider = new Slider(
-      this.color2Percentage(p5js.blue(color)),
-      this.size().w,
-      this.side,
-      (percentage) => {
-        const color = this.color();
-        color.setBlue(this.percentage2Color(percentage));
-        this.setColor(color);
-      }
+    this.sliders.push(
+      new Slider(
+        this.color2Percentage(p5js.blue(color)),
+        this.size().w,
+        this.side,
+        (percentage) => {
+          const color = this.color();
+          color.setBlue(this.percentage2Color(percentage));
+          this.setColor(color);
+        }
+      )
     );
-    this.aSlider = new Slider(
-      this.color2Percentage(p5js.alpha(color)),
-      this.size().w,
-      this.side,
-      (percentage) => {
-        const color = this.color();
-        color.setAlpha(this.percentage2Color(percentage));
-        this.setColor(color);
-      }
+    this.sliders.push(
+      new Slider(
+        this.color2Percentage(p5js.alpha(color)),
+        this.size().w,
+        this.side,
+        (percentage) => {
+          const color = this.color();
+          color.setAlpha(this.percentage2Color(percentage));
+          this.setColor(color);
+        }
+      )
     );
   }
   setSliders(color, cbExec) {
-    this.rSlider.setColor(p5js.red(color), cbExec);
-    this.gSlider.setColor(p5js.green(color), cbExec);
-    this.bSlider.setColor(p5js.blue(color), cbExec);
-    this.aSlider.setColor(p5js.alpha(color), cbExec);
+    this.setSlider(rSlider, color, cbExec);
+    this.setSlider(gSlider, color, cbExec);
+    this.setSlider(bSlider, color, cbExec);
+    this.setSlider(aSlider, color, cbExec);
+  }
+  setSlider(slider, color, cbExec) {
+    this.sliders[slider.i].setColor(slider.get(color), cbExec);
   }
   percentage2Color(percentage) {
     return (percentage * 255) / 100;
@@ -96,42 +140,39 @@ class ColorPickerAlpha extends Picker {
     p5js.rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
   }
   displaySliders() {
-    this.bSlider.display(this.basePoint().x + this.side, this.basePoint().y);
+    for (let i = 0; i < this.sliders.length; i++) {
+      const slider = this.sliders[i];
+      slider.display(
+        this.basePoint().x + this.side + i * slider.w,
+        this.basePoint().y
+      );
+    }
   }
   mousePressed(x, y) {
     if (super.mousePressed(x, y)) {
       return true;
     }
-    if (this.insideSlider(x, y)) {
-      this.bSlider.mousePressed(x, y);
-      return true;
-    }
-    if (this.insidePicker(x, y) && this.selected) {
-      const h = x - this.basePoint().x;
-      const s = y - this.basePoint().y;
-      const b = this.bSlider.percentage_;
-      console.log(h, s, b);
-      p5js.colorMode(p5js.HSB, this.side);
-      this.color = p5js.color(h, s, b);
-      if (this.cbColorPicked) {
-        this.cbColorPicked(this.color);
-      }
-      p5js.colorMode(p5js.RGB);
-      this.transparent = false;
-      this.cTransparent.selected = false;
-      if (this.cbTransparentChange) {
-        this.cbTransparentChange(false);
-      }
+    const slider = this.insideSlider(x, y);
+    if (slider) {
+      slider.mousePressed(x, y);
+      this.sliderDragged = slider;
       return true;
     }
     return false;
   }
   mouseReleased(x, y) {
-    this.bSlider.mouseReleased(x, y);
+    if (this.sliderDragged) {
+      this.sliderDragged.mouseReleased(x, y);
+      this.sliderDragged = undefined;
+    }
   }
   mouseDragged(x, y) {
-    if (this.insideSlider(x, y)) {
-      this.bSlider.mouseDragged(x, y);
+    // const slider = this.insideSlider(x,y);
+    // if (slider) {
+    //   this.sliderDragged.mouseDragged(x, y);
+    // }
+    if (this.sliderDragged) {
+      this.sliderDragged.mouseDragged(x, y);
     }
   }
   inside(x, y) {
@@ -150,6 +191,11 @@ class ColorPickerAlpha extends Picker {
     );
   }
   insideSlider(x, y) {
-    return this.bSlider.inside(x, y);
+    for (let i = 0; i < this.sliders.length; i++) {
+      const slider = this.sliders[i];
+      if (slider.inside(x, y)) {
+        return slider;
+      }
+    }
   }
 }
