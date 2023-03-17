@@ -1,9 +1,6 @@
 function colorPickerAlphaTest() {
   it("Constructor", () => {
-    const r = iRand(0, 255);
-    const g = iRand(0, 255);
-    const b = iRand(0, 255);
-    const a = iRand(0, 255);
+    let { r, g, b, a } = createRandColor();
     const cPA = new ColorPickerAlpha(null, p5js.color(r, g, b, a));
     const color = cPA.color();
     assert.equal(p5js.red(color), r);
@@ -12,10 +9,7 @@ function colorPickerAlphaTest() {
     assert.equal(p5js.alpha(color), a);
   });
   it("Modify", () => {
-    const r = iRand(0, 255);
-    const g = iRand(0, 255);
-    const b = iRand(0, 255);
-    const a = iRand(0, 255);
+    let { r, g, b, a } = createRandColor();
     const cPA = new ColorPickerAlpha(null, p5js.color(r, g, b, a), (color) => {
       assert.equal(p5js.red(color), 10);
       assert.equal(p5js.green(color), 20);
@@ -89,6 +83,10 @@ function colorPickerAlphaTest() {
     cPA.setSlider(bSlider, 50);
     cPA.setSlider(aSlider, 1);
     assert.equal(change, 5);
+  });
+  it("Display", () => {
+    const cPA = new ColorPickerAlpha(null, p5js.color(0, 0, 0, 255));
+    cPA.display();
   });
 }
 

@@ -57,6 +57,7 @@ class ColorPickerAlpha extends Picker {
     this.sliders = [];
     this.sliders.push(
       new Slider(
+        p5js.color(255, 0, 0, 255),
         this.color2Percentage(p5js.red(color)),
         this.size().w,
         this.side,
@@ -69,6 +70,7 @@ class ColorPickerAlpha extends Picker {
     );
     this.sliders.push(
       new Slider(
+        p5js.color(0, 255, 0, 255),
         this.color2Percentage(p5js.green(color)),
         this.size().w,
         this.side,
@@ -81,6 +83,7 @@ class ColorPickerAlpha extends Picker {
     );
     this.sliders.push(
       new Slider(
+        p5js.color(0, 0, 255, 255),
         this.color2Percentage(p5js.blue(color)),
         this.size().w,
         this.side,
@@ -93,6 +96,7 @@ class ColorPickerAlpha extends Picker {
     );
     this.sliders.push(
       new Slider(
+        p5js.color(0, 0, 0, 0),
         this.color2Percentage(p5js.alpha(color)),
         this.size().w,
         this.side,
