@@ -10,13 +10,19 @@ window.addEventListener("keypress", function (e) {
 
 async function login(url, email, password) {
   const body = { email: email, password: GCrypto.hash(password) };
-  const response = await httpPost(url, JSON.stringify(body));
-  const token = response.getResponseHeader("x-auth-token");
-  if (!token) {
-    console.log("Not authorized");
-    return;
+  try {
+    const response = await httpPost(url, JSON.stringify(body));
+    const token = response.getResponseHeader("x-auth-token");
+    if (!token) {
+      resetForm();
+      return;
+    }
+    localStorage.setItem("x-auth-token", token);
+    window.location.replace("index.html");
+  } catch (error) {
+    console.log(error);
+    resetForm();
   }
-  localStorage.setItem("x-auth-token", token);
 }
 
 function httpPost(url, body, cb) {
@@ -45,4 +51,9 @@ function httpPost(url, body, cb) {
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHttp.send(body);
   });
+}
+
+function resetForm() {
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
 }

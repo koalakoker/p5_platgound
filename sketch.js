@@ -47,5 +47,6 @@ let sketch = function (p) {
   };
 };
 
+checkLogin();
 const p5js = new p5(sketch);
 window.deltaTime = p5js.deltaTime;
