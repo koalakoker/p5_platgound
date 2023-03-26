@@ -26,15 +26,12 @@ class Gui {
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-file-download-48.png", () => {
-        Drawing.getInstance()
-          .load()
-          .catch(() => this.showBackendNotAvailableError());
+        Drawing.getInstance().load();
       })
     );
     lseBar.append(
       new PushButton(lseBar, "png/icons8-salva-30.png", () => {
         Drawing.getInstance().save();
-        this.diagMngr.addMessage("Sketch has been saved");
       })
     );
     lseBar.append(

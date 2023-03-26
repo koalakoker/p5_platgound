@@ -25,34 +25,6 @@ async function login(url, email, password) {
   }
 }
 
-function httpPost(url, body, cb) {
-  return new Promise((resolve, reject) => {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-      if (xmlHttp.readyState == 4) {
-        if (xmlHttp.status == 200) {
-          const responseText = xmlHttp.responseText;
-          if (cb) {
-            cb(responseText);
-          }
-          resolve(xmlHttp);
-        } else {
-          const status = xmlHttp.status;
-          if (status >= 400 && status < 500) {
-            reject("Client error:" + status);
-          }
-          if (status >= 500 && status < 600) {
-            reject("Server error" + status);
-          }
-        }
-      }
-    };
-    xmlHttp.open("POST", url, true);
-    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlHttp.send(body);
-  });
-}
-
 function resetForm() {
   document.getElementById("email").value = "";
   document.getElementById("password").value = "";
