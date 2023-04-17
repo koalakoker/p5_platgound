@@ -8,8 +8,10 @@ class DiagManager {
   display() {
     const diag = this.activeDiag();
     if (diag) {
-      if (diag.notStarted()) {
-        diag.start();
+      if (diag.notStarted) {
+        if (diag.notStarted()) {
+          diag.start();
+        }
       }
       diag.draw();
     }
@@ -68,6 +70,9 @@ class DiagManager {
 
       this.dialogs.splice(i, 0, err);
     });
+  }
+  addWindw(w) {
+    this.dialogs.push(w);
   }
   findFirstDiagWithPriorityLessThan(priority) {
     if (this.dialogs.length === 0) {

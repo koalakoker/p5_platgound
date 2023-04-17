@@ -1,4 +1,3 @@
-const url = "http://192.168.0.15:3000/api/drawing";
 class Drawing {
   constructor(w, h) {
     this.w = w || 0;
@@ -25,7 +24,15 @@ class Drawing {
     return new Promise((resolve, reject) => {
       p5js.createCanvas(this.w, this.h);
       Store.getInstance().clear();
-      this.load();
+
+      //this.load();
+      getFileNames()
+        .then((fileNames) => {
+          Gui.getInstance().addWindw(new WindW(600, 400, 0, fileNames));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
   }
   display() {
@@ -123,30 +130,27 @@ class Drawing {
   }
 
   save() {
-    httpPost(url, this.serialize(), (result) => {})
-      .then(() => {
-        Gui.getInstance().diagMngr.addMessage("Sketch has been saved");
-      })
-      .catch((err) => {
-        if (err === 401) {
-          // Unauthorized
-          localStorage.clear();
-          window.location.replace("login.html");
-        }
-        const gui = Gui.getInstance();
-        gui.showBackendNotAvailableError();
-        console.log(err);
-      });
+    saveFile(this.serialize());
   }
   load() {
     httpGet(url, (jsonTxt) => {
-      this.deserialize(jsonTxt);
+      if (jsonTxt === "[]") {
+        throw 1000;
+      } else {
+        this.deserialize(jsonTxt);
+      }
     })
       .then(() => {
         Store.getInstance().addState();
         Gui.getInstance().diagMngr.addMessage("Sketch has been loaded");
       })
       .catch((err) => {
+        if (err === 1000) {
+          Store.getInstance().addState();
+          Gui.getInstance().diagMngr.addMessage("No sketches on the server");
+          return;
+        }
+
         if (err === 401) {
           // Unauthorized
           localStorage.clear();

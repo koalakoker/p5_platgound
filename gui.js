@@ -136,6 +136,9 @@ class Gui {
   showBackendNotAvailableError() {
     return this.diagMngr.addError("Backend not available at: " + url);
   }
+  addWindw(w) {
+    return this.diagMngr.addWindw(w);
+  }
 
   resetAddBar() {
     this.addBar.changeSelection(null, false);

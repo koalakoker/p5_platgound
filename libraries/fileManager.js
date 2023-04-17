@@ -6,26 +6,31 @@ function logOut() {
 }
 
 function getFileNames() {
-  httpGet(url, (jsonTxt) => {
-    console.log(jsonTxt);
-  })
-    .then(() => {
-      console.log("then");
-    })
-    .catch((err) => {
-      if (err === 401) {
-        // Unauthorized
-        logOut();
-        window.location.replace("login.html");
-      }
+  return new Promise((resolve, reject) => {
+    httpGet(url)
+      .then((jsonText) => {
+        const fileNames = [];
+        const o = JSON.parse(jsonText);
+        o.forEach((element) => {
+          fileNames.push(element.name);
+        });
+        resolve(fileNames);
+      })
+      .catch((err) => {
+        if (err === 401) {
+          // Unauthorized
+          logOut();
+          window.location.replace("login.html");
+        }
 
-      if (err === 0) {
-        console.log("Server not reachable");
-        return;
-      }
-      console.log("Catch");
-      console.log(err);
-    });
+        if (err === 0) {
+          console.log("Server not reachable");
+          return;
+        }
+        console.log("Catch");
+        console.log(err);
+      });
+  });
 }
 
 function saveFile(drawing) {
