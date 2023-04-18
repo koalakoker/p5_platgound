@@ -5,6 +5,7 @@ class WindW extends Dialog {
     this.h = h;
     this.c = c;
     this.fileNames = fileNames;
+    this.firstFileShown = 0;
 
     this.margin = 15;
     this.vSpacing = 5;
@@ -12,14 +13,16 @@ class WindW extends Dialog {
 
     this.sensibleRegions = [];
     this.clicked = false;
+
+    this.createScrollDownButton();
+    this.createScrollUpButton();
   }
 
   draw() {
     this.drawBorder();
 
-    if (this.drawText()) {
-      this.drawScrollButtons();
-    }
+    this.drawText();
+    this.drawScrollButtons(scroll);
   }
   drawBorder() {
     p5js.stroke(255);
@@ -29,6 +32,8 @@ class WindW extends Dialog {
     p5js.rectMode(p5js.CORNER);
   }
   drawText() {
+    let scrollDown = false;
+    let scrollUp = this.firstFileShown !== 0;
     const xMargin = this.innerleft();
     const yTextBottom = this.innerBottom();
     let yPos = this.innerTop();
@@ -37,63 +42,62 @@ class WindW extends Dialog {
     p5js.textAlign(p5js.LEFT, p5js.TOP);
     p5js.stroke(255);
     p5js.fill(255);
-    let scroll = false;
-    this.fileNames.forEach((str) => {
+    for (let i = this.firstFileShown; i < this.fileNames.length; i++) {
+      const fileName = this.fileNames[i];
       if (yPos < yTextBottom) {
-        p5js.text(str, xMargin, yPos);
+        p5js.text(fileName, xMargin, yPos);
         yPos += p5js.textSize() + this.vSpacing;
       } else {
-        scroll = true;
+        scrollDown = true;
       }
-    });
-    return scroll;
+    }
+    this.scrollDownButton.active = scrollDown;
+    this.scrollUpButton.active = scrollUp;
   }
-  drawScrollButtons() {
-    p5js.stroke(255);
-    p5js.fill(255);
-    p5js.rect(this.innerRigth(), this.top(), this.margin, this.margin);
-    this.sensibleRegions.push(
-      new GElem(
-        null,
-        this.innerRigth(),
-        this.top(),
-        this.margin,
-        this.margin,
-        (x, y) => {
-          console.log(x, y);
-        }
-      )
+
+  drawScrollButtons(scroll) {
+    this.scrollUpButton.draw();
+    this.scrollDownButton.draw();
+  }
+  createScrollUpButton() {
+    this.scrollUpButton = new ScrollButton(
+      null,
+      this.innerRigth(),
+      this.top(),
+      this.margin,
+      this.margin,
+      "UP",
+      (x, y) => {
+        this.firstFileShown--;
+      }
     );
-    p5js.rect(this.innerRigth(), this.innerBottom(), this.margin, this.margin);
-
-    p5js.stroke(0);
-    p5js.fill(0);
-    const trMargin = 3;
-
-    p5js.beginShape();
-    p5js.vertex(this.innerRigth() + this.margin / 2, this.top() + trMargin);
-    p5js.vertex(this.rigth() - trMargin, this.innerTop() - trMargin);
-    p5js.vertex(this.innerRigth() + trMargin, this.innerTop() - trMargin);
-    p5js.endShape();
-
-    p5js.beginShape();
-    p5js.vertex(this.innerRigth() + this.margin / 2, this.bottom() - trMargin);
-    p5js.vertex(this.rigth() - trMargin, this.innerBottom() + trMargin);
-    p5js.vertex(this.innerRigth() + trMargin, this.innerBottom() + trMargin);
-    p5js.endShape();
+    this.sensibleRegions.push(this.scrollUpButton);
+  }
+  createScrollDownButton() {
+    this.scrollDownButton = new ScrollButton(
+      null,
+      this.innerRigth(),
+      this.innerBottom(),
+      this.margin,
+      this.margin,
+      "DOWN",
+      (x, y) => {
+        this.firstFileShown++;
+      }
+    );
+    this.sensibleRegions.push(this.scrollDownButton);
   }
 
   mousePressed(x, y) {
     let inside = false;
     this.sensibleRegions.forEach((element) => {
-      if (element.inside(x, y)) {
+      if (element.inside(x, y) && element.active) {
         this.clicked = true;
         inside = true;
       }
     });
     return inside;
   }
-
   mouseReleased(x, y) {
     let inside = false;
     this.sensibleRegions.forEach((element) => {
