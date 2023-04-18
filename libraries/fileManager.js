@@ -27,15 +27,14 @@ function getFileNames() {
           console.log("Server not reachable");
           return;
         }
-        console.log("Catch");
         console.log(err);
       });
   });
 }
 
-function saveFile(drawing) {
+function saveFile(drawing, name) {
   const data = {
-    name: "new file",
+    name: name,
     drawing: drawing,
   };
   httpPost(url, JSON.stringify(data), (result) => {})
@@ -50,4 +49,21 @@ function saveFile(drawing) {
       }
       console.log(err);
     });
+}
+
+function getNow() {
+  const today = new Date();
+  const date =
+    today.getFullYear() +
+    "-" +
+    (today.getMonth() + 1) +
+    "-" +
+    today.getDate() +
+    " " +
+    today.getHours() +
+    ":" +
+    today.getMinutes() +
+    ":" +
+    today.getSeconds();
+  return date;
 }

@@ -148,9 +148,11 @@ class Gui {
     this.mainBar.mouseMoved(x, y);
   }
   mousePressed(x, y) {
+    if (this.diagMngr.mousePressed(x, y)) return true;
     return this.mainBar.mousePressed(x, y);
   }
   mouseReleased(x, y) {
+    if (this.diagMngr.mouseReleased(x, y)) return;
     this.mainBar.mouseReleased(x, y);
   }
   mouseDragged(x, y) {

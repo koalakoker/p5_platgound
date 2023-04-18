@@ -97,4 +97,18 @@ class DiagManager {
     const i = this.dialogs.indexOf(dialog);
     this.dialogs.splice(i, 1);
   }
+
+  mousePressed(x, y) {
+    const diag = this.activeDiag();
+    if (diag.mousePressed) {
+      return diag.mousePressed(x, y);
+    }
+  }
+
+  mouseReleased(x, y) {
+    const diag = this.activeDiag();
+    if (diag.mouseReleased) {
+      return diag.mouseReleased(x, y);
+    }
+  }
 }

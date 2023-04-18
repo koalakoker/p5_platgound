@@ -130,7 +130,7 @@ class Drawing {
   }
 
   save() {
-    saveFile(this.serialize());
+    saveFile(this.serialize(), getNow());
   }
   load() {
     httpGet(url, (jsonTxt) => {

@@ -1,10 +1,11 @@
 class GElem {
-  constructor(parent, x, y, w, h) {
+  constructor(parent, x, y, w, h, activationFunction) {
     this.parent = parent;
     this.x = x || 0;
     this.y = y || 0;
     this.w = w || GElem.side();
     this.h = h || GElem.side();
+    this.activationFunction = activationFunction;
   }
   addShortCut(shortCut) {
     shortCut.message = this;
