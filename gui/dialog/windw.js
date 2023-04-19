@@ -21,9 +21,8 @@ class WindW extends Dialog {
 
   draw() {
     this.drawBorder();
-
     this.drawText();
-    this.drawScrollButtons(scroll);
+    this.drawScrollButtons();
   }
   drawBorder() {
     p5js.stroke(255);
@@ -72,11 +71,11 @@ class WindW extends Dialog {
     this.scrollUpButton.active = scrollUp;
     this.sensibleRegionIsValid = true;
   }
-
-  drawScrollButtons(scroll) {
+  drawScrollButtons() {
     this.scrollUpButton.draw();
     this.scrollDownButton.draw();
   }
+
   createScrollUpButton() {
     this.scrollUpButton = new ScrollButton(
       null,
