@@ -6,6 +6,7 @@ class GElem {
     this.w = w || GElem.side();
     this.h = h || GElem.side();
     this.activationFunction = activationFunction;
+    this.active = true;
   }
   addShortCut(shortCut) {
     shortCut.message = this;

@@ -12,6 +12,7 @@ class WindW extends Dialog {
     this.textSize = 16;
 
     this.sensibleRegions = [];
+    this.sensibleRegionIsValid = false;
     this.clicked = false;
 
     this.createScrollDownButton();
@@ -32,6 +33,11 @@ class WindW extends Dialog {
     p5js.rectMode(p5js.CORNER);
   }
   drawText() {
+    if (!this.sensibleRegionIsValid) {
+      this.sensibleRegions = [];
+      this.sensibleRegions.push(this.scrollUpButton);
+      this.sensibleRegions.push(this.scrollDownButton);
+    }
     let scrollDown = false;
     let scrollUp = this.firstFileShown !== 0;
     const xMargin = this.innerleft();
@@ -46,6 +52,17 @@ class WindW extends Dialog {
       const fileName = this.fileNames[i];
       if (yPos < yTextBottom) {
         p5js.text(fileName, xMargin, yPos);
+        const region = new GElem(
+          null,
+          xMargin,
+          yPos,
+          p5js.textWidth(fileName),
+          this.textSize,
+          () => {
+            console.log(fileName);
+          }
+        );
+        this.sensibleRegions.push(region);
         yPos += p5js.textSize() + this.vSpacing;
       } else {
         scrollDown = true;
@@ -53,6 +70,7 @@ class WindW extends Dialog {
     }
     this.scrollDownButton.active = scrollDown;
     this.scrollUpButton.active = scrollUp;
+    this.sensibleRegionIsValid = true;
   }
 
   drawScrollButtons(scroll) {
@@ -69,9 +87,9 @@ class WindW extends Dialog {
       "UP",
       (x, y) => {
         this.firstFileShown--;
+        this.sensibleRegionIsValid = false;
       }
     );
-    this.sensibleRegions.push(this.scrollUpButton);
   }
   createScrollDownButton() {
     this.scrollDownButton = new ScrollButton(
@@ -83,9 +101,9 @@ class WindW extends Dialog {
       "DOWN",
       (x, y) => {
         this.firstFileShown++;
+        this.sensibleRegionIsValid = false;
       }
     );
-    this.sensibleRegions.push(this.scrollDownButton);
   }
 
   mousePressed(x, y) {

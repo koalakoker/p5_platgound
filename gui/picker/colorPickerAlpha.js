@@ -124,12 +124,16 @@ class ColorPickerAlpha extends Picker {
     return (color * 100) / 255;
   }
   display() {
+    const tStart = p5js.millis();
     this.displayCheckBox();
 
     if (this.selected) {
-      this.displayColor();
+      //this.displayColor();
+      this.displayGradientUsingPixel();
+      //this.displayGradient();
       this.displaySliders();
     }
+    //console.log(p5js.millis() - tStart);
   }
   displayCheckBox() {
     p5js.stroke(255);
@@ -142,6 +146,43 @@ class ColorPickerAlpha extends Picker {
     p5js.strokeWeight(1);
     p5js.fill(this.color());
     p5js.rect(this.basePoint().x, this.basePoint().y, this.side, this.side);
+  }
+  displayGradient() {
+    p5js.colorMode(p5js.HSB, this.side);
+    for (let h = 0; h < this.side; h++) {
+      for (let s = 0; s < this.side; s++) {
+        p5js.stroke(h, s, p5js.brightness(this.color()));
+        p5js.strokeWeight(2);
+        p5js.point(this.basePoint().x + h, this.basePoint().y + s);
+      }
+    }
+    p5js.colorMode(p5js.RGB);
+  }
+  displayGradientUsingPixel() {
+    p5js.loadPixels();
+    const alpha = p5js.alpha(this.color());
+    let i = 0;
+    for (let s = 0; s < this.side; s++) {
+      for (let h = 0; h < this.side; h++) {
+        let [r, g, b] = HSBToRGB(
+          (h * 360) / this.side,
+          (s * 100) / this.side,
+          100
+        );
+        p5js.pixels[i] = r;
+        p5js.pixels[i + 1] = g;
+        p5js.pixels[i + 2] = b;
+        p5js.pixels[i + 3] = alpha;
+        i += 4;
+      }
+      i += 4 * p5js.width - 4 * this.side;
+    }
+    p5js.updatePixels(
+      this.basePoint().x,
+      this.basePoint().y,
+      this.side,
+      this.side
+    );
   }
   displaySliders() {
     for (let i = 0; i < this.sliders.length; i++) {
@@ -171,10 +212,6 @@ class ColorPickerAlpha extends Picker {
     }
   }
   mouseDragged(x, y) {
-    // const slider = this.insideSlider(x,y);
-    // if (slider) {
-    //   this.sliderDragged.mouseDragged(x, y);
-    // }
     if (this.sliderDragged) {
       this.sliderDragged.mouseDragged(x, y);
     }
@@ -203,3 +240,11 @@ class ColorPickerAlpha extends Picker {
     }
   }
 }
+
+const HSBToRGB = (h, s, b) => {
+  s /= 100;
+  b /= 100;
+  const k = (n) => (n + h / 60) % 6;
+  const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
+  return [255 * f(5), 255 * f(3), 255 * f(1)];
+};
