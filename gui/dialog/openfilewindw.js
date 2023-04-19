@@ -1,10 +1,10 @@
-class WindW extends Dialog {
-  constructor(w, h, c, fileNames) {
+class OpenFileWindW extends Dialog {
+  constructor(w, h, c, files) {
     super();
     this.w = w;
     this.h = h;
     this.c = c;
-    this.fileNames = fileNames;
+    this.files = files;
     this.firstFileShown = 0;
 
     this.margin = 15;
@@ -15,6 +15,7 @@ class WindW extends Dialog {
     this.sensibleRegionIsValid = false;
     this.clicked = false;
 
+    this.createCloseButton();
     this.createScrollDownButton();
     this.createScrollUpButton();
   }
@@ -22,7 +23,7 @@ class WindW extends Dialog {
   draw() {
     this.drawBorder();
     this.drawText();
-    this.drawScrollButtons();
+    this.drawButtons();
   }
   drawBorder() {
     p5js.stroke(255);
@@ -34,6 +35,7 @@ class WindW extends Dialog {
   drawText() {
     if (!this.sensibleRegionIsValid) {
       this.sensibleRegions = [];
+      this.sensibleRegions.push(this.closeButton);
       this.sensibleRegions.push(this.scrollUpButton);
       this.sensibleRegions.push(this.scrollDownButton);
     }
@@ -47,8 +49,8 @@ class WindW extends Dialog {
     p5js.textAlign(p5js.LEFT, p5js.TOP);
     p5js.stroke(255);
     p5js.fill(255);
-    for (let i = this.firstFileShown; i < this.fileNames.length; i++) {
-      const fileName = this.fileNames[i];
+    for (let i = this.firstFileShown; i < this.files.length; i++) {
+      const fileName = this.files[i].name;
       if (yPos < yTextBottom) {
         p5js.text(fileName, xMargin, yPos);
         const region = new GElem(
@@ -58,7 +60,8 @@ class WindW extends Dialog {
           p5js.textWidth(fileName),
           this.textSize,
           () => {
-            console.log(fileName);
+            this.resolve(this.files[i].id);
+            this.onClose();
           }
         );
         this.sensibleRegions.push(region);
@@ -71,16 +74,32 @@ class WindW extends Dialog {
     this.scrollUpButton.active = scrollUp;
     this.sensibleRegionIsValid = true;
   }
-  drawScrollButtons() {
+  drawButtons() {
     this.scrollUpButton.draw();
     this.scrollDownButton.draw();
+    this.closeButton.draw();
   }
 
-  createScrollUpButton() {
-    this.scrollUpButton = new ScrollButton(
+  createCloseButton() {
+    this.closeButton = new WndButton(
       null,
       this.innerRigth(),
       this.top(),
+      this.margin,
+      this.margin,
+      "CLOSE",
+      (x, y) => {
+        this.reject();
+        this.onClose();
+      }
+    );
+    this.closeButton.active = true;
+  }
+  createScrollUpButton() {
+    this.scrollUpButton = new WndButton(
+      null,
+      this.innerRigth(),
+      this.top() + this.margin,
       this.margin,
       this.margin,
       "UP",
@@ -91,7 +110,7 @@ class WindW extends Dialog {
     );
   }
   createScrollDownButton() {
-    this.scrollDownButton = new ScrollButton(
+    this.scrollDownButton = new WndButton(
       null,
       this.innerRigth(),
       this.innerBottom(),

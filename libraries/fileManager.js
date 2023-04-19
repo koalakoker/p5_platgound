@@ -5,16 +5,16 @@ function logOut() {
   localStorage.clear();
 }
 
-function getFileNames() {
+function getFiles() {
   return new Promise((resolve, reject) => {
     httpGet(url)
       .then((jsonText) => {
-        const fileNames = [];
-        const o = JSON.parse(jsonText);
-        o.forEach((element) => {
-          fileNames.push(element.name);
+        const files = [];
+        const obj = JSON.parse(jsonText);
+        obj.forEach((file) => {
+          files.push({ name: file.name, id: file.id });
         });
-        resolve(fileNames);
+        resolve(files);
       })
       .catch((err) => {
         if (err === 401) {
@@ -37,7 +37,7 @@ function saveFile(drawing, name) {
     name: name,
     drawing: drawing,
   };
-  httpPost(url, JSON.stringify(data), (result) => {})
+  httpPost(url, JSON.stringify(data))
     .then(() => {
       Gui.getInstance().diagMngr.addMessage("Sketch has been saved");
     })
@@ -49,6 +49,10 @@ function saveFile(drawing, name) {
       }
       console.log(err);
     });
+}
+
+function loadFile(id) {
+  return httpGet(url + "/" + id);
 }
 
 function getNow() {

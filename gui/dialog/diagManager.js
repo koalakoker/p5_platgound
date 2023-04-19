@@ -72,7 +72,14 @@ class DiagManager {
     });
   }
   addWindw(w) {
-    this.dialogs.push(w);
+    return new Promise((resolve, reject) => {
+      w.resolve = resolve;
+      w.reject = reject;
+      w.onClose = () => {
+        this.remove(w);
+      };
+      this.dialogs.push(w);
+    });
   }
   findFirstDiagWithPriorityLessThan(priority) {
     if (this.dialogs.length === 0) {
@@ -100,6 +107,7 @@ class DiagManager {
 
   mousePressed(x, y) {
     const diag = this.activeDiag();
+    if (!diag) return;
     if (diag.mousePressed) {
       return diag.mousePressed(x, y);
     }
@@ -107,6 +115,7 @@ class DiagManager {
 
   mouseReleased(x, y) {
     const diag = this.activeDiag();
+    if (!diag) return;
     if (diag.mouseReleased) {
       return diag.mouseReleased(x, y);
     }
