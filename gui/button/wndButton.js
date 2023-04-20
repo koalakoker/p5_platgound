@@ -3,7 +3,7 @@ class WndButton extends GElem {
     super(parent, x, y, w, h, activationFunction);
     this.trMargin = 3;
     this.type = type;
-    this.active = false;
+    this.active = true;
   }
   draw() {
     if (this.active) {
@@ -48,6 +48,29 @@ class WndButton extends GElem {
           this.y + this.h - this.trMargin,
           this.x + this.w - this.trMargin,
           this.y + this.trMargin
+        );
+      }
+
+      if (this.type === "EDIT") {
+        p5js.stroke(0);
+        p5js.fill(0);
+        p5js.line(
+          this.x + this.trMargin,
+          this.y + this.trMargin,
+          this.x + this.w - this.trMargin,
+          this.y + this.trMargin
+        );
+        p5js.line(
+          this.x + this.trMargin,
+          this.y + this.h - this.trMargin,
+          this.x + this.w - this.trMargin,
+          this.y + this.h - this.trMargin
+        );
+        p5js.line(
+          this.x + this.w / 2,
+          this.y + this.trMargin,
+          this.x + this.w / 2,
+          this.y + this.h - this.trMargin
         );
       }
     }

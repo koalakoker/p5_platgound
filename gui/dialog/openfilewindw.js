@@ -41,7 +41,7 @@ class OpenFileWindW extends Dialog {
     }
     let scrollDown = false;
     let scrollUp = this.firstFileShown !== 0;
-    const xMargin = this.innerleft();
+    const xPos = this.innerleft();
     const yTextBottom = this.innerBottom();
     let yPos = this.innerTop();
 
@@ -52,19 +52,38 @@ class OpenFileWindW extends Dialog {
     for (let i = this.firstFileShown; i < this.files.length; i++) {
       const fileName = this.files[i].name;
       if (yPos < yTextBottom) {
-        p5js.text(fileName, xMargin, yPos);
-        const region = new GElem(
-          null,
-          xMargin,
-          yPos,
-          p5js.textWidth(fileName),
-          this.textSize,
-          () => {
-            this.resolve(this.files[i].id);
-            this.onClose();
-          }
-        );
-        this.sensibleRegions.push(region);
+        const textXpos = xPos + (this.margin + 3) * 2;
+        p5js.text(fileName, textXpos, yPos);
+        if (!this.sensibleRegionIsValid) {
+          const region = new GElem(
+            null,
+            textXpos,
+            yPos,
+            p5js.textWidth(fileName),
+            this.textSize,
+            () => {
+              this.resolve(this.files[i].id);
+              this.onClose();
+            }
+          );
+          this.sensibleRegions.push(region);
+
+          this.sensibleRegions.push(
+            new WndButton(
+              null,
+              xPos + this.margin + 3,
+              yPos,
+              this.margin,
+              this.margin,
+              "CLOSE"
+            )
+          );
+
+          this.sensibleRegions.push(
+            new WndButton(null, xPos, yPos, this.margin, this.margin, "EDIT")
+          );
+        }
+
         yPos += p5js.textSize() + this.vSpacing;
       } else {
         scrollDown = true;
@@ -73,11 +92,15 @@ class OpenFileWindW extends Dialog {
     this.scrollDownButton.active = scrollDown;
     this.scrollUpButton.active = scrollUp;
     this.sensibleRegionIsValid = true;
+
+    console.log(this.sensibleRegions.length);
   }
   drawButtons() {
-    this.scrollUpButton.draw();
-    this.scrollDownButton.draw();
-    this.closeButton.draw();
+    this.sensibleRegions.forEach((element) => {
+      if (element.draw) {
+        element.draw();
+      }
+    });
   }
 
   createCloseButton() {
@@ -140,7 +163,9 @@ class OpenFileWindW extends Dialog {
       if (element.inside(x, y)) {
         inside = true;
         if (this.clicked) {
-          element.activationFunction(x, y);
+          if (element.activationFunction) {
+            element.activationFunction(x, y);
+          }
           this.clicked = false;
         }
       }
