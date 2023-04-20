@@ -89,7 +89,7 @@ class OpenFileWindW extends Dialog {
       this.margin,
       "CLOSE",
       (x, y) => {
-        this.reject();
+        this.reject("cancel");
         this.onClose();
       }
     );
