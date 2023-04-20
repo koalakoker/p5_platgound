@@ -75,7 +75,12 @@ class OpenFileWindW extends Dialog {
               yPos,
               this.margin,
               this.margin,
-              "CLOSE"
+              "CLOSE",
+              async () => {
+                await removeFile(this.files[i].id);
+                this.files = await getFiles();
+                this.sensibleRegionIsValid = false;
+              }
             )
           );
 

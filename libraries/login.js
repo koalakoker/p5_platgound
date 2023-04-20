@@ -30,7 +30,7 @@ function httpGet(url, cb) {
   });
 }
 
-function httpPost(url, body, cb) {
+function httpPost(url, body, cb, type) {
   return new Promise((resolve, reject) => {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
@@ -46,7 +46,7 @@ function httpPost(url, body, cb) {
         }
       }
     };
-    xmlHttp.open("POST", url, true);
+    xmlHttp.open(type || "POST", url, true);
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     const token = localStorage.getItem("x-auth-token");
     if (token) {

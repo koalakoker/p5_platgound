@@ -51,6 +51,10 @@ function saveFile(drawing, name) {
     });
 }
 
+function removeFile(id) {
+  return httpPost(url + "/" + id, null, null, "DELETE");
+}
+
 function loadFile(id) {
   return httpGet(url + "/" + id);
 }
