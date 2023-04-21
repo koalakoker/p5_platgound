@@ -1,6 +1,7 @@
 class Gui {
   constructor() {
     this.diagMngr = new DiagManager();
+    this.windwMngr = new WindwManager();
   }
   static getInstance() {
     if (!Gui.instance) {
@@ -127,7 +128,8 @@ class Gui {
   }
   display() {
     this.mainBar.display();
-    this.diagMngr.display();
+    this.windwMngr.draw();
+    this.diagMngr.draw();
   }
 
   addMessage(msg) {
@@ -137,7 +139,7 @@ class Gui {
     return this.diagMngr.addError("Backend not available at: " + url);
   }
   addWindw(w) {
-    return this.diagMngr.addWindw(w);
+    return this.windwMngr.addWindw(w);
   }
 
   resetAddBar() {
@@ -149,10 +151,12 @@ class Gui {
   }
   mousePressed(x, y) {
     if (this.diagMngr.mousePressed(x, y)) return true;
+    if (this.windwMngr.mousePressed(x, y)) return true;
     return this.mainBar.mousePressed(x, y);
   }
   mouseReleased(x, y) {
     if (this.diagMngr.mouseReleased(x, y)) return;
+    if (this.windwMngr.mouseReleased(x, y)) return;
     this.mainBar.mouseReleased(x, y);
   }
   mouseDragged(x, y) {

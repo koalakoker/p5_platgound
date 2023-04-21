@@ -18,7 +18,7 @@ function diagManagerTests() {
     const diagMngr = new DiagManager();
     diagMngr.addMessage("Test", duration, fade);
     assert.equal(diagMngr.dialogs.length, 1);
-    diagMngr.display();
+    diagMngr.draw();
     const margin = 10;
     simulateWait(diagMngr, fade + duration + fade);
     assert.equal(diagMngr.dialogs.length, 1);
@@ -44,7 +44,7 @@ function diagManagerTests() {
     const diagMngr = new DiagManager();
     diagMngr.stopDisplayingTheActiveMessageAndResetTween();
     diagMngr.addMessage("m1", duration, fade);
-    diagMngr.display();
+    diagMngr.draw();
     simulateWait(diagMngr, fade + duration / 2);
     assert.isFalse(diagMngr.activeDiag().isPaused());
     diagMngr.stopDisplayingTheActiveMessageAndResetTween();
@@ -72,7 +72,7 @@ function diagManagerTests() {
 
       assert.equal(diagMngr.activeMessage(), messageText);
 
-      diagMngr.display();
+      diagMngr.draw();
       simulateWait(diagMngr, fade + duration / 2);
 
       diagMngr.addError(errorText1, duration, fade).then(() => {
@@ -82,7 +82,7 @@ function diagManagerTests() {
 
       assert.equal(diagMngr.activeMessage(), errorText1);
 
-      diagMngr.display();
+      diagMngr.draw();
       simulateWait(diagMngr, fade + duration / 2);
 
       diagMngr.addError(errorText2, duration, fade).then(() => {
@@ -97,13 +97,13 @@ function diagManagerTests() {
 
       assert.equal(diagMngr.activeMessage(), errorText2);
 
-      diagMngr.display();
+      diagMngr.draw();
       simulateWait(diagMngr, fade + duration + fade + margin);
       assert.equal(diagMngr.dialogs.length, 1);
 
       assert.equal(diagMngr.activeMessage(), messageText);
 
-      diagMngr.display();
+      diagMngr.draw();
       simulateWait(diagMngr, fade + duration + fade + margin);
       assert.equal(diagMngr.dialogs.length, 0);
     });

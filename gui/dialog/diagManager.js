@@ -5,7 +5,7 @@ class DiagManager {
   clear() {
     this.dialogs = [];
   }
-  display() {
+  draw() {
     const diag = this.activeDiag();
     if (diag) {
       if (diag.notStarted) {
@@ -69,16 +69,6 @@ class DiagManager {
       }
 
       this.dialogs.splice(i, 0, err);
-    });
-  }
-  addWindw(w) {
-    return new Promise((resolve, reject) => {
-      w.resolve = resolve;
-      w.reject = reject;
-      w.onClose = () => {
-        this.remove(w);
-      };
-      this.dialogs.push(w);
     });
   }
   findFirstDiagWithPriorityLessThan(priority) {
