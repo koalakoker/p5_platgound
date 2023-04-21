@@ -1,37 +1,21 @@
-class OpenFileWindW extends Dialog {
+class OpenFileWindW extends WindW {
   constructor(w, h, c, files) {
-    super();
-    this.w = w;
-    this.h = h;
-    this.c = c;
+    super(w, h, c);
     this.files = files;
     this.firstFileShown = 0;
 
-    this.margin = 15;
-    this.vSpacing = 5;
-    this.textSize = 16;
-
-    this.sensibleRegions = [];
     this.sensibleRegionIsValid = false;
     this.clicked = false;
 
-    this.createCloseButton();
     this.createScrollDownButton();
     this.createScrollUpButton();
   }
 
   draw() {
-    this.drawBorder();
+    super.draw();
     this.drawText();
-    this.drawButtons();
   }
-  drawBorder() {
-    p5js.stroke(255);
-    p5js.fill(this.c);
-    p5js.rectMode(p5js.CENTER);
-    p5js.rect(this.x, this.y, this.w, this.h);
-    p5js.rectMode(p5js.CORNER);
-  }
+
   drawText() {
     if (!this.sensibleRegionIsValid) {
       this.sensibleRegions = [];
@@ -97,32 +81,8 @@ class OpenFileWindW extends Dialog {
     this.scrollDownButton.active = scrollDown;
     this.scrollUpButton.active = scrollUp;
     this.sensibleRegionIsValid = true;
-
-    console.log(this.sensibleRegions.length);
-  }
-  drawButtons() {
-    this.sensibleRegions.forEach((element) => {
-      if (element.draw) {
-        element.draw();
-      }
-    });
   }
 
-  createCloseButton() {
-    this.closeButton = new WndButton(
-      null,
-      this.innerRigth(),
-      this.top(),
-      this.margin,
-      this.margin,
-      "CLOSE",
-      (x, y) => {
-        this.reject("cancel");
-        this.onClose();
-      }
-    );
-    this.closeButton.active = true;
-  }
   createScrollUpButton() {
     this.scrollUpButton = new WndButton(
       null,
@@ -150,56 +110,5 @@ class OpenFileWindW extends Dialog {
         this.sensibleRegionIsValid = false;
       }
     );
-  }
-
-  mousePressed(x, y) {
-    let inside = false;
-    this.sensibleRegions.forEach((element) => {
-      if (element.inside(x, y) && element.active) {
-        this.clicked = true;
-        inside = true;
-      }
-    });
-    return inside;
-  }
-  mouseReleased(x, y) {
-    let inside = false;
-    this.sensibleRegions.forEach((element) => {
-      if (element.inside(x, y)) {
-        inside = true;
-        if (this.clicked) {
-          if (element.activationFunction) {
-            element.activationFunction(x, y);
-          }
-          this.clicked = false;
-        }
-      }
-    });
-    return inside;
-  }
-
-  top() {
-    return this.y - this.h / 2;
-  }
-  innerTop() {
-    return this.top() + this.margin;
-  }
-  bottom() {
-    return this.y + this.h / 2;
-  }
-  innerBottom() {
-    return this.bottom() - this.margin;
-  }
-  left() {
-    return this.x - this.w / 2;
-  }
-  innerleft() {
-    return this.left() + this.margin;
-  }
-  rigth() {
-    return this.x + this.w / 2;
-  }
-  innerRigth() {
-    return this.rigth() - this.margin;
   }
 }
