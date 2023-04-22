@@ -7,9 +7,15 @@ class WndButton extends GElem {
   }
   draw() {
     if (this.active) {
-      p5js.stroke(255);
-      p5js.fill(255);
+      p5js.stroke(180);
+      p5js.fill(180);
       p5js.rect(this.x, this.y, this.w, this.h);
+      p5js.stroke(255);
+      p5js.line(this.x, this.y, this.x + this.w, this.y);
+      p5js.line(this.x, this.y, this.x, this.y + this.h);
+      p5js.stroke(100);
+      p5js.line(this.x, this.y + this.h, this.x + this.w, this.y + this.h);
+      p5js.line(this.x + this.w, this.y, this.x + this.w, this.y + this.h);
 
       if (this.type === "UP") {
         p5js.stroke(0);
