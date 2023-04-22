@@ -47,7 +47,7 @@ class WindW extends Dialog {
         this.onClose();
       }
     );
-    this.closeButton.active = true;
+    this.sensibleRegions.push(this.closeButton);
   }
 
   mousePressed(x, y) {
@@ -91,7 +91,7 @@ class WindW extends Dialog {
   left() {
     return this.x - this.w / 2;
   }
-  innerleft() {
+  innerLeft() {
     return this.left() + this.margin;
   }
   rigth() {

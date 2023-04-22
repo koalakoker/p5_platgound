@@ -73,6 +73,22 @@ class WndButton extends GElem {
           this.y + this.h - this.trMargin
         );
       }
+
+      if (this.type === "YES") {
+        p5js.textSize(this.textSize);
+        p5js.textAlign(p5js.CENTER, p5js.CENTER);
+        p5js.stroke(0);
+        p5js.fill(0);
+        p5js.text("Yes", this.x + this.w / 2, this.y + this.h / 2);
+      }
+
+      if (this.type === "NO") {
+        p5js.textSize(this.textSize);
+        p5js.textAlign(p5js.CENTER, p5js.CENTER);
+        p5js.stroke(0);
+        p5js.fill(0);
+        p5js.text("No", this.x + this.w / 2, this.y + this.h / 2);
+      }
     }
   }
 }

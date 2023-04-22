@@ -25,7 +25,7 @@ class OpenFileWindW extends WindW {
     }
     let scrollDown = false;
     let scrollUp = this.firstFileShown !== 0;
-    const xPos = this.innerleft();
+    const xPos = this.innerLeft();
     const yTextBottom = this.innerBottom();
     let yPos = this.innerTop();
 
@@ -35,33 +35,44 @@ class OpenFileWindW extends WindW {
     p5js.fill(255);
     for (let i = this.firstFileShown; i < this.files.length; i++) {
       const fileName = this.files[i].name;
+      const fileId = this.files[i].id;
       if (yPos < yTextBottom) {
-        const textXpos = xPos + (this.margin + 3) * 2;
+        const textXpos = xPos + (this.margin + this.vSpacing) * 2;
         p5js.text(fileName, textXpos, yPos);
         if (!this.sensibleRegionIsValid) {
-          const region = new GElem(
-            null,
-            textXpos,
-            yPos,
-            p5js.textWidth(fileName),
-            this.textSize,
-            () => {
-              this.resolve(this.files[i].id);
-              this.onClose();
-            }
+          this.sensibleRegions.push(
+            new GElem(
+              null,
+              textXpos,
+              yPos,
+              p5js.textWidth(fileName),
+              this.textSize,
+              () => {
+                this.resolve(fileId);
+                this.onClose();
+              }
+            )
           );
-          this.sensibleRegions.push(region);
 
           this.sensibleRegions.push(
             new WndButton(
               null,
-              xPos + this.margin + 3,
+              xPos + this.margin + this.vSpacing,
               yPos,
               this.margin,
               this.margin,
               "CLOSE",
               async () => {
-                await removeFile(this.files[i].id);
+                try {
+                  const confirm = await Gui.getInstance().addWindw(
+                    new ConfirmWindW("Do you confirm delete of the drawing?")
+                  );
+                } catch (message) {
+                  if (message === "cancel") return;
+                  console.log(message);
+                  return;
+                }
+                await removeFile(fileId);
                 this.files = await getFiles();
                 this.sensibleRegionIsValid = false;
               }
