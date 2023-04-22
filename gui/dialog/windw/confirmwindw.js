@@ -18,7 +18,7 @@ class ConfirmWindW extends WindW {
     p5js.textAlign(p5js.CENTER, p5js.CENTER);
     p5js.stroke(255);
     p5js.fill(255);
-    p5js.text(this.message, this.x, this.y);
+    p5js.text(this.message, this.x, this.y - this.margin / 2);
   }
   createYesButton() {
     this.sensibleRegions.push(
