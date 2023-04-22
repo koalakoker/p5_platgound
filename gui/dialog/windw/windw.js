@@ -35,13 +35,12 @@ class WindW extends Dialog {
   }
 
   createCloseButton() {
-    this.closeButton = new WndButton(
+    this.closeButton = new CloseWndButton(
       null,
       this.innerRigth(),
       this.top(),
       this.margin,
       this.margin,
-      "CLOSE",
       (x, y) => {
         this.reject("cancel");
         this.onClose();

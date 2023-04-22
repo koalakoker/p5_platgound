@@ -55,13 +55,12 @@ class OpenFileWindW extends WindW {
           );
 
           this.sensibleRegions.push(
-            new WndButton(
+            new CloseWndButton(
               null,
               xPos + this.margin + this.vSpacing,
               yPos,
               this.margin,
               this.margin,
-              "CLOSE",
               async () => {
                 try {
                   const confirm = await Gui.getInstance().addWindw(
@@ -80,7 +79,7 @@ class OpenFileWindW extends WindW {
           );
 
           this.sensibleRegions.push(
-            new WndButton(null, xPos, yPos, this.margin, this.margin, "EDIT")
+            new EditWndButton(null, xPos, yPos, this.margin, this.margin)
           );
         }
 
@@ -95,13 +94,12 @@ class OpenFileWindW extends WindW {
   }
 
   createScrollUpButton() {
-    this.scrollUpButton = new WndButton(
+    this.scrollUpButton = new UpWndButton(
       null,
       this.innerRigth(),
       this.top() + this.margin,
       this.margin,
       this.margin,
-      "UP",
       (x, y) => {
         this.firstFileShown--;
         this.sensibleRegionIsValid = false;
@@ -109,13 +107,12 @@ class OpenFileWindW extends WindW {
     );
   }
   createScrollDownButton() {
-    this.scrollDownButton = new WndButton(
+    this.scrollDownButton = new DownWndButton(
       null,
       this.innerRigth(),
       this.innerBottom(),
       this.margin,
       this.margin,
-      "DOWN",
       (x, y) => {
         this.firstFileShown++;
         this.sensibleRegionIsValid = false;

@@ -22,13 +22,12 @@ class ConfirmWindW extends WindW {
   }
   createYesButton() {
     this.sensibleRegions.push(
-      new WndButton(
+      new YesWndButton(
         null,
         this.innerLeft() + this.margin,
         this.innerBottom() - this.margin,
         this.margin * 4,
         this.margin,
-        "YES",
         (x, y) => {
           this.resolve("yes");
           this.onClose();
@@ -38,13 +37,12 @@ class ConfirmWindW extends WindW {
   }
   createNoButton() {
     this.sensibleRegions.push(
-      new WndButton(
+      new NoWndButton(
         null,
         this.innerRigth() - this.margin * 5,
         this.innerBottom() - this.margin,
         this.margin * 4,
         this.margin,
-        "NO",
         (x, y) => {
           this.reject("cancel");
           this.onClose();
