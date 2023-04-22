@@ -56,20 +56,23 @@ class WindW extends Dialog {
       if (element.inside(x, y) && element.active) {
         this.clicked = true;
         inside = true;
+        element.mousePressed();
       }
     });
     return inside;
   }
   mouseReleased(x, y) {
     let inside = false;
-    this.sensibleRegions.forEach((element) => {
+    this.sensibleRegions.forEach(async (element) => {
       if (element.inside(x, y)) {
         inside = true;
         if (this.clicked) {
+          await element.debounce();
           if (element.activationFunction) {
             element.activationFunction(x, y);
           }
           this.clicked = false;
+          element.mouseReleased();
         }
       }
     });
