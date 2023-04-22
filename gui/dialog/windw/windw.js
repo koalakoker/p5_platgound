@@ -66,7 +66,9 @@ class WindW extends Dialog {
       if (element.inside(x, y)) {
         inside = true;
         if (this.clicked) {
-          await element.debounce();
+          if (element.debounce) {
+            await element.debounce();
+          }
           if (element.activationFunction) {
             element.activationFunction(x, y);
           }
