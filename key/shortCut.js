@@ -9,7 +9,7 @@ class ShortCut extends Observer {
     const keyState = kl.getState();
     // console.log(keyState.toString());
     if (this.activationKey.isEqual(keyState)) {
-      super.update(this.message);
+      super.update(keyState);
     }
   }
 }

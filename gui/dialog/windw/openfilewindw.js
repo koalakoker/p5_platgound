@@ -79,7 +79,23 @@ class OpenFileWindW extends WindW {
           );
 
           this.sensibleRegions.push(
-            new EditWndButton(null, xPos, yPos, this.margin, this.margin)
+            new EditWndButton(
+              null,
+              xPos,
+              yPos,
+              this.margin,
+              this.margin,
+              async () => {
+                try {
+                  await Gui.getInstance().addWindw(
+                    new EditFileNameWindW(fileName)
+                  );
+                } catch (message) {
+                  console.log(message);
+                  return;
+                }
+              }
+            )
           );
         }
 

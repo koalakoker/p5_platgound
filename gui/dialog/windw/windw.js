@@ -80,6 +80,16 @@ class WindW extends Dialog {
     return inside;
   }
 
+  registerCloseCb(cb) {
+    this.onCloseCb = cb;
+  }
+
+  onClose() {
+    if (this.onCloseCb) {
+      this.onCloseCb();
+    }
+  }
+
   top() {
     return this.y - this.h / 2;
   }

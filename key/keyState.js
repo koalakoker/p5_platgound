@@ -38,7 +38,7 @@ class KeyState {
   isEqual(key) {
     let retVal = true;
     //console.log(key.getKey(), this.getKey());
-    retVal &&= key.getKey() === this.getKey();
+    retVal &&= key.getKey() === this.getKey() || this.getKey() === "";
     //console.log(retVal);
     //console.log(
     //   key.isActive(KeyState.metaKey()),

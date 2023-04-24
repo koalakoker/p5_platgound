@@ -14,9 +14,9 @@ class WindwManager {
     return new Promise((resolve, reject) => {
       w.resolve = resolve;
       w.reject = reject;
-      w.onClose = () => {
+      w.registerCloseCb(() => {
         this.remove(w);
-      };
+      });
       this.windw.push(w);
     });
   }
