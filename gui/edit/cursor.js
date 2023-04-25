@@ -2,21 +2,22 @@ class Cursor extends GElem {
   constructor(parent, size) {
     super(parent, 0, 0, 0, size);
     this.setEditPosition(0);
-
-    this.shortCut = new ShortCut(new KeyState(""), (k) => {
-      if (k.getKey() !== "") {
-        console.log(k.toString());
-      }
-    });
   }
   detach() {
     kl.detach(this.shortCut);
+    kl.detach(this.shortCutSh);
   }
   editPosition() {
     return this.pos;
   }
   setEditPosition(pos) {
     this.pos = pos;
+  }
+  moveRight() {
+    this.pos++;
+  }
+  moveLeft() {
+    this.pos--;
   }
   draw() {
     const str = this.parent.editedText().substring(0, this.pos);
