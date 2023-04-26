@@ -13,11 +13,13 @@ class Cursor extends GElem {
   setEditPosition(pos) {
     this.pos = pos;
   }
-  moveRight() {
-    this.pos++;
+  moveRight(pos) {
+    const nPos = pos || 1;
+    this.pos += nPos;
   }
-  moveLeft() {
-    this.pos--;
+  moveLeft(pos) {
+    const nPos = pos || 1;
+    this.pos -= nPos;
   }
   draw() {
     const str = this.parent.editedText().substring(0, this.pos);

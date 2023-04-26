@@ -1,5 +1,5 @@
-//const url = "http://192.168.0.15:3000/api/drawing";
-const url = "http://koalakoker.ddns.net:3000/api/drawing";
+const url = "http://192.168.0.15:3000/api/drawing";
+//const url = "http://koalakoker.ddns.net:3000/api/drawing";
 
 function logOut() {
   localStorage.clear();

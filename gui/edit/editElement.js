@@ -10,17 +10,22 @@ class EditElement extends GElem {
       if (key !== "") {
         if (key.length === 1) {
           this.insertAtCursor(key);
-          this.cursor.moveRight();
         } else {
+          const pos = this.cursor.editPosition();
           if (k.toString() === "ArrowRight") {
-            if (this.cursor.editPosition() < this.editedText().length) {
+            if (pos < this.editedText().length) {
               this.cursor.moveRight();
             }
-          }
-          if (k.toString() === "ArrowLeft") {
-            if (this.cursor.editPosition() > 0) {
+          } else if (k.toString() === "ArrowLeft") {
+            if (pos > 0) {
               this.cursor.moveLeft();
             }
+          } else if (k.toString() === "Backspace") {
+            if (pos > 0) {
+              this.backspace();
+            }
+          } else {
+            console.log(key);
           }
         }
       }
@@ -45,6 +50,13 @@ class EditElement extends GElem {
     const txt = this.editedText();
     const pos = this.cursor.editPosition();
     this.setEditedText(txt.slice(0, pos) + newTxt + txt.slice(pos));
+    this.cursor.moveRight(newTxt.lenght);
+  }
+  backspace() {
+    const txt = this.editedText();
+    const pos = this.cursor.editPosition();
+    this.setEditedText(txt.slice(0, pos - 1) + txt.slice(pos));
+    this.cursor.moveLeft();
   }
   draw() {
     p5js.fill(0);
