@@ -6,38 +6,10 @@ class EditElement extends GElem {
     this.cursor = new Cursor(this, this.h);
 
     this.shortCut = new ShortCut(new KeyState(""), (k) => {
-      const key = k.getKey();
-      if (key !== "") {
-        if (key.length === 1) {
-          this.insertAtCursor(key);
-        } else {
-          const pos = this.cursor.editPosition();
-          if (k.toString() === "ArrowRight") {
-            if (pos < this.editedText().length) {
-              this.cursor.moveRight();
-            }
-          } else if (k.toString() === "ArrowLeft") {
-            if (pos > 0) {
-              this.cursor.moveLeft();
-            }
-          } else if (k.toString() === "Backspace") {
-            if (pos > 0) {
-              this.backspace();
-            }
-          } else {
-            console.log(key);
-          }
-        }
-      }
+      this.keyManager(k);
     });
     this.shortCutSh = new ShortCut(new KeyState("").addShift(), (k) => {
-      const key = k.getKey();
-      if (key !== "") {
-        if (key.length === 1) {
-          this.insertAtCursor(key);
-          this.cursor.moveRight();
-        }
-      }
+      this.shiftKeyManager(k);
     });
   }
   editedText() {
@@ -74,5 +46,38 @@ class EditElement extends GElem {
   }
   onClose() {
     this.cursor.detach();
+  }
+  keyManager(k) {
+    const key = k.getKey();
+    if (key !== "") {
+      if (key.length === 1) {
+        this.insertAtCursor(key);
+      } else {
+        const pos = this.cursor.editPosition();
+        if (k.toString() === "ArrowRight") {
+          if (pos < this.editedText().length) {
+            this.cursor.moveRight();
+          }
+        } else if (k.toString() === "ArrowLeft") {
+          if (pos > 0) {
+            this.cursor.moveLeft();
+          }
+        } else if (k.toString() === "Backspace") {
+          if (pos > 0) {
+            this.backspace();
+          }
+        } else {
+          console.log(key);
+        }
+      }
+    }
+  }
+  shiftKeyManager(k) {
+    const key = k.getKey();
+    if (key !== "") {
+      if (key.length === 1) {
+        this.insertAtCursor(key);
+      }
+    }
   }
 }
