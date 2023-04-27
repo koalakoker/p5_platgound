@@ -54,13 +54,16 @@ class EditElement extends GElem {
     }
   }
   stripBeforeSelection() {
-    return this.text.slice(0, this.cursor.selStart);
+    return this.text.slice(0, this.cursor.editPosition().start);
   }
   stripSelection() {
-    return this.text.slice(this.cursor.selStart, this.cursor.selStop);
+    return this.text.slice(
+      this.cursor.editPosition().start,
+      this.cursor.editPosition().stop
+    );
   }
   stripAfterSelection() {
-    return this.text.slice(this.cursor.selStop);
+    return this.text.slice(this.cursor.editPosition().stop);
   }
 
   onClose() {
@@ -72,17 +75,18 @@ class EditElement extends GElem {
       if (key.length === 1) {
         this.insertAtCursor(key);
       } else {
-        const pos = this.cursor.editPosition();
+        const start = this.cursor.editPosition().start;
+        const stop = this.cursor.editPosition().stop;
         if (k.toString() === "ArrowRight") {
-          if (pos < this.editedText().length) {
+          if (stop < this.editedText().length) {
             this.cursor.moveRight();
           }
         } else if (k.toString() === "ArrowLeft") {
-          if (pos > 0) {
+          if (start > 0) {
             this.cursor.moveLeft();
           }
         } else if (k.toString() === "Backspace") {
-          if (pos > 0) {
+          if (start > 0) {
             this.backspace();
           }
         } else {
@@ -97,13 +101,14 @@ class EditElement extends GElem {
       if (key.length === 1) {
         this.insertAtCursor(key);
       } else {
-        const pos = this.cursor.editPosition();
+        const start = this.cursor.editPosition().start;
+        const stop = this.cursor.editPosition().stop;
         if (k.getKey() === "ArrowRight") {
-          if (pos < this.editedText().length) {
+          if (stop < this.editedText().length) {
             this.cursor.extendSelectionRight();
           }
         } else if (k.getKey() === "ArrowLeft") {
-          if (pos > 0) {
+          if (start > 0) {
             this.cursor.extendSelectionLeft();
           }
         }
@@ -112,14 +117,23 @@ class EditElement extends GElem {
   }
   insertAtCursor(newTxt) {
     const txt = this.editedText();
-    const pos = this.cursor.editPosition();
-    this.setEditedText(txt.slice(0, pos) + newTxt + txt.slice(pos));
-    this.cursor.moveRight(newTxt.lenght);
+    const start = this.cursor.editPosition().start;
+    const stop = this.cursor.editPosition().stop;
+    this.setEditedText(txt.slice(0, start) + newTxt + txt.slice(stop));
+    this.cursor.setEditPosition(start + newTxt.length);
+    this.cursor.selectionActive(false);
   }
   backspace() {
     const txt = this.editedText();
-    const pos = this.cursor.editPosition();
-    this.setEditedText(txt.slice(0, pos - 1) + txt.slice(pos));
-    this.cursor.moveLeft();
+    const start = this.cursor.editPosition().start;
+    const stop = this.cursor.editPosition().stop;
+    if (this.cursor.isSelectionActive()) {
+      this.setEditedText(txt.slice(0, start) + txt.slice(stop));
+      this.cursor.setEditPosition(start);
+      this.cursor.selectionActive(false);
+    } else {
+      this.setEditedText(txt.slice(0, start - 1) + txt.slice(start));
+      this.cursor.moveLeft();
+    }
   }
 }
