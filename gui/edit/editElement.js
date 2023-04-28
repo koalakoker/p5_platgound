@@ -4,12 +4,22 @@ class EditElement extends GElem {
     this.margin = 4;
     this.setEditedText(text);
     this.cursor = new Cursor(this, this.h);
+    this.clipboard = "";
 
     this.shortCut = new ShortCut(new KeyState(""), (k) => {
       this.keyManager(k);
     });
     this.shortCutSh = new ShortCut(new KeyState("").addShift(), (k) => {
       this.shiftKeyManager(k);
+    });
+    this.shortCutCtrlC = new ShortCut(new KeyState("c").addMeta(), (k) => {
+      this.copy();
+    });
+    this.shortCutCtrlC = new ShortCut(new KeyState("x").addMeta(), (k) => {
+      this.cut();
+    });
+    this.shortCutCtrlV = new ShortCut(new KeyState("v").addMeta(), (k) => {
+      this.paste();
     });
   }
   editedText() {
@@ -67,7 +77,9 @@ class EditElement extends GElem {
   }
 
   onClose() {
-    this.cursor.detach();
+    kl.detach(this.shortCut);
+    kl.detach(this.shortCutSh);
+    kl.detach(this.shortCutCtrlC);
   }
   keyManager(k) {
     const key = k.getKey();
@@ -135,5 +147,30 @@ class EditElement extends GElem {
       this.setEditedText(txt.slice(0, start - 1) + txt.slice(start));
       this.cursor.moveLeft();
     }
+  }
+  copy() {
+    if (!this.cursor.isSelectionActive()) return;
+    const txt = this.editedText();
+    const start = this.cursor.editPosition().start;
+    const stop = this.cursor.editPosition().stop;
+    this.clipboard = txt.slice(start, stop);
+  }
+  cut() {
+    if (!this.cursor.isSelectionActive()) return;
+    const txt = this.editedText();
+    const start = this.cursor.editPosition().start;
+    const stop = this.cursor.editPosition().stop;
+    this.clipboard = txt.slice(start, stop);
+    this.setEditedText(txt.slice(0, start) + txt.slice(stop));
+    this.cursor.setEditPosition(start);
+    this.cursor.selectionActive(false);
+  }
+  paste() {
+    const txt = this.editedText();
+    const start = this.cursor.editPosition().start;
+    const stop = this.cursor.editPosition().stop;
+    this.setEditedText(txt.slice(0, start) + this.clipboard + txt.slice(stop));
+    this.cursor.setEditPosition(start + this.clipboard.length);
+    this.cursor.selectionActive(false);
   }
 }

@@ -4,10 +4,6 @@ class Cursor extends GElem {
     this.setEditPosition(0);
     this.sel = false;
   }
-  detach() {
-    kl.detach(this.shortCut);
-    kl.detach(this.shortCutSh);
-  }
   editPosition() {
     if (this.selStart < this.selStop)
       return { start: this.selStart, stop: this.selStop };
