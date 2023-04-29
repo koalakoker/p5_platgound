@@ -4,7 +4,6 @@ class EditElement extends GElem {
     this.margin = 4;
     this.setEditedText(text);
     this.cursor = new Cursor(this, this.h);
-    this.clipboard = "";
 
     this.shortCut = new ShortCut(new KeyState(""), (k) => {
       this.keyManager(k);
@@ -153,24 +152,25 @@ class EditElement extends GElem {
     const txt = this.editedText();
     const start = this.cursor.editPosition().start;
     const stop = this.cursor.editPosition().stop;
-    this.clipboard = txt.slice(start, stop);
+    navigator.clipboard.writeText(txt.slice(start, stop));
   }
   cut() {
     if (!this.cursor.isSelectionActive()) return;
     const txt = this.editedText();
     const start = this.cursor.editPosition().start;
     const stop = this.cursor.editPosition().stop;
-    this.clipboard = txt.slice(start, stop);
+    navigator.clipboard.writeText(txt.slice(start, stop));
     this.setEditedText(txt.slice(0, start) + txt.slice(stop));
     this.cursor.setEditPosition(start);
     this.cursor.selectionActive(false);
   }
-  paste() {
+  async paste() {
+    const clipboard = await navigator.clipboard.readText();
     const txt = this.editedText();
     const start = this.cursor.editPosition().start;
     const stop = this.cursor.editPosition().stop;
-    this.setEditedText(txt.slice(0, start) + this.clipboard + txt.slice(stop));
-    this.cursor.setEditPosition(start + this.clipboard.length);
+    this.setEditedText(txt.slice(0, start) + clipboard + txt.slice(stop));
+    this.cursor.setEditPosition(start + clipboard.length);
     this.cursor.selectionActive(false);
   }
 }
