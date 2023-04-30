@@ -11,22 +11,32 @@ class EditElement extends GElem {
     this.shortCutSh = new ShortCut(new KeyState("").addShift(), (k) => {
       this.shiftKeyManager(k);
     });
+    this.shortCutMt = new ShortCut(new KeyState("").addMeta(), (k) => {
+      this.metaKeyManager(k);
+    });
+    this.shortCutMtSh = new ShortCut(
+      new KeyState("").addMeta().addShift(),
+      (k) => {
+        this.metaShiftKeyManager(k);
+      }
+    );
     this.shortCutCtrlC = new ShortCut(new KeyState("c").addMeta(), (k) => {
       this.copy();
     });
-    this.shortCutCtrlC = new ShortCut(new KeyState("x").addMeta(), (k) => {
+    this.shortCutCtrlX = new ShortCut(new KeyState("x").addMeta(), (k) => {
       this.cut();
     });
     this.shortCutCtrlV = new ShortCut(new KeyState("v").addMeta(), (k) => {
       this.paste();
     });
-    new MouseTracker("mousedown", (m) => {
+
+    this.mouseTrackDown = new MouseTracker("mousedown", (m) => {
       this.click(m.x, m.y);
     });
-    new MouseTracker("mousemove", (m) => {
+    this.mouseTrackMove = new MouseTracker("mousemove", (m) => {
       this.move(m.x, m.y);
     });
-    new MouseTracker("mouseup", (m) => {
+    this.mouseTrackUp = new MouseTracker("mouseup", (m) => {
       this.release(m.x, m.y);
     });
   }
@@ -87,7 +97,34 @@ class EditElement extends GElem {
   onClose() {
     kl.detach(this.shortCut);
     kl.detach(this.shortCutSh);
+    kl.detach(this.shortCutMt);
+    kl.detach(this.shortCutMtSh);
     kl.detach(this.shortCutCtrlC);
+    kl.detach(this.shortCutCtrlV);
+    kl.detach(this.shortCutCtrlX);
+
+    ml.detach(this.mouseTrackDown);
+    ml.detach(this.mouseTrackMove);
+    ml.detach(this.mouseTrackUp);
+  }
+  metaKeyManager(k) {
+    if (k.toString() === "cmd+ArrowRight") {
+      this.cursor.setEditPosition(this.editedText().length);
+    }
+    if (k.toString() === "cmd+ArrowLeft") {
+      this.cursor.setEditPosition(0);
+    }
+  }
+  metaShiftKeyManager(k) {
+    if (k.toString() === "cmd+shift+ArrowRight") {
+      this.cursor.setSelection(
+        this.cursor.editPosition().start,
+        this.editedText().length
+      );
+    }
+    if (k.toString() === "cmd+shift+ArrowLeft") {
+      this.cursor.setSelection(0, this.cursor.editPosition().stop);
+    }
   }
   keyManager(k) {
     const key = k.getKey();

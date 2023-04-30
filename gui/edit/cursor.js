@@ -12,6 +12,7 @@ class Cursor extends GElem {
   setEditPosition(pos) {
     this.selStart = pos;
     this.selStop = pos;
+    this.sel = false;
   }
   setSelection(start, stop) {
     if (start === stop) {
