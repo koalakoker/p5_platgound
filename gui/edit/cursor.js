@@ -28,11 +28,18 @@ class Cursor extends GElem {
     const nPos = pos || 1;
     this.beforeExtendSelection();
     this.selStop += nPos;
+    const max = this.parent.editedText().length;
+    if (this.selStop > max) {
+      this.selStop = max;
+    }
   }
   extendSelectionLeft(pos) {
     const nPos = pos || 1;
     this.beforeExtendSelection();
     this.selStop -= nPos;
+    if (this.selStop < 0) {
+      this.selStop = 0;
+    }
   }
   beforeExtendSelection() {
     if (!this.sel) {

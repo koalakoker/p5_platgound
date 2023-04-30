@@ -161,13 +161,9 @@ class EditElement extends GElem {
         const start = this.cursor.editPosition().start;
         const stop = this.cursor.editPosition().stop;
         if (k.getKey() === "ArrowRight") {
-          if (stop < this.editedText().length) {
-            this.cursor.extendSelectionRight();
-          }
+          this.cursor.extendSelectionRight();
         } else if (k.getKey() === "ArrowLeft") {
-          if (start > 0) {
-            this.cursor.extendSelectionLeft();
-          }
+          this.cursor.extendSelectionLeft();
         }
       }
     }
