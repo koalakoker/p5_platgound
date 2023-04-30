@@ -23,6 +23,12 @@ class EditElement extends GElem {
     new MouseTracker("mousedown", (m) => {
       this.click(m.x, m.y);
     });
+    new MouseTracker("mousemove", (m) => {
+      this.move(m.x, m.y);
+    });
+    new MouseTracker("mouseup", (m) => {
+      this.release(m.x, m.y);
+    });
   }
   editedText() {
     return this.text;
@@ -181,6 +187,20 @@ class EditElement extends GElem {
     if (this.inside(x, y)) {
       const i = this.findNearEditPosition(x);
       this.cursor.setEditPosition(i);
+      this.mouseDown = true;
+      this.selStart = i;
+    }
+  }
+  move(x, y) {
+    if (this.mouseDown) {
+      const selStop = this.findNearEditPosition(x);
+      this.cursor.setSelection(this.selStart, selStop);
+    }
+  }
+
+  release(x, y) {
+    if (this.mouseDown) {
+      this.mouseDown = false;
     }
   }
 

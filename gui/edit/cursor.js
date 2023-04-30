@@ -13,6 +13,15 @@ class Cursor extends GElem {
     this.selStart = pos;
     this.selStop = pos;
   }
+  setSelection(start, stop) {
+    if (start === stop) {
+      this.setEditPosition(start);
+    } else {
+      this.selStart = start;
+      this.selStop = stop;
+      this.sel = true;
+    }
+  }
 
   extendSelectionRight(pos) {
     const nPos = pos || 1;
