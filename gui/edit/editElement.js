@@ -20,6 +20,9 @@ class EditElement extends GElem {
     this.shortCutCtrlV = new ShortCut(new KeyState("v").addMeta(), (k) => {
       this.paste();
     });
+    new MouseTracker("mousedown", (m) => {
+      this.click(m.x, m.y);
+    });
   }
   editedText() {
     return this.text;
@@ -172,5 +175,33 @@ class EditElement extends GElem {
     this.setEditedText(txt.slice(0, start) + clipboard + txt.slice(stop));
     this.cursor.setEditPosition(start + clipboard.length);
     this.cursor.selectionActive(false);
+  }
+
+  click(x, y) {
+    if (this.inside(x, y)) {
+      const i = this.findNearEditPosition(x);
+      this.cursor.setEditPosition(i);
+    }
+  }
+
+  findNearEditPosition(x) {
+    const dx = x - this.getX();
+    const txt = this.editedText();
+    const absDelta = [];
+    for (let i = 0; i < txt.length + 1; i++) {
+      const subS = txt.slice(0, i);
+      const aD = Math.abs(p5js.textWidth(subS) - dx);
+      absDelta[i] = aD;
+    }
+
+    let min = Infinity;
+    let index = -1;
+    for (let i = 0; i < absDelta.length; i++) {
+      if (absDelta[i] < min) {
+        min = absDelta[i];
+        index = i;
+      }
+    }
+    return index;
   }
 }
