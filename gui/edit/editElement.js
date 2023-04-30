@@ -197,7 +197,6 @@ class EditElement extends GElem {
       this.cursor.setSelection(this.selStart, selStop);
     }
   }
-
   release(x, y) {
     if (this.mouseDown) {
       this.mouseDown = false;
