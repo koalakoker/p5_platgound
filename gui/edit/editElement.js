@@ -82,16 +82,16 @@ class EditElement extends GElem {
     }
   }
   stripBeforeSelection() {
-    return this.text.slice(0, this.cursor.editPosition().start);
+    return this.text.slice(0, this.cursor.selection().start);
   }
   stripSelection() {
     return this.text.slice(
-      this.cursor.editPosition().start,
-      this.cursor.editPosition().stop
+      this.cursor.selection().start,
+      this.cursor.selection().stop
     );
   }
   stripAfterSelection() {
-    return this.text.slice(this.cursor.editPosition().stop);
+    return this.text.slice(this.cursor.selection().stop);
   }
 
   onClose() {
@@ -118,12 +118,12 @@ class EditElement extends GElem {
   metaShiftKeyManager(k) {
     if (k.toString() === "cmd+shift+ArrowRight") {
       this.cursor.setSelection(
-        this.cursor.editPosition().start,
+        this.cursor.editPosition(),
         this.editedText().length
       );
     }
     if (k.toString() === "cmd+shift+ArrowLeft") {
-      this.cursor.setSelection(0, this.cursor.editPosition().stop);
+      this.cursor.setSelection(0, this.cursor.editPosition());
     }
   }
   keyManager(k) {
@@ -132,20 +132,12 @@ class EditElement extends GElem {
       if (key.length === 1) {
         this.insertAtCursor(key);
       } else {
-        const start = this.cursor.editPosition().start;
-        const stop = this.cursor.editPosition().stop;
         if (k.toString() === "ArrowRight") {
-          if (stop < this.editedText().length) {
-            this.cursor.moveRight();
-          }
+          this.cursor.moveRight();
         } else if (k.toString() === "ArrowLeft") {
-          if (start > 0) {
-            this.cursor.moveLeft();
-          }
+          this.cursor.moveLeft();
         } else if (k.toString() === "Backspace") {
-          if (start > 0) {
-            this.backspace();
-          }
+          this.backspace();
         } else {
           console.log(key);
         }
@@ -158,8 +150,6 @@ class EditElement extends GElem {
       if (key.length === 1) {
         this.insertAtCursor(key);
       } else {
-        const start = this.cursor.editPosition().start;
-        const stop = this.cursor.editPosition().stop;
         if (k.getKey() === "ArrowRight") {
           this.cursor.extendSelectionRight();
         } else if (k.getKey() === "ArrowLeft") {
@@ -170,23 +160,24 @@ class EditElement extends GElem {
   }
   insertAtCursor(newTxt) {
     const txt = this.editedText();
-    const start = this.cursor.editPosition().start;
-    const stop = this.cursor.editPosition().stop;
+    const start = this.cursor.selection().start;
+    const stop = this.cursor.selection().stop;
     this.setEditedText(txt.slice(0, start) + newTxt + txt.slice(stop));
     this.cursor.setEditPosition(start + newTxt.length);
-    this.cursor.selectionActive(false);
   }
   backspace() {
     const txt = this.editedText();
-    const start = this.cursor.editPosition().start;
-    const stop = this.cursor.editPosition().stop;
+    const start = this.cursor.selection().start;
+    const stop = this.cursor.selection().stop;
     if (this.cursor.isSelectionActive()) {
       this.setEditedText(txt.slice(0, start) + txt.slice(stop));
       this.cursor.setEditPosition(start);
-      this.cursor.selectionActive(false);
     } else {
-      this.setEditedText(txt.slice(0, start - 1) + txt.slice(start));
-      this.cursor.moveLeft();
+      const pos = this.cursor.editPosition();
+      if (pos > 0) {
+        this.setEditedText(txt.slice(0, pos - 1) + txt.slice(pos));
+        this.cursor.moveLeft();
+      }
     }
   }
   copy() {
@@ -224,13 +215,13 @@ class EditElement extends GElem {
       this.selStart = i;
     }
   }
-  move(x, y) {
+  move(x) {
     if (this.mouseDown) {
       const selStop = this.findNearEditPosition(x);
       this.cursor.setSelection(this.selStart, selStop);
     }
   }
-  release(x, y) {
+  release() {
     if (this.mouseDown) {
       this.mouseDown = false;
     }

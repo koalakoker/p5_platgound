@@ -2,31 +2,34 @@ class Cursor extends GElem {
   constructor(parent, size) {
     super(parent, 0, 0, 0, size);
     this.setEditPosition(0);
-    this.sel = false;
+    this.setSelection(0, 0);
   }
   editPosition() {
+    return this.pos;
+  }
+  selection() {
     if (this.selStart < this.selStop)
       return { start: this.selStart, stop: this.selStop };
     else return { start: this.selStop, stop: this.selStart };
   }
   setEditPosition(pos) {
-    this.selStart = pos;
-    this.selStop = pos;
-    this.sel = false;
+    this.pos = pos;
+    const max = this.parent.editedText().length;
+    if (this.pos > max) {
+      this.pos = max;
+    }
+    if (this.pos < 0) {
+      this.pos = 0;
+    }
+    this.setSelection(this.pos, this.pos);
   }
   setSelection(start, stop) {
-    if (start === stop) {
-      this.setEditPosition(start);
-    } else {
-      this.selStart = start;
-      this.selStop = stop;
-      this.sel = true;
-    }
+    this.selStart = start;
+    this.selStop = stop;
   }
 
   extendSelectionRight(pos) {
     const nPos = pos || 1;
-    this.beforeExtendSelection();
     this.selStop += nPos;
     const max = this.parent.editedText().length;
     if (this.selStop > max) {
@@ -35,53 +38,30 @@ class Cursor extends GElem {
   }
   extendSelectionLeft(pos) {
     const nPos = pos || 1;
-    this.beforeExtendSelection();
     this.selStop -= nPos;
     if (this.selStop < 0) {
       this.selStop = 0;
     }
   }
-  beforeExtendSelection() {
-    if (!this.sel) {
-      this.sel = true;
-    }
-  }
 
   moveRight(pos) {
     const nPos = pos || 1;
-    if (this.sel) {
-      this.setEditPosition(this.editPosition().stop);
-      this.sel = false;
-    } else {
-      this.selStart += nPos;
-      this.selStop += nPos;
-    }
+    this.setEditPosition(this.pos + nPos);
   }
   moveLeft(pos) {
     const nPos = pos || 1;
-    if (this.sel) {
-      this.setEditPosition(this.editPosition().start);
-      this.sel = false;
-    } else {
-      this.selStart -= nPos;
-      this.selStop -= nPos;
-    }
+    this.setEditPosition(this.pos - nPos);
   }
 
   isSelectionActive() {
-    return this.sel;
-  }
-  selectionActive(state) {
-    this.sel = state;
+    return this.selStart !== this.selStop;
   }
 
   draw() {
-    if (!this.sel) {
-      const str = this.parent.editedText().substring(0, this.selStart);
-      const x = this.getX() + p5js.textWidth(str);
-      const y = this.getY();
-      p5js.stroke(255, 0, 0);
-      p5js.line(x, y, x, y + this.h);
-    }
+    const str = this.parent.editedText().substring(0, this.pos);
+    const x = this.getX() + p5js.textWidth(str);
+    const y = this.getY();
+    p5js.stroke(255, 0, 0);
+    p5js.line(x, y, x, y + this.h);
   }
 }
