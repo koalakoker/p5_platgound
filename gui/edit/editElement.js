@@ -183,28 +183,26 @@ class EditElement extends GElem {
   copy() {
     if (!this.cursor.isSelectionActive()) return;
     const txt = this.editedText();
-    const start = this.cursor.editPosition().start;
-    const stop = this.cursor.editPosition().stop;
+    const start = this.cursor.selection().start;
+    const stop = this.cursor.selection().stop;
     navigator.clipboard.writeText(txt.slice(start, stop));
   }
   cut() {
     if (!this.cursor.isSelectionActive()) return;
     const txt = this.editedText();
-    const start = this.cursor.editPosition().start;
-    const stop = this.cursor.editPosition().stop;
+    const start = this.cursor.selection().start;
+    const stop = this.cursor.selection().stop;
     navigator.clipboard.writeText(txt.slice(start, stop));
     this.setEditedText(txt.slice(0, start) + txt.slice(stop));
     this.cursor.setEditPosition(start);
-    this.cursor.selectionActive(false);
   }
   async paste() {
     const clipboard = await navigator.clipboard.readText();
     const txt = this.editedText();
-    const start = this.cursor.editPosition().start;
-    const stop = this.cursor.editPosition().stop;
+    const start = this.cursor.selection().start;
+    const stop = this.cursor.selection().stop;
     this.setEditedText(txt.slice(0, start) + clipboard + txt.slice(stop));
     this.cursor.setEditPosition(start + clipboard.length);
-    this.cursor.selectionActive(false);
   }
 
   click(x, y) {
