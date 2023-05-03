@@ -3,7 +3,7 @@ function sliderTest() {
     const maxVal = 100;
     const w = 20;
     const val = iRand(0, maxVal);
-    const slider = new Slider(val, w, maxVal);
+    const slider = new Slider(p5js.color(255, 0, 0, 255), val, w, maxVal);
     assert.equal(slider.w, w);
     assert.equal(slider.h, maxVal);
     assert.equal(slider.percentage(), val);
@@ -13,9 +13,15 @@ function sliderTest() {
     const w = 20;
     const val = 50;
     let changed = 0;
-    const slider = new Slider(val, w, maxVal, () => {
-      changed++;
-    });
+    const slider = new Slider(
+      p5js.color(255, 0, 0, 255),
+      val,
+      w,
+      maxVal,
+      () => {
+        changed++;
+      }
+    );
     let newVal;
 
     newVal = 75;

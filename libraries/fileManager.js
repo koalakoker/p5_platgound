@@ -24,7 +24,7 @@ function getFiles() {
         }
 
         if (err === 0) {
-          console.log("Server not reachable");
+          reject(1002);
           return;
         }
         console.log(err);

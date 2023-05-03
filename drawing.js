@@ -24,6 +24,7 @@ class Drawing {
     return new Promise((resolve, reject) => {
       p5js.createCanvas(this.w, this.h);
       Store.getInstance().clear();
+      resolve();
     });
   }
   display() {
@@ -151,8 +152,12 @@ class Drawing {
         localStorage.clear();
         window.location.replace("login.html");
       }
-      const gui = Gui.getInstance();
-      gui.showBackendNotAvailableError();
+      if (reason === 1002) {
+        // Server not reachable
+        const gui = Gui.getInstance();
+        gui.showBackendNotAvailableError();
+        return;
+      }
       console.log(reason);
     }
   }

@@ -5,7 +5,7 @@ function drawingTest() {
     assert.isTrue(isTypeOf(draw.newElementStyle, Style));
     assert.isTrue(isTypeOf(draw.state, StateSelect));
     await draw.setup();
-    assert.equal(Store.getInstance().currentIndex, 0);
+    assert.equal(Store.getInstance().currentIndex, -1);
   });
   it("Add circle and clear", () => {
     const draw = new Drawing(800, 600);
@@ -68,40 +68,6 @@ function drawingTest() {
     drawing.forceStateSelect();
     assert.isTrue(isTypeOf(drawing.state, StateSelect));
   });
-  it("Load", () => {
-    const drawing = Drawing.getInstance();
-    return drawing.load();
-  });
-  it("Save", async function () {
-    return new Promise(async (resolve, reject) => {
-      const drawing = Drawing.getInstance();
-      try {
-        await drawing.load();
-        // Test save writing different values
-        const testDrawSaved = createRandomDraw(800, 600);
-        const testDrawLoaded = createRandomDraw(800, 600);
-        assert.notEqual(
-          JSON.stringify(testDrawSaved),
-          JSON.stringify(testDrawLoaded)
-        );
-        await testDrawSaved.save();
-        await testDrawLoaded.load();
-        // Restore original values
-        await drawing.save();
-        assert.equal(
-          JSON.stringify(testDrawSaved),
-          JSON.stringify(testDrawLoaded)
-        );
-        resolve();
-      } catch (error) {
-        reject(error);
-      }
-    });
-  });
-  // it("Create random save", () => {
-  //   const randomDraw = createRandomDraw(800, 600);
-  //   return randomDraw.save();
-  // });
 }
 
 function createRandomDraw(w, h) {

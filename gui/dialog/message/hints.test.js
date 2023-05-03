@@ -8,7 +8,7 @@ function hintsTests() {
     assert.isArray(hints.messages);
     const gui = Gui.getInstance();
     const diagMngr = gui.diagMngr;
-    diagMngr.display();
+    diagMngr.draw();
     simulateWait(diagMngr, duration + fadeIn + fadeOut);
     assert.equal(gui.diagMngr.dialogs.length, 1);
     simulateWait(diagMngr, margin);
