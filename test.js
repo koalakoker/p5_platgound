@@ -31,6 +31,7 @@ describe("DropDownBar", dropDownBarTest);
 describe("Message", messageTests);
 describe("Hints", hintsTests);
 describe("DiagManager", diagManagerTests);
+describe("EditElement", editElementTests);
 describe("Gui", guiTests);
 
 describe("Grid", gridTests);
