@@ -5,9 +5,16 @@ class EditElement extends GElem {
     this.setEditedText(text);
     this.cursor = new Cursor(this, this.h);
     this.selection = new Selection(this);
-    this.cursor.setEditPositionCb = (pos) => {
+
+    this.cursor.registerSetEditPositionCb((pos) => {
       this.selection.setSelection(pos, pos);
-    };
+    });
+    this.selection.registerExtendSelectionCb((pos) => {
+      const pCb = this.cursor.setEditPositionCb;
+      this.cursor.setEditPositionCb = null;
+      this.cursor.setEditPosition(pos);
+      this.cursor.setEditPositionCb = pCb;
+    });
 
     this.shortCut = new ShortCut(new KeyState(""), (k) => {
       this.keyManager(k);

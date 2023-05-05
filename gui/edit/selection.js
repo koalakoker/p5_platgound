@@ -19,6 +19,9 @@ class Selection {
     if (this.selStop > max) {
       this.selStop = max;
     }
+    if (this.extendSelectionCb) {
+      this.extendSelectionCb(this.selStop);
+    }
   }
   extendSelectionLeft(pos) {
     const nPos = pos || 1;
@@ -26,6 +29,12 @@ class Selection {
     if (this.selStop < 0) {
       this.selStop = 0;
     }
+    if (this.extendSelectionCb) {
+      this.extendSelectionCb(this.selStop);
+    }
+  }
+  registerExtendSelectionCb(extendSelectionCb) {
+    this.extendSelectionCb = extendSelectionCb;
   }
   isSelectionActive() {
     return this.selStart !== this.selStop;

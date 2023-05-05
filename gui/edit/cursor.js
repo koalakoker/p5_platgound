@@ -20,6 +20,9 @@ class Cursor extends GElem {
       this.setEditPositionCb(this.pos);
     }
   }
+  registerSetEditPositionCb(setEditPositionCb) {
+    this.setEditPositionCb = setEditPositionCb;
+  }
 
   moveRight(pos) {
     const nPos = pos || 1;
@@ -34,7 +37,9 @@ class Cursor extends GElem {
     const str = this.parent.editedText().substring(0, this.pos);
     const x = this.getX() + p5js.textWidth(str);
     const y = this.getY();
-    p5js.stroke(255, 0, 0);
+    p5js.strokeWeight(4);
+    p5js.stroke(255, 255, 255);
     p5js.line(x, y, x, y + this.h);
+    p5js.strokeWeight(1);
   }
 }
