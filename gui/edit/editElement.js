@@ -7,7 +7,7 @@ class EditElement extends GElem {
     this.selection = new Selection(this);
 
     this.cursor.registerSetEditPositionCb((pos) => {
-      this.selection.setSelection(pos, pos);
+      this.selection.setRange(pos, pos);
     });
     this.selection.registerExtendSelectionCb((pos) => {
       const pCb = this.cursor.setEditPositionCb;
@@ -93,16 +93,16 @@ class EditElement extends GElem {
     }
   }
   stripBeforeSelection() {
-    return this.text.slice(0, this.selection.selection().start);
+    return this.text.slice(0, this.selection.range().start);
   }
   stripSelection() {
     return this.text.slice(
-      this.selection.selection().start,
-      this.selection.selection().stop
+      this.selection.range().start,
+      this.selection.range().stop
     );
   }
   stripAfterSelection() {
-    return this.text.slice(this.selection.selection().stop);
+    return this.text.slice(this.selection.range().stop);
   }
 
   onClose() {
@@ -128,13 +128,13 @@ class EditElement extends GElem {
   }
   metaShiftKeyManager(k) {
     if (k.toString() === "cmd+shift+ArrowRight") {
-      this.selection.setSelection(
+      this.selection.setRange(
         this.cursor.editPosition(),
         this.editedText().length
       );
     }
     if (k.toString() === "cmd+shift+ArrowLeft") {
-      this.selection.setSelection(0, this.cursor.editPosition());
+      this.selection.setRange(0, this.cursor.editPosition());
     }
   }
   keyManager(k) {
@@ -172,15 +172,15 @@ class EditElement extends GElem {
 
   insertAtCursor(newTxt) {
     const txt = this.editedText();
-    const start = this.selection.selection().start;
-    const stop = this.selection.selection().stop;
+    const start = this.selection.range().start;
+    const stop = this.selection.range().stop;
     this.setEditedText(txt.slice(0, start) + newTxt + txt.slice(stop));
     this.cursor.setEditPosition(start + newTxt.length);
   }
   backspace() {
     const txt = this.editedText();
-    const start = this.selection.selection().start;
-    const stop = this.selection.selection().stop;
+    const start = this.selection.range().start;
+    const stop = this.selection.range().stop;
     if (this.selection.isSelectionActive()) {
       this.setEditedText(txt.slice(0, start) + txt.slice(stop));
       this.cursor.setEditPosition(start);
@@ -195,15 +195,15 @@ class EditElement extends GElem {
   copy() {
     if (!this.selection.isSelectionActive()) return;
     const txt = this.editedText();
-    const start = this.selection.selection().start;
-    const stop = this.selection.selection().stop;
+    const start = this.selection.range().start;
+    const stop = this.selection.range().stop;
     navigator.clipboard.writeText(txt.slice(start, stop));
   }
   cut() {
     if (!this.selection.isSelectionActive()) return;
     const txt = this.editedText();
-    const start = this.selection.selection().start;
-    const stop = this.selection.selection().stop;
+    const start = this.selection.range().start;
+    const stop = this.selection.range().stop;
     navigator.clipboard.writeText(txt.slice(start, stop));
     this.setEditedText(txt.slice(0, start) + txt.slice(stop));
     this.cursor.setEditPosition(start);
@@ -211,8 +211,8 @@ class EditElement extends GElem {
   async paste() {
     const clipboard = await navigator.clipboard.readText();
     const txt = this.editedText();
-    const start = this.selection.selection().start;
-    const stop = this.selection.selection().stop;
+    const start = this.selection.range().start;
+    const stop = this.selection.range().stop;
     this.setEditedText(txt.slice(0, start) + clipboard + txt.slice(stop));
     this.cursor.setEditPosition(start + clipboard.length);
   }
@@ -228,7 +228,7 @@ class EditElement extends GElem {
   move(x) {
     if (this.mouseDown) {
       const selStop = this.findNearEditPosition(x);
-      this.selection.setSelection(this.selStart, selStop);
+      this.selection.setRange(this.selStart, selStop);
     }
   }
   release() {

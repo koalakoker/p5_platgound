@@ -1,14 +1,14 @@
 class Selection {
   constructor(parent) {
     this.parent = parent;
-    this.setSelection(0, 0);
+    this.setRange(0, 0);
   }
-  selection() {
+  range() {
     if (this.selStart < this.selStop)
       return { start: this.selStart, stop: this.selStop };
     else return { start: this.selStop, stop: this.selStart };
   }
-  setSelection(start, stop) {
+  setRange(start, stop) {
     this.selStart = start;
     this.selStop = stop;
   }
