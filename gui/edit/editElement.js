@@ -1,3 +1,6 @@
+const copyModeExternal = 0;
+const copyModeInternal = 1;
+
 class EditElement extends GElem {
   constructor(parent, x, y, w, h, text) {
     super(parent, x, y, w, h);
@@ -5,6 +8,7 @@ class EditElement extends GElem {
     this.setEditedText(text);
     this.cursor = new Cursor(this, this.h);
     this.selection = new Selection(this);
+    this.copyMode = copyModeExternal;
 
     this.cursor.registerSetEditPositionCb((pos) => {
       this.selection.setRange(pos, pos);
@@ -128,13 +132,14 @@ class EditElement extends GElem {
   }
   metaShiftKeyManager(k) {
     if (k.toString() === "cmd+shift+ArrowRight") {
-      this.selection.setRange(
-        this.cursor.editPosition(),
-        this.editedText().length
-      );
+      const pos = this.cursor.editPosition();
+      this.cursor.setEditPosition(this.editedText().length);
+      this.selection.setRange(pos, this.editedText().length);
     }
     if (k.toString() === "cmd+shift+ArrowLeft") {
-      this.selection.setRange(0, this.cursor.editPosition());
+      const pos = this.cursor.editPosition();
+      this.cursor.setEditPosition(0);
+      this.selection.setRange(0, pos);
     }
   }
   keyManager(k) {
@@ -197,24 +202,45 @@ class EditElement extends GElem {
     const txt = this.editedText();
     const start = this.selection.range().start;
     const stop = this.selection.range().stop;
-    navigator.clipboard.writeText(txt.slice(start, stop));
+    this.saveClip(txt.slice(start, stop));
   }
   cut() {
     if (!this.selection.isSelectionActive()) return;
     const txt = this.editedText();
     const start = this.selection.range().start;
     const stop = this.selection.range().stop;
-    navigator.clipboard.writeText(txt.slice(start, stop));
+    this.saveClip(txt.slice(start, stop));
     this.setEditedText(txt.slice(0, start) + txt.slice(stop));
     this.cursor.setEditPosition(start);
   }
   async paste() {
-    const clipboard = await navigator.clipboard.readText();
+    let clipboard;
+    if (this.copyMode === copyModeExternal) {
+      clipboard = await this.loadClip();
+    } else {
+      clipboard = this.clipboard;
+    }
     const txt = this.editedText();
     const start = this.selection.range().start;
     const stop = this.selection.range().stop;
     this.setEditedText(txt.slice(0, start) + clipboard + txt.slice(stop));
     this.cursor.setEditPosition(start + clipboard.length);
+  }
+  async saveClip(txt) {
+    if (this.copyMode === copyModeExternal) {
+      try {
+        await navigator.clipboard.writeText(txt);
+      } catch (e) {}
+    } else {
+      this.clipboard = txt;
+    }
+  }
+  async loadClip() {
+    try {
+      return await navigator.clipboard.readText();
+    } catch (e) {
+      return "";
+    }
   }
 
   click(x, y) {
