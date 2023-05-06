@@ -81,6 +81,28 @@ function editElementTests() {
   });
   it("E2E tests mouse", () => {
     const txt = "EditElementTest";
-    const eE = new EditElement(parent, x, y, w, h, txt);
+    const eE = new EditElement(
+      parent,
+      x,
+      y,
+      w,
+      h,
+      "TestEditTestElementTestEditTestElement"
+    );
+    mouseEventGen("mousedown", eE.getX(), eE.getY(), MouseLeftButton);
+    mouseEventGen("mouseup", eE.getX(), eE.getY(), MouseLeftButton);
+    assert.equal(eE.cursor.editPosition(), 0);
+    mouseEventGen("mousedown", eE.getX() + 30, eE.getY() + 5, MouseLeftButton);
+    mouseEventGen("mouseup", eE.getX() + 30, eE.getY() + 5, MouseLeftButton);
+    assert(eE.cursor.editPosition(), 5);
+    mouseEventGen("mousedown", eE.getX() + 60, eE.getY() + 5, MouseLeftButton);
+    mouseEventGen("mouseup", eE.getX() + 60, eE.getY() + 5, MouseLeftButton);
+    assert(eE.cursor.editPosition(), 11);
+    mouseEventGen("mousedown", eE.getX() + 30, eE.getY() + 5, MouseLeftButton);
+    mouseEventGen("mousemove", eE.getX() + 60, eE.getY() + 5, MouseLeftButton);
+    mouseEventGen("mouseup", eE.getX() + 60, eE.getY() + 5, MouseLeftButton);
+    keyEventGen("keydown", new KeyState("Backspace"));
+    assert.equal(eE.editedText(), "TestTestElementTestEditTestElement");
+    eE.onClose();
   });
 }

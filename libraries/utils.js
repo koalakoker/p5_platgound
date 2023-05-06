@@ -61,3 +61,15 @@ function keyEventGen(type, ks, rep) {
     window.dispatchEvent(e);
   }
 }
+const MouseLeftButton = 0;
+const MouseRigthButton = 2;
+function mouseEventGen(type, x, y, button) {
+  var e = new MouseEvent(type, {
+    screenX: x,
+    screenY: y,
+    clientX: x,
+    clientY: y,
+    button: button,
+  });
+  window.dispatchEvent(e);
+}
