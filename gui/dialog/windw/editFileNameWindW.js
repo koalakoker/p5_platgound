@@ -7,6 +7,7 @@ class EditFileNameWindW extends WindW {
     this.createCloseButton();
     this.createEditFileName();
     this.createOkButton();
+    this.createCancelButton();
   }
   draw() {
     super.draw();
@@ -25,14 +26,35 @@ class EditFileNameWindW extends WindW {
   }
 
   createOkButton() {
-    this.okBtn = new YesWndButton(
+    this.okBtn = new TextWndButton(
       null,
+      "Confirm",
       this.innerLeft() + this.margin,
       this.innerBottom() - this.margin,
-      this.margin * 4,
-      this.margin
+      this.margin * 5,
+      this.margin,
+      (x, y) => {
+        this.resolve();
+        this.onClose();
+      }
     );
     this.sensibleRegions.push(this.okBtn);
+  }
+
+  createCancelButton() {
+    this.cancelBtn = new TextWndButton(
+      null,
+      "Cancel",
+      this.innerRigth() - this.margin - this.margin * 5,
+      this.innerBottom() - this.margin,
+      this.margin * 5,
+      this.margin,
+      (x, y) => {
+        this.reject("cancel");
+        this.onClose();
+      }
+    );
+    this.sensibleRegions.push(this.cancelBtn);
   }
 
   onClose() {

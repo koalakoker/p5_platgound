@@ -22,8 +22,9 @@ class ConfirmWindW extends WindW {
   }
   createYesButton() {
     this.sensibleRegions.push(
-      new YesWndButton(
+      new TextWndButton(
         null,
+        "Yes",
         this.innerLeft() + this.margin,
         this.innerBottom() - this.margin,
         this.margin * 4,
@@ -37,8 +38,9 @@ class ConfirmWindW extends WindW {
   }
   createNoButton() {
     this.sensibleRegions.push(
-      new NoWndButton(
+      new TextWndButton(
         null,
+        "No",
         this.innerRigth() - this.margin * 5,
         this.innerBottom() - this.margin,
         this.margin * 4,
