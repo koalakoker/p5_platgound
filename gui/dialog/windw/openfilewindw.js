@@ -91,6 +91,8 @@ class OpenFileWindW extends WindW {
                     new EditFileNameWindW(fileName)
                   );
                   await renameFile(fileId, newFilename);
+                  this.files = await getFiles();
+                  this.sensibleRegionIsValid = false;
                 } catch (message) {
                   if (message === "cancel") {
                     return;

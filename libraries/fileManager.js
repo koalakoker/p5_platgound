@@ -59,11 +59,14 @@ function loadFile(id) {
   return httpGet(url + "/" + id);
 }
 
-function renameFile(id, filename) {
-  return new Promise((resolve, reject) => {
-    console.log(id, filename);
-    resolve();
-  });
+async function renameFile(id, name) {
+  const jsonText = await loadFile(id);
+  const drawing = JSON.parse(jsonText)[0].drawing;
+  const data = {
+    name: name,
+    drawing: drawing,
+  };
+  return httpPost(url + "/" + id, JSON.stringify(data), null, "PUT");
 }
 
 function getNow() {
