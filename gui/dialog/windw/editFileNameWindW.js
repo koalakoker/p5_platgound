@@ -38,7 +38,7 @@ class EditFileNameWindW extends WindW {
       this.margin * 5,
       this.margin,
       (x, y) => {
-        this.resolve();
+        this.resolve(this.edit.editedText());
         this.onClose();
       }
     );

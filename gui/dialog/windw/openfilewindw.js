@@ -87,11 +87,14 @@ class OpenFileWindW extends WindW {
               this.margin,
               async () => {
                 try {
-                  await Gui.getInstance().addWindw(
+                  const newFilename = await Gui.getInstance().addWindw(
                     new EditFileNameWindW(fileName)
                   );
+                  await renameFile(fileId, newFilename);
                 } catch (message) {
-                  console.log(message);
+                  if (message === "cancel") {
+                    return;
+                  }
                   return;
                 }
               }

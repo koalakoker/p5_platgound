@@ -59,6 +59,13 @@ function loadFile(id) {
   return httpGet(url + "/" + id);
 }
 
+function renameFile(id, filename) {
+  return new Promise((resolve, reject) => {
+    console.log(id, filename);
+    resolve();
+  });
+}
+
 function getNow() {
   const today = new Date();
   const date =
