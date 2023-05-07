@@ -81,10 +81,25 @@ class EditElement extends GElem {
       const selection = this.stripSelection();
       const after = this.stripAfterSelection();
 
+      // Before with normal style
       p5js.text(before, this.getX(), this.getY());
-      p5js.stroke(255, 0, 0);
-      p5js.fill(255, 0, 0);
-      p5js.text(selection, this.getX() + p5js.textWidth(before), this.getY());
+
+      // Selection with enanched style
+      const selX = this.getX() + p5js.textWidth(before);
+      const selY = this.getY();
+      const selW = p5js.textWidth(selection);
+      const selH = this.h;
+
+      p5js.fill(255);
+      p5js.stroke(0);
+      p5js.rectMode(p5js.CORNER);
+      p5js.rect(selX, selY, selW, selH);
+
+      p5js.stroke(0, 0, 0);
+      p5js.fill(0, 0, 0);
+      p5js.text(selection, selX, selY);
+
+      // After with normal style
       p5js.stroke(255);
       p5js.fill(255);
       p5js.text(
