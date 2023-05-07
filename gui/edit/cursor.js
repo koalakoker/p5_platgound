@@ -2,6 +2,11 @@ class Cursor extends GElem {
   constructor(parent, size) {
     super(parent, 0, 0, 0, size);
     this.setEditPosition(0);
+    this.blinker = new Blinker(0.5);
+  }
+
+  onClose() {
+    this.blinker.onClose();
   }
 
   editPosition() {
@@ -37,8 +42,8 @@ class Cursor extends GElem {
     const str = this.parent.editedText().substring(0, this.pos);
     const x = this.getX() + p5js.textWidth(str);
     const y = this.getY();
-    p5js.strokeWeight(4);
-    p5js.stroke(255, 255, 255);
+    p5js.strokeWeight(3);
+    p5js.stroke(255, 255, 255, this.blinker.value());
     p5js.line(x, y, x, y + this.h);
     p5js.strokeWeight(1);
   }

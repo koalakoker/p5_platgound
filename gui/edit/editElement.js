@@ -121,6 +121,8 @@ class EditElement extends GElem {
     ml.detach(this.mouseTrackDown);
     ml.detach(this.mouseTrackMove);
     ml.detach(this.mouseTrackUp);
+
+    this.cursor.onClose();
   }
   metaKeyManager(k) {
     if (k.toString() === "cmd+ArrowRight") {
