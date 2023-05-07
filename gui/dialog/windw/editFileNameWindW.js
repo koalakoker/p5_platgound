@@ -24,6 +24,10 @@ class EditFileNameWindW extends WindW {
       () => {
         this.reject("cancel");
         this.onClose();
+      },
+      () => {
+        this.resolve(this.edit.editedText());
+        this.onClose();
       }
     );
     this.sensibleRegions.push(this.edit);

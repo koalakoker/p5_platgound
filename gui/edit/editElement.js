@@ -2,7 +2,7 @@ const copyModeExternal = 0;
 const copyModeInternal = 1;
 
 class EditElement extends GElem {
-  constructor(parent, x, y, w, h, text, escCb) {
+  constructor(parent, x, y, w, h, text, escCb, enterCb) {
     super(parent, x, y, w, h);
     this.margin = 4;
     this.setEditedText(text);
@@ -10,6 +10,7 @@ class EditElement extends GElem {
     this.selection = new Selection(this);
     this.copyMode = copyModeExternal;
     this.escCb = escCb;
+    this.enterCb = enterCb;
 
     this.cursor.registerSetEditPositionCb((pos) => {
       this.selection.setRange(pos, pos);
@@ -175,6 +176,10 @@ class EditElement extends GElem {
         } else if (k.toString() === "Escape") {
           if (this.escCb) {
             this.escCb();
+          }
+        } else if (k.toString() === "Enter") {
+          if (this.enterCb) {
+            this.enterCb();
           }
         } else {
           console.log(key);
