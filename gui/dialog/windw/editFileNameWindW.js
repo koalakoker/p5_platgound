@@ -20,7 +20,11 @@ class EditFileNameWindW extends WindW {
       -this.margin,
       200,
       this.textSize,
-      this.fileName
+      this.fileName,
+      () => {
+        this.reject("cancel");
+        this.onClose();
+      }
     );
     this.sensibleRegions.push(this.edit);
   }
